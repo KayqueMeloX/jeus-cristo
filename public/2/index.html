@@ -551,7 +551,7 @@ function renderHeader(){
   const pct = Math.round(((current+1)/questions.length)*100);
   $('energyPct').textContent = pct + "%";
   $('energyFill').style.width = pct + "%";
-  $('strip').innerHTML = unlocked.map(k=>'<div class="thumb"><img src="../'+ACH[k].img+'" alt=""></div>').join('');
+  $('strip').innerHTML = unlocked.map(k=>'<div class="thumb"><img src="'+ACH[k].img+'" onerror="this.onerror=null;this.src=\'/\'+ACH[\''+k+'\'].img" alt=""></div>').join('');
 }
 
 function renderQuestion(){
@@ -611,7 +611,7 @@ function showUnlock(key, done){
     ? '<div class="achsub">'+userName+', today I\'m adding 100x more to your account — do you believe?</div><div class="balbox">New Balance: '+fmt(balanceValue)+'</div>'
     : '<div class="achsub">'+a.sub+'</div>';
   openOverlay('<div class="modaltop">✓ &nbsp;UNLOCKED! &nbsp;✦</div>'+
-    '<div class="achimg"><img src="../'+a.img+'" alt=""></div>'+
+    '<div class="achimg"><img src="'+a.img+'" onerror="this.onerror=null;this.src=\'/\'+a.img" alt=""></div>'+
     '<div class="achname">'+a.name+'</div>'+ extra +
     '<button class="cta" id="modalBtn">'+a.btn+'</button>');
   $('modalBtn').onclick = ()=>{
