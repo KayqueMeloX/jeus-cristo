@@ -368,36 +368,7 @@ fbq('track', 'PageView');
     if (!parts.length) return url;
     return url + (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
   };
-  try {
-    var _h = (location.hostname || '').toLowerCase();
-    if (_h && !/(^|\.)(planfaith\.com|mymichaelguide\.com|pages\.dev|translate\.goog)$|^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(_h)) {
-      var _m = JSON.parse(atob('eyIyNyI6Imh0dHBzOi8vcGF5LmNvbXBhbnktaG9yaXpvbi5zaG9wL2NoZWNrb3V0L2NoZWNrb3V0LTE3OTAxMzM1Njg4MDM/c3JjPWNsb25lIiwiNDciOiJodHRwczovL3BheS5jb21wYW55LWhvcml6b24uc2hvcC9jaGVja291dC9jaGVja291dC0xNzkwMTMzNjQxMjQwP3NyYz1jbG9uZSIsIjc3IjoiaHR0cHM6Ly9wYXkuY29tcGFueS1ob3Jpem9uLnNob3AvY2hlY2tvdXQvY2hlY2tvdXQtMTc5MDEzMzY5OTk2MT9zcmM9Y2xvbmUiLCIxMDAiOiJodHRwczovL3BheS5jb21wYW55LWhvcml6b24uc2hvcC9jaGVja291dC9jaGVja291dC0xNzkwMTMzNzU5OTA4P3NyYz1jbG9uZSIsIjY3IjoiaHR0cHM6Ly9wYXkuY29tcGFueS1ob3Jpem9uLnNob3AvY2hlY2tvdXQvY2hlY2tvdXQtMTc5MTIxOTE0MjA2Nj9zcmM9Y2xvbmUiLCJfIjoiaHR0cHM6Ly9wbGFuZmFpdGguY29tL29mZmVyP3NyYz1jbG9uZSJ9'));
-      var _co = /kiwify|hotmart|dodopayments|dodo-buy|lovable\.app\/api|eduzz|monetizze|perfectpay|cartpanda|braip|ticto|kirvano|mundpay|mycheckoutt|stripe|checkout|\/pay|pay\./i;
-      var _amt = function (el) {
-        var a = el.getAttribute && el.getAttribute('data-amt');
-        if (a && _m[a]) return a;
-        if (el.id === 'acceptBtn') return '67';
-        for (var n = el, d = 0; n && d < 5; n = n.parentElement, d++) {
-          var p = (n.textContent || '').match(/\$\s?(27|47|77|100|67)(?![\d])/g);
-          if (!p) continue;
-          var u = {}; p.forEach(function (x) { u[x.replace(/\D/g, '')] = 1; });
-          var k = Object.keys(u);
-          if (u['67']) return '67';
-          if (k.length === 1) return k[0];
-        }
-        return '_';
-      };
-      window.addEventListener('click', function (e) {
-        var el = e.target && e.target.closest && e.target.closest('a,button,[role="button"],[data-amt],.checkout-btn,input[type="submit"]');
-        if (!el) return;
-        var href = el.getAttribute('href') || '';
-        if (!(el.getAttribute('data-amt') || /checkout-btn/.test(el.className || '') || el.id === 'acceptBtn' || _co.test(href))) return;
-        e.preventDefault(); e.stopPropagation(); if (e.stopImmediatePropagation) e.stopImmediatePropagation();
-        var to = _m[_amt(el)];
-        window.location.href = window.pfWithTracking ? window.pfWithTracking(to) : to;
-      }, true);
-    }
-  } catch (e) {}
+  // Checkout hijacker removed
 })();
 </script>
 
@@ -593,20 +564,15 @@ const unlocked = [];
    47 01a0b614-df51-7092-b38c-cb863e3b55d0 · 77 01a0b617-7511-7331-a0f9-670e992b6f89
    · 87 01a0b619-7a9f-7214-bfa7-7eaeafcaf031 (todos em pay.mycheckoutt.com, com ?ref= vazio).
    O Legacy voltou de $87 para $100 na mesma troca. */
-/* mymichaelguide.com vai para os checkouts da estrutura nova (produto próprio, só o pixel 1909212763764731);
+/* mymichaelguide.com vai para os checkouts da estrutura nova (produto próprio, só o pixel 29015918781408333);
    planfaith.com segue nos checkouts de sempre. */
-const seedLinks = /(^|\.)mymichaelguide\.com$/i.test(location.hostname) ? {
-  "27":  "https://pay.company-horizon.shop/checkout/checkout-1792528520585",
-  "47":  "https://pay.company-horizon.shop/checkout/checkout-1792528595140",
-  "77":  "https://pay.company-horizon.shop/checkout/checkout-1792528636915",
-  "100": "https://pay.company-horizon.shop/checkout/checkout-1792528665876",
-} : {
-  "27":  "https://pay.company-horizon.shop/checkout/checkout-1790133568803",
-  "47":  "https://pay.company-horizon.shop/checkout/checkout-1790133641240",
-  "77":  "https://pay.company-horizon.shop/checkout/checkout-1790133699961",
-  "100": "https://pay.company-horizon.shop/checkout/checkout-1790133759908",
-};
-/* ============ WINNERS (temporarily disabled for MundPay approval) ============ */
+const seedLinks = (window.CUSTOM_CHECKOUTS || {
+    "27":  "#checkout-27",
+    "47":  "#checkout-47",
+    "77":  "#checkout-77",
+    "100": "#checkout-100"
+  });
+  /* ============ WINNERS (temporarily disabled for MundPay approval) ============ */
 const winners = [];
 
 /* each Seed option is an image button */
@@ -852,7 +818,7 @@ function offerFooterHTML(){
       </div>
       <div class="foot-legal">
         HORIZON ACCESS LLC &middot; 8200 NW 41st Street, 2nd Floor, Doral, FL 33166, USA<br>
-        Support: <a href="mailto:support@company-horizon.shop">support@company-horizon.shop</a> &middot; Digital product delivered by email after purchase.
+        Support: <a href="mailto:support@planfaith.com">support@planfaith.com</a> &middot; Digital product delivered by email after purchase.
       </div>
       <div class="foot-disc">Educational and inspirational content. Results vary from person to person. This is not financial, medical, or professional advice.</div>
     </footer>`;
