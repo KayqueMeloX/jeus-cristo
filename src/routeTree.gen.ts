@@ -15,6 +15,9 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RefundRouteImport } from './routes/refund'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as EntregavelRouteImport } from './routes/entregavel'
+import { Route as MembrosRouteImport } from './routes/membros'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +55,24 @@ const SupportRoute = SupportRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const EntregavelRoute = EntregavelRouteImport.update({
+  id: '/entregavel',
+  path: '/entregavel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const MembrosRoute = MembrosRouteImport.update({
+  id: '/membros',
+  path: '/membros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/offer': typeof OfferRoute
@@ -59,6 +80,9 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
+  '/app': typeof AppRoute
+  '/entregavel': typeof EntregavelRoute
+  '/membros': typeof MembrosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -67,6 +91,9 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
+  '/app': typeof AppRoute
+  '/entregavel': typeof EntregavelRoute
+  '/membros': typeof MembrosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -76,13 +103,16 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
+  '/app': typeof AppRoute
+  '/entregavel': typeof EntregavelRoute
+  '/membros': typeof MembrosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support'
+  fullPaths: '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support' | '/app' | '/entregavel' | '/membros'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support'
-  id: '__root__' | '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support'
+  to: '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support' | '/app' | '/entregavel' | '/membros'
+  id: '__root__' | '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support' | '/app' | '/entregavel' | '/membros'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -92,6 +122,9 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   RefundRoute: typeof RefundRoute
   SupportRoute: typeof SupportRoute
+  AppRoute: typeof AppRoute
+  EntregavelRoute: typeof EntregavelRoute
+  MembrosRoute: typeof MembrosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,6 +171,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entregavel': {
+      id: '/entregavel'
+      path: '/entregavel'
+      fullPath: '/entregavel'
+      preLoaderRoute: typeof EntregavelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membros': {
+      id: '/membros'
+      path: '/membros'
+      fullPath: '/membros'
+      preLoaderRoute: typeof MembrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -148,6 +202,9 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   RefundRoute: RefundRoute,
   SupportRoute: SupportRoute,
+  AppRoute: AppRoute,
+  EntregavelRoute: EntregavelRoute,
+  MembrosRoute: MembrosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
