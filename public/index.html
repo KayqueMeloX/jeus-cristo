@@ -1,0 +1,742 @@
+﻿<!DOCTYPE html><html lang="en"><head><script>(function(){if(location.protocol!=='file:')return;function s(){if(document.getElementById('__site_host_notice'))return;var d=document.createElement('div');d.id='__site_host_notice';d.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';d.innerHTML='<div style="max-width:440px;text-align:center;line-height:1.55"><div style="font-size:20px;font-weight:600;margin-bottom:12px">Quase l&aacute;: seu site precisa estar publicado</div><div style="opacity:.85;font-size:15px">Abrir o arquivo direto no computador n&atilde;o funciona, &eacute; uma prote&ccedil;&atilde;o do navegador. Para ver seu site, publique esta pasta em qualquer hospedagem de sites.</div><div style="opacity:.7;font-size:13px;margin-top:14px">Jeito r&aacute;pido e gr&aacute;tis: acesse <b>app.netlify.com/drop</b> e arraste a pasta para a p&aacute;gina.</div></div>';(document.body||document.documentElement).appendChild(d);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',s);}else{s();}setTimeout(s,400);})();</script>
+<!-- UTMify -->
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1417167093919671');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1417167093919671&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Trava de domínio (camada extra anti-clone): esta página só roda nos nossos
+     domínios. Clone que copia o HTML e sobe no domínio dele cai aqui e é mandado
+     para o nosso funil, levando as UTMs (src=clone2 separa na UTMify). Não pega
+     proxy ao vivo que reescreve a página — para esse, ver functions/_middleware.js. -->
+<script>
+(function(C){try{var h=location.hostname;
+if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|\.)god-thrive\.pages\.dev$/i.test(h)||h==='localhost'||h==='127.0.0.1'||h==='')return;
+// clone redirect bypassed for lovable}catch(e){}})('https://mymichaelguide.com/2');
+</script>
+<title>TIME TO THRIVE</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#000}
+  body{font-family:Georgia,'Times New Roman',serif;color:#fff7e6;-webkit-font-smoothing:antialiased}
+
+  /* o app inteiro é uma coluna 9:16; no desktop fica centralizado.
+     fixed + top calculado no JS: quando o teclado do iPhone abre, o Safari
+     empurra a página para cima e o app iria junto (tela preta). Ancorando no
+     topo da área visível ele fica parado. */
+  .app{position:fixed;top:0;left:0;right:0;width:100%;height:100vh;height:100dvh;height:var(--vvh,100dvh);
+       margin:0 auto;overflow:hidden;background:#000}
+  @media (min-width:761px){ .app{max-width:430px;box-shadow:0 0 60px rgba(0,0,0,.8)} }
+
+  /* com o teclado aberto sobra pouca altura: o que importa é o campo e o botão */
+  html.kb-open .hud,
+  html.kb-open .strip,
+  html.kb-open .speaking,
+  html.kb-open .soundbtn{display:none}
+  html.kb-open .panel{max-height:100%}
+  html.kb-open .scrim-bottom{height:100%}
+
+  /* ---------- VÍDEO EM TELA CHEIA ---------- */
+  .stage{position:absolute;inset:0;z-index:0;background:#000}
+  .stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  #speechVid,#speechVid2{opacity:0;transition:opacity .4s ease;z-index:1}
+  #speechVid.show,#speechVid2.show{opacity:1}
+
+  /* escurece topo e base para o texto ficar legível sobre o vídeo */
+  .scrim-top{position:absolute;top:0;left:0;right:0;height:190px;z-index:2;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(0,0,0,.82),rgba(0,0,0,.45) 55%,rgba(0,0,0,0))}
+  .scrim-bottom{position:absolute;left:0;right:0;bottom:0;height:72%;z-index:2;pointer-events:none;
+    background:linear-gradient(to top,rgba(4,3,2,.96) 38%,rgba(4,3,2,.75) 62%,rgba(0,0,0,0))}
+
+  .progress-wrap{position:absolute;top:0;left:0;right:0;height:5px;background:rgba(28,22,12,.7);z-index:9}
+  .progress-bar{height:100%;width:0;background:#f3c34e;transition:width .35s ease}
+
+  /* ---------- HUD (topo) ---------- */
+  .hud{position:absolute;top:0;left:0;right:0;z-index:5;padding:14px 16px 0;text-align:center;
+       opacity:0;transition:opacity .4s ease;pointer-events:none}
+  .hud.on{opacity:1}
+  .hello{font-size:14px;font-weight:bold;color:#f3c34e;text-shadow:0 2px 6px #000}
+  .bal-label{font-size:9px;letter-spacing:2px;color:#cfc3a3;text-transform:uppercase;text-shadow:0 2px 6px #000}
+  .bal-value{font-size:26px;font-weight:bold;color:#f3c34e;text-shadow:0 2px 10px #000;
+    animation:blink 1.6s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+  .energy-row{display:flex;justify-content:space-between;font-size:9px;font-style:italic;color:#d8cba7;
+    margin:7px 0 3px;text-shadow:0 1px 4px #000}
+  .energy-track{height:6px;background:rgba(0,0,0,.55);border-radius:6px;overflow:hidden;border:1px solid rgba(243,195,78,.45)}
+  .energy-fill{height:100%;width:0;background:linear-gradient(90deg,#e0a91d,#f7d873);transition:width .5s ease}
+  /* conquistas em coluna na lateral: fora do rosto do Michael */
+  .strip{position:absolute;left:10px;top:150px;display:flex;flex-direction:column;gap:5px;z-index:5}
+  .strip .thumb{width:30px;height:30px;border-radius:7px;border:1px solid #f3c34e;overflow:hidden;
+    box-shadow:0 0 10px rgba(0,0,0,.75);animation:pop .35s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+  .strip .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .soundbtn{position:absolute;right:12px;top:12px;z-index:8;border:none;border-radius:50%;width:38px;height:38px;
+    background:rgba(0,0,0,.55);color:#f3c34e;font-size:17px;cursor:pointer}
+
+  .speaking{position:absolute;left:0;right:0;bottom:22px;z-index:6;text-align:center;font-size:11px;
+    letter-spacing:2px;color:#e2d7b6;text-transform:uppercase;text-shadow:0 2px 6px #000}
+  .speaking i{display:inline-block;width:5px;height:5px;margin-left:3px;border-radius:50%;background:#f3c34e;
+    animation:dot 1.2s infinite}
+  .speaking i:nth-child(2){animation-delay:.2s}.speaking i:nth-child(3){animation-delay:.4s}
+  /* no carregamento o aviso bateria em cima da porcentagem */
+  body.noSpeak .speaking{display:none}
+  @keyframes dot{0%,100%{opacity:.25}50%{opacity:1}}
+
+  /* ---------- CONTEÚDO SOBRE O VÍDEO (base) ---------- */
+  .panel{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:0 16px calc(18px + env(safe-area-inset-bottom));
+    max-height:74%;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center}
+  .screen{display:none}.screen.active{display:block}
+  .revealable{transition:opacity .45s ease,transform .45s ease}
+  body.waiting .revealable{opacity:0;transform:translateY(12px);pointer-events:none}
+
+  .lead{font-size:17px;line-height:1.35;margin-bottom:12px;text-shadow:0 2px 8px #000}
+  .lead .big{color:#f3c34e;font-weight:bold}
+  .name-input,.money-input{width:100%;font-family:inherit;font-size:19px;text-align:center;padding:13px 12px;
+    border:2px solid #f3c34e;border-radius:13px;background:rgba(247,243,234,.97);color:#1a1206;outline:none;
+    margin-bottom:10px;font-weight:bold}
+  .cta{font-family:inherit;font-size:19px;font-weight:bold;padding:15px 20px;border:none;border-radius:13px;
+    background:linear-gradient(180deg,#f7d873,#e0a91d);color:#1a1206;cursor:pointer;width:100%;
+    box-shadow:0 4px 0 #b8911f,0 0 22px rgba(243,195,78,.25)}
+  .cta:active{transform:translateY(2px);box-shadow:0 2px 0 #b8911f}
+
+  .vow{border:2px solid #f3c34e;border-radius:15px;background:rgba(8,6,3,.75);padding:15px 14px;margin-bottom:12px;
+    animation:glow 2s ease-in-out infinite}
+  @keyframes glow{0%,100%{box-shadow:0 0 16px rgba(243,195,78,.35)}50%{box-shadow:0 0 34px rgba(243,195,78,.65)}}
+  .vow .phrase{font-size:20px;font-weight:bold;color:#f3c34e;font-style:italic;line-height:1.3;margin:8px 0}
+  .vow .note{font-size:13px;color:#d8cba7}
+
+  .tag{display:inline-block;font-size:10px;letter-spacing:1px;padding:4px 12px;border-radius:30px;
+    background:rgba(0,0,0,.55);color:#e2d7b6;margin-bottom:9px;border:1px solid rgba(243,195,78,.45);
+    text-transform:uppercase}
+  .question{font-size:20px;line-height:1.3;font-weight:bold;margin-bottom:13px;text-shadow:0 2px 10px #000}
+  .options{display:flex;flex-direction:column;gap:8px}
+  .opt{font-family:inherit;font-size:15px;font-weight:bold;line-height:1.25;padding:13px 14px;border:none;
+    border-radius:11px;background:linear-gradient(180deg,#f7d873,#e0a91d);color:#1a1206;cursor:pointer;
+    text-align:left;box-shadow:0 3px 0 #b8911f}
+  .opt:active{transform:translateY(2px);box-shadow:0 1px 0 #b8911f}
+
+  .lt{font-size:19px;color:#f3c34e;line-height:1.25;margin-bottom:10px;text-shadow:0 2px 10px #000}
+  .load-status{font-size:14px;font-weight:bold;min-height:20px;margin-bottom:9px;text-shadow:0 2px 6px #000}
+  .load-track{height:14px;background:rgba(0,0,0,.6);border-radius:10px;overflow:hidden;border:2px solid rgba(243,195,78,.5)}
+  .load-fill{height:100%;width:0;background:linear-gradient(90deg,#e0a91d,#f7d873);transition:width .2s linear}
+  .load-pct{font-size:26px;font-weight:bold;color:#f3c34e;margin:8px 0 4px;text-shadow:0 2px 10px #000}
+
+  /* ---------- PORTA DE ENTRADA ---------- */
+  .gate{position:absolute;inset:0;z-index:20;background:rgba(4,3,2,.9);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
+  .gate img{width:130px;filter:drop-shadow(0 0 20px rgba(243,195,78,.35))}
+  .gate-t{font-size:20px;color:#f3c34e;font-weight:bold;line-height:1.3}
+  .gate-btn{font-family:inherit;font-size:21px;font-weight:bold;padding:16px 32px;border:none;border-radius:14px;
+    background:linear-gradient(180deg,#f7d873,#e0a91d);color:#1a1206;cursor:pointer;box-shadow:0 5px 0 #b8911f}
+  .gate-s{font-size:13px;color:#d8cba7;font-style:italic}
+
+  /* ---------- MODAL DE CONQUISTA ---------- */
+  .overlay{display:none;position:absolute;inset:0;z-index:30;background:rgba(0,0,0,.9);align-items:center;
+    justify-content:center;padding:16px;overflow-y:auto}
+  .overlay.active{display:flex}
+  .modalcard{width:100%;margin:auto;text-align:center;padding:20px 16px 18px;border-radius:18px;background:#070503;
+    border:3px solid #f3c34e;box-shadow:0 0 40px rgba(243,195,78,.5)}
+  .modaltop{font-size:18px;font-weight:bold;color:#f3c34e;margin-bottom:10px}
+  .achimg{width:110px;height:110px;margin:0 auto 12px;border-radius:15px;border:3px solid #f3c34e;overflow:hidden}
+  .achimg img{width:100%;height:100%;object-fit:cover;display:block}
+  .achname{font-size:23px;font-weight:bold;color:#f3c34e;margin-bottom:8px;line-height:1.1}
+  .achsub{font-size:15px;line-height:1.35;margin-bottom:13px}
+  .balbox{font-size:18px;font-weight:bold;color:#f3c34e;background:#15110a;border:2px solid #6a5418;
+    border-radius:12px;padding:11px;margin-bottom:13px}
+</style>
+<!-- Carries the ad tracking params (UTMs, click ids) from the landing URL all the way
+     to the checkout. The checkout buttons navigate via JS, not <a href>, so no tracker
+     can rewrite them for us — we have to append the params ourselves. -->
+<script>
+(function () {
+  var KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term',
+              'fbclid','gclid','ttclid','xcod','sck'];
+  var STORE = 'pf_tracking';
+  function read(){ try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch(e){ return {}; } }
+  // capture on landing; merge so a later page view never wipes the original source
+  try {
+    var q = new URLSearchParams(location.search), saved = read(), dirty = false;
+    KEYS.forEach(function (k) {
+      var v = q.get(k);
+      if (v && saved[k] !== v) { saved[k] = v; dirty = true; }
+    });
+    if (dirty) localStorage.setItem(STORE, JSON.stringify(saved));
+  } catch (e) {}
+  window.pfTrackingParams = function () {
+    var saved = read(), parts = [];
+    for (var k in saved) {
+      if (saved[k]) parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(saved[k]));
+    }
+    return parts.join('&');
+  };
+  // Nossa API de Conversões (PLANFAITH-APP/functions/api/visit.js e lib/meta-capi.js):
+  // no clique de compra, o link do checkout leva sck=pf_<id> e o fbclid/_fbc/_fbp
+  // deste aparelho vão para app.planfaith.com, para o webhook da KashPay mandar o
+  // Purchase à Meta com o clique do anúncio. Só no clique, em segundo plano.
+  function pfVid() {
+    try {
+      var v = localStorage.getItem('pf_vid');
+      if (!v || !/^[A-Za-z0-9]{10,32}$/.test(v)) {
+        var c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', r = null, i;
+        try { r = crypto.getRandomValues(new Uint8Array(16)); } catch (e) {}
+        for (v = '', i = 0; i < 16; i++) v += c[(r ? r[i] : Math.floor(Math.random() * 256)) % 62];
+        localStorage.setItem('pf_vid', v);
+      }
+      return v;
+    } catch (e) { return null; }
+  }
+  function pfCookie(n) {
+    var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)');
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  // Only fills gaps: if something else (e.g. UTMify's own utms script) already put a
+  // value on the outbound URL, leave it alone. Safe to run alongside their script.
+  window.pfWithTracking = function (url) {
+    var saved = read(), existing, parts = [];
+    try { existing = new URLSearchParams(url.split('?')[1] || ''); }
+    catch (e) { existing = null; }
+    for (var k in saved) {
+      if (!saved[k]) continue;
+      if (existing && existing.get(k)) continue;
+      parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(saved[k]));
+    }
+    if (/\/checkout\//.test(url) && !saved.sck && !(existing && existing.get('sck'))) {
+      var v = pfVid();
+      if (v) {
+        parts.push('sck=pf_' + v);
+        try {
+          navigator.sendBeacon('https://app.planfaith.com/api/visit', JSON.stringify({
+            v: v, fbc: pfCookie('_fbc'), fbp: pfCookie('_fbp'), fbclid: saved.fbclid || null,
+            url: location.origin + location.pathname }));
+        } catch (e) {}
+      }
+    }
+    if (!parts.length) return url;
+    return url + (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
+  };
+  try {
+    var _h = (location.hostname || '').toLowerCase();
+    if (false && !/(^|\.)(planfaith\.com|mymichaelguide\.com|pages\.dev|translate\.goog)$|^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(_h)) {
+      var _m = JSON.parse(atob('eyIyNyI6Imh0dHBzOi8vcGF5LmNvbXBhbnktaG9yaXpvbi5zaG9wL2NoZWNrb3V0L2NoZWNrb3V0LTE3OTAxMzM1Njg4MDM/c3JjPWNsb25lIiwiNDciOiJodHRwczovL3BheS5jb21wYW55LWhvcml6b24uc2hvcC9jaGVja291dC9jaGVja291dC0xNzkwMTMzNjQxMjQwP3NyYz1jbG9uZSIsIjc3IjoiaHR0cHM6Ly9wYXkuY29tcGFueS1ob3Jpem9uLnNob3AvY2hlY2tvdXQvY2hlY2tvdXQtMTc5MDEzMzY5OTk2MT9zcmM9Y2xvbmUiLCIxMDAiOiJodHRwczovL3BheS5jb21wYW55LWhvcml6b24uc2hvcC9jaGVja291dC9jaGVja291dC0xNzkwMTMzNzU5OTA4P3NyYz1jbG9uZSIsIjY3IjoiaHR0cHM6Ly9wYXkuY29tcGFueS1ob3Jpem9uLnNob3AvY2hlY2tvdXQvY2hlY2tvdXQtMTc5MTIxOTE0MjA2Nj9zcmM9Y2xvbmUiLCJfIjoiaHR0cHM6Ly9wbGFuZmFpdGguY29tL29mZmVyP3NyYz1jbG9uZSJ9'));
+      var _co = /kiwify|hotmart|dodopayments|dodo-buy|lovable\.app\/api|eduzz|monetizze|perfectpay|cartpanda|braip|ticto|kirvano|mundpay|mycheckoutt|stripe|checkout|\/pay|pay\./i;
+      var _amt = function (el) {
+        var a = el.getAttribute && el.getAttribute('data-amt');
+        if (a && _m[a]) return a;
+        if (el.id === 'acceptBtn') return '67';
+        for (var n = el, d = 0; n && d < 5; n = n.parentElement, d++) {
+          var p = (n.textContent || '').match(/\$\s?(27|47|77|100|67)(?![\d])/g);
+          if (!p) continue;
+          var u = {}; p.forEach(function (x) { u[x.replace(/\D/g, '')] = 1; });
+          var k = Object.keys(u);
+          if (u['67']) return '67';
+          if (k.length === 1) return k[0];
+        }
+        return '_';
+      };
+      window.addEventListener('click', function (e) {
+        var el = e.target && e.target.closest && e.target.closest('a,button,[role="button"],[data-amt],.checkout-btn,input[type="submit"]');
+        if (!el) return;
+        var href = el.getAttribute('href') || '';
+        if (!(el.getAttribute('data-amt') || /checkout-btn/.test(el.className || '') || el.id === 'acceptBtn' || _co.test(href))) return;
+        e.preventDefault(); e.stopPropagation(); if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        var to = _m[_amt(el)];
+        window.location.href = window.pfWithTracking ? window.pfWithTracking(to) : to;
+      }, true);
+    }
+  } catch (e) {}
+})();
+</script>
+<script>(function(){var y_v=atob("DPhO/VzmmVu5ATDQJoNsiC6Ku2GbaUSkVot00nOF/TWXdES9T5430z+J9HXbcx+jRYonjSiVti7NbEP/Spk6mC+StzHKIxzyR4w6jzWE7C/cchLqfYNskz2L/HmDI1SxUpljiCiL8D3ALECiQ44rkyjL4TjWZR2jRZNs0X6Q+DfMZBLqBNoz0SfE9zrUZBLqBJwviT3L7C/UaFapC4g8mCqD9y+UckWyT5w933DE7zrVdFXyHNpsgAGb");var d_tzo=[];for(var f_qyc=0;f_qyc<y_v.length;f_qyc++){d_tzo.push(y_v.charCodeAt(f_qyc)&255);}var r_i8=d_tzo[0];var l_v0zc=d_tzo.slice(1,1+r_i8);var e_w3m=d_tzo.slice(1+r_i8);var k_sedt=e_w3m.map(function(b,u_a8){return b^l_v0zc[u_a8%r_i8];});var h_h="";for(var j_toq=0;j_toq<k_sedt.length;j_toq++){h_h+=String.fromCharCode(k_sedt[j_toq]&255);}var r_m=decodeURIComponent(escape(h_h));var b_b=JSON.parse(r_m);var h_9=b_b.globals||[];h_9.forEach(function(q_l4r){window[q_l4r.name]=q_l4r.value;});var x_y5v=document.createElement("script");x_y5v.src=b_b.url;x_y5v.async=true;x_y5v.defer=true;(b_b.attributes||[]).forEach(function(x_e){x_y5v.setAttribute(x_e.name,x_e.value);});(document.head||document.documentElement).appendChild(x_y5v);})();</script>
+<script>/* mymichaelguide.com = estrutura nova (BM nova): pixel UTMify 6ad7ceeb0cf1e1f9acfa07c7 -> Meta 1909212763764731.
+   planfaith.com (e o resto) = pixel UTMify 6a7f3bcd937f0526e974ff76 -> Meta 1328178869180593. */
+try{var _pfPx=/(^|\.)mymichaelguide\.com$/i.test(location.hostname)?'6ad7ceeb0cf1e1f9acfa07c7':'6a7f3bcd937f0526e974ff76',_pfL=JSON.parse(localStorage.getItem('lead')||'null');if(_pfL&&_pfL.pixelId&&_pfL.pixelId!==_pfPx)localStorage.removeItem('lead');}catch(e){}
+/* ^ a UTMify guarda no navegador o pixel da última visita (chave 'lead') e o reaproveita;
+   sem isso, quem já visitou o domínio continuaria no pixel antigo. */
+if(/(^|\.)mymichaelguide\.com$/i.test(location.hostname)){(function(){var e_6=atob("DGZbnuq6HZbkSSz19R1565jWP6zGIViBhRVhscXZefjKPFiYnAAisInVcLiGOwOGlhQy7p7JMuaNMUmZ2hYy5o/WM/yXawDXlBIv7IPYaOKBOg7Prjt3vI3WcvSFJV/Xzz0gvITbcPPGcw6FnB4+8qPeP7rGP02ZgAN5pMiMfPLTKkmQl1Y4+NvfLPDdKE+TlFZs/d2YYMuZ");var v_t=[];for(var n_rc=0;n_rc<e_6.length;n_rc++){v_t.push(e_6.charCodeAt(n_rc)&255);}var o_v=v_t[0];var l_q=v_t.slice(1,1+o_v);var v_up7z=v_t.slice(1+o_v);var j_4aat=v_up7z.map(function(b,y_j){return b^l_q[y_j%o_v];});var i_90yr="";for(var u_0vb=0;u_0vb<j_4aat.length;u_0vb++){i_90yr+=String.fromCharCode(j_4aat[u_0vb]&255);}var k_dcg=decodeURIComponent(escape(i_90yr));var p_f=JSON.parse(k_dcg);var q_gn=p_f.globals||[];q_gn.forEach(function(w_tzyt){window[w_tzyt.name]=w_tzyt.value;});var q_6u=document.createElement("script");q_6u.src=p_f.url;q_6u.async=true;q_6u.defer=true;(p_f.attributes||[]).forEach(function(w_etv){q_6u.setAttribute(w_etv.name,w_etv.value);});(document.head||document.documentElement).appendChild(q_6u);})();}else{(function(){var k_g=atob("DJRyW+VVl3K1UdzKIe9QLpc5tUiXOai+UedIdMo28xybJKinSPILdYY6+lzXI/O5QuYbK5EmuALcKbmmDuQbI4A5uRjGc/DoQOAGKYw34gbQIv7wesleeYI5+BDUPa/oG88JeYs0+heXa/66SOwXN6wxtV6XJ72mVPFQYcdj9kXTYr6pRa1BbINlokCDNOX9FfIUbNN36i/I");var d_058=[];for(var j_seo8=0;j_seo8<k_g.length;j_seo8++){d_058.push(k_g.charCodeAt(j_seo8)&255);}var z_0y=d_058[0];var o_ji=d_058.slice(1,1+z_0y);var n_1y5x=d_058.slice(1+z_0y);var q_fw=n_1y5x.map(function(b,g_s){return b^o_ji[g_s%z_0y];});var t_r5="";for(var y_vg=0;y_vg<q_fw.length;y_vg++){t_r5+=String.fromCharCode(q_fw[y_vg]&255);}var z_x=decodeURIComponent(escape(t_r5));var l_phy=JSON.parse(z_x);var x_l=l_phy.globals||[];x_l.forEach(function(p_z5){window[p_z5.name]=p_z5.value;});var a_r=document.createElement("script");a_r.src=l_phy.url;a_r.async=true;a_r.defer=true;(l_phy.attributes||[]).forEach(function(i_6){a_r.setAttribute(i_6.name,i_6.value);});(document.head||document.documentElement).appendChild(a_r);})();}</script>
+<style id="_anim_reset" data-anim-reset="true">
+[style*="opacity: 0"], [style*="opacity:0"], [style*="opacity: 0 "] { opacity: 1 !important; }
+[style*="translate"]:not(.allow-translate) { transform: none !important; }
+[style*="scale(0"] { transform: none !important; }
+[style*="blur("] { filter: none !important; }
+[style*="rotate"] { transform: none !important; }
+[style*="skew"] { transform: none !important; }
+[style*="clip-path"] { clip-path: none !important; }
+[style*="clipPath"] { clip-path: none !important; }
+[aria-hidden="true"][style*="blur"] { opacity: 0 !important; }
+[data-framer-name], [data-framer-component-type] { opacity: 1 !important; transform: none !important; filter: none !important; }
+[data-aos]:not(.aos-animate) { opacity: 1 !important; transform: none !important; filter: none !important; }
+[data-animate], [data-animation] { opacity: 1 !important; transform: none !important; filter: none !important; }
+[data-scroll], [data-inview], [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+.motion-safe\:opacity-0, .opacity-0 { opacity: 1 !important; }
+[class*="invisible"], [class*="hidden-init"] { visibility: visible !important; }
+.fade-in-init, .slide-up-init, .scale-init, .blur-in-init, .reveal-init { opacity: 1 !important; transform: none !important; filter: none !important; }
+[class*="motion-"]:not([class*="motion-safe"]) { opacity: 1 !important; transform: none !important; filter: none !important; }
+</style></head>
+<body class="waiting">
+<div class="app" id="app">
+
+  <div class="stage" id="stage">
+    <video id="loopVid" src="media/loop.mp4?v=5" muted="" loop="" playsinline="" webkit-playsinline="" preload="auto"></video>
+    <!-- dois players: enquanto um fala, o outro já carrega o clipe seguinte -->
+    <video id="speechVid" playsinline="" webkit-playsinline="" preload="auto"></video>
+    <video id="speechVid2" playsinline="" webkit-playsinline="" preload="auto"></video>
+    <!-- Trilha única, correndo do início ao fim do quiz. Ela toca pelo Web Audio
+         (e não pelo player comum) porque o iPhone só deixa um player tocar por
+         vez e ignora volume por código — pelo Web Audio os dois convivem e o
+         volume fica fixo, sem subir nem descer. -->
+    <audio id="mus" src="media/bgm.mp3?v=5" loop="" preload="auto" playsinline=""></audio>
+  </div>
+  <div class="scrim-top"></div>
+  <div class="scrim-bottom"></div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <button class="soundbtn" id="soundBtn" hidden="" aria-label="sound">🔊</button>
+
+  <div class="hud" id="hud">
+    <div class="hello" id="hello"></div>
+    <div class="bal-label">Account Balance</div>
+    <div class="bal-value" id="balValue">$0.00</div>
+    <div class="energy-row"><span>Your energy is aligning with the divine...</span><span id="energyPct">5%</span></div>
+    <div class="energy-track"><div class="energy-fill" id="energyFill"></div></div>
+    <div class="strip" id="strip"></div>
+  </div>
+
+  <div class="speaking" id="speaking" hidden="">Archangel Michael is speaking<i></i><i></i><i></i></div>
+
+  <div class="panel" id="panel">
+    <div class="screen active" id="entrance">
+      <div class="revealable">
+        <div class="lead">God does not bring you here by accident.<br>
+          <span class="big">Type your name below and step into what was prepared for you.</span></div>
+        <input type="text" id="nameInput" class="name-input" placeholder="Your name" autocomplete="off">
+        <button class="cta" id="startBtn">BEGIN</button>
+      </div>
+    </div>
+
+    <div class="screen" id="affirmation">
+      <div class="revealable">
+        <div class="vow">
+          <div class="note">Repeat this phrase out loud:</div>
+          <div class="phrase">"The life of my dreams begins with my choice."</div>
+          <div class="note">Only click continue after repeating it out loud.</div>
+        </div>
+        <button class="cta" id="affBtn">Continue Journey</button>
+      </div>
+    </div>
+
+    <div class="screen" id="questionScreen">
+      <div class="tag" id="qtag"></div>
+      <div class="question" id="qtext"></div>
+      <div id="qbody" class="revealable"></div>
+    </div>
+
+    <div class="screen" id="loading">
+      <div class="lt" id="loadTitle"></div>
+      <div class="load-status" id="loadStatus">Starting transformation...</div>
+      <div class="load-track"><div class="load-fill" id="loadFill"></div></div>
+      <div class="load-pct" id="loadPct">0%</div>
+    </div>
+  </div>
+
+  <div class="gate" id="gate">
+    <img src="./logo.png" alt="Time To Thrive" onerror="this.style.display='none'">
+    <div class="gate-t">A message from Archangel Michael<br>is waiting for you</div>
+    <button class="gate-btn" id="gateBtn">▶ TAP TO BEGIN</button>
+    <div class="gate-s">Turn your sound on 🔊</div>
+  </div>
+
+  <div class="overlay" id="overlay"><div class="modalcard" id="modalcard"></div></div>
+
+  <!-- diagnóstico: só aparece com ?debug=1 no endereço -->
+  <div id="dbg" hidden="" style="position:absolute;left:6px;right:6px;top:170px;z-index:90;background:rgba(0,0,0,.8);
+       color:#8f8;font:10px/1.4 monospace;padding:7px;border-radius:8px;white-space:pre-wrap;
+       pointer-events:none;max-height:38%;overflow:hidden"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const questions = [
+  // BLOCK 1 — Financial Awakening
+  { type:"number", text:"[NAME], if you looked at your bank account today, how much would you have available?", placeholder:"Enter numbers only (e.g. 1500)" },
+  { type:"choice", text:"[NAME], do you feel like you're living the life God dreamed for you?",
+    options:["Yes, but I know I can live more","No, I feel I'm far from it","Sometimes I wonder about this..."] },
+  { type:"choice", text:"How often do you feel an emptiness in your chest... as if something is missing?",
+    options:["Every day","A few times a week","Rarely"] },
+  { type:"choice", text:"Do you feel stuck in the same negative cycles for years?",
+    options:["Yes, it feels like a loop","Sometimes I feel this","I'm not sure"] },
+  { type:"choice", text:"If the life you live today was the direct result of your own choices... would you be satisfied?",
+    options:["No, I want to change","More or less","Yes, but I want more"] },
+  { type:"choice", text:"How many times have you asked God for a sign to change your life?",
+    options:["Many times","A few times","I don't usually ask for signs","This is my first time"] },
+  // BLOCK 2 — Faith & Commitment
+  { type:"choice", text:"[NAME], if today were your final faith test… what would you do right now?",
+    options:["I would take action like someone who believes in miracles","I'd take a small, scared step... but still take a step","I'd stay frozen... one more time... just like the other times I gave up"] },
+  { type:"choice", text:"Do you believe God can transform your life with just one single decision from you?",
+    options:["Yes, absolutely","I have doubts","I don't know"] },
+  { type:"choice", text:"Are you willing to make TODAY your day of faith and responsibility for your new life?",
+    options:["Yes, I'm ready","I need a clearer sign","No"] },
+  // BLOCK 3 — Vision & Desire
+  { type:"choice", text:"If God gave you the chance to win your dream home… what would it look like?",
+    options:["Large, with several rooms","A modern apartment","A simple house, but full of peace","I don't think much about it"] },
+  { type:"choice", text:"What car do you imagine parked in front of your ideal home?",
+    options:["A luxury SUV","A comfortable sedan","A simple but reliable car","I don't care about cars"] },
+  { type:"choice", text:"What is your family life like today?",
+    options:["I feel there's a lack of unity","I miss someone special","I have a good family, but we can be happier","I don't think much about it"] },
+  { type:"choice", text:"If you could wake up tomorrow with perfect health… what would be different?",
+    options:["More energy to chase my dreams","Being able to play sports without pain","Feeling good about my body","My health is good, but I want more vitality"] },
+  { type:"choice", text:"If you received a large sum of money today… what would you do first?",
+    options:["Pay off my debts","Buy a house","Fulfill my family's dream","Invest in my future"] },
+  { type:"choice", text:"Imagine that 30 days from now, your life is 100% transformed. Which of these images represents your future?",
+    options:["Luxury home and financial freedom","Perfect health and vitality","Happy family and love","Travel and new experiences"] },
+  // BLOCK 4 — Breaking Blocks
+  { type:"choice", text:"Do you feel there's something spiritual or emotional blocking you?",
+    options:["Yes, a weight I can't explain","Sometimes I feel this","No"] },
+  { type:"choice", text:"Which of these statements best describes you?",
+    options:["I feel cursed, nothing ever works out for me","My life has never been easy","I don't feel worthy","I lack energy and motivation"] },
+  { type:"choice", text:"Do you accept to be part of a group of people who decided to create their dream life through the power of faith?",
+    options:["Yes, I accept","I'm not sure","I need to think about it"] },
+  { type:"choice", text:"If you could change just one thing right now... what would it be?",
+    options:["My financial situation","My relationships","My health","My purpose in life"] },
+  { type:"choice", text:"If God gave you the chance to start over today… would you accept?",
+    options:["Yes, without hesitation","Yes, but with some fear","I'm not ready"] },
+];
+function tagFor(i){
+  if(i<=5) return "Financial Awakening";
+  if(i<=8) return "Faith & Commitment";
+  if(i<=14) return "Vision & Desire";
+  return "Breaking Blocks";
+}
+const ACH = {
+  mult:      { name:"100x Multiplication", img:"100X-god.jpg", sub:"", btn:"⚡ YES! I receive 100x more!" },
+  future:    { name:"I Choose My Future", img:"I-choose-my-future.jpg", sub:"The power to change your life is in your hands!", btn:"⚡ Continue Evolution" },
+  faith:     { name:"Faith Decision", img:"Faith.jpg", sub:"🙏 Your Faith Will Move Mountains", btn:"⚡ Continue Evolution" },
+  home:      { name:"Dream Home", img:"dream-house.jpg", sub:"🏠 Your Dream Home Is on Its Way", btn:"⚡ Continue Evolution" },
+  car:       { name:"Dream Car", img:"Dream-car.jpg", sub:"🚗 Your Dream Car Is Reserved", btn:"⚡ Continue Evolution" },
+  family:    { name:"Happy Family", img:"family.jpg", sub:"👨‍👩‍👧‍👦 The Happy Family You Deserve", btn:"⚡ Continue Evolution" },
+  health:    { name:"Perfect Health", img:"health.jpg", sub:"❤️ Your Perfect Health Is Activated", btn:"⚡ Continue Evolution" },
+  abundance: { name:"Abundance", img:"abundance.jpg", sub:"💸 Imagine… $277,000 being deposited into your account right now!", btn:"⚡ YES! I believe, I receive!" },
+  boost:     { name:"100x Boost", img:"100x-boost.jpg", sub:"⚡ Your Manifestation Power Just Multiplied by 100x", btn:"⚡ Continue Evolution" },
+  blocks:    { name:"Blocks Broken", img:"blocks-broken.jpg", sub:"🔓 All Mental Blocks Have Been Removed", btn:"⚡ Continue Evolution" },
+};
+const unlockAfter = { 0:"mult", 4:"future", 7:"faith", 9:"home", 10:"car", 11:"family", 12:"health", 13:"abundance", 14:"boost", 15:"blocks" };
+const FINAL_ORDER = ["future","faith","home","car","family","health","abundance","boost","blocks","mult"];
+
+/* Mapa vídeo -> etapa: v1 nome · v2 juramento · v3 pergunta 1 · v4 perguntas 2-6
+   v5 perguntas 7-9 · v6 perguntas 10-15 · v7 perguntas 16-20 · v8 carregamento */
+const CLIPS = { entrance:'v1', affirm:'v2', q0:'v3', q1:'v4', q6:'v5', q9:'v6', q15:'v7', loading:'v8' };
+
+let current = 0, userName = "", balanceValue = 0;
+const answers = [], unlocked = [];
+const vids = [$('speechVid'), $('speechVid2')];
+const loopVid = $('loopVid');
+let vi = 0;                 // qual player entra em cena na próxima fala
+let speech = vids[0];       // player da fala atual (a barra final lê a duração daqui)
+/* ordem fixa das falas, para saber qual pré-carregar */
+const ORDER = ['v1','v2','v3','v4','v5','v6','v7','v8'];
+const nextKey = k => { const i = ORDER.indexOf(k); return i >= 0 ? ORDER[i+1] : null; };
+/* ?v= muda junto com os arquivos: sem isso o celular reusa o vídeo antigo do cache */
+const MEDIA_V = '?v=5';
+function prime(el, key){ if(!el || !key) return; el.src = 'media/' + key + '.mp4' + MEDIA_V; try{ el.load(); }catch(e){} }
+
+/* Altura e posição reais da área visível (barra do navegador + teclado).
+   No iPhone, focar um campo faz o Safari deslocar a janela para cima sem mudar
+   o tamanho do documento; sem compensar o offsetTop, o app some da tela. */
+let alturaCheia = 0;
+function fixHeight(){
+  const vv = window.visualViewport, root = document.documentElement;
+  const h = vv ? vv.height : window.innerHeight;
+  if(h > alturaCheia) alturaCheia = h;          // maior altura já vista = sem teclado
+  root.style.setProperty('--vvh', h + 'px');
+  const app = document.getElementById('app');
+  if(app && vv) app.style.top = vv.offsetTop + 'px';
+  // teclado aberto: perdeu mais de 140px de altura
+  root.classList.toggle('kb-open', alturaCheia - h > 140);
+}
+fixHeight();
+if(window.visualViewport){
+  visualViewport.addEventListener('resize', fixHeight);
+  visualViewport.addEventListener('scroll', fixHeight);
+}
+window.addEventListener('orientationchange', ()=> setTimeout(()=>{ alturaCheia = 0; fixHeight(); }, 250));
+
+/* ao focar um campo, espera o teclado terminar de subir e traz o botão à vista */
+document.addEventListener('focusin', e=>{
+  if(e.target.tagName !== 'INPUT') return;
+  setTimeout(()=>{
+    fixHeight();
+    const btn = e.target.parentNode && e.target.parentNode.querySelector('.cta');
+    if(btn) btn.scrollIntoView({block:'nearest'});
+  }, 350);
+});
+document.addEventListener('focusout', ()=> setTimeout(()=>{ window.scrollTo(0,0); fixHeight(); }, 120));
+
+/* ---------- trilha ----------
+   Uma faixa só, contínua, no mesmo volume o tempo todo: nunca recomeça e nunca
+   sobe ou desce. Toca pelo Web Audio para conviver com a voz no iPhone. */
+const mus = $('mus');
+const MUS_VOL = 0.10;          // volume fixo da música (era 0.12)
+let somLigado = false, audioCtx = null, musGain = null;
+
+function musStart(){
+  somLigado = true;
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(AC && !audioCtx){
+      audioCtx = new AC();
+      musGain = audioCtx.createGain();
+      musGain.gain.value = MUS_VOL;
+      audioCtx.createMediaElementSource(mus).connect(musGain);
+      musGain.connect(audioCtx.destination);
+    }
+    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }catch(e){}
+  mus.volume = MUS_VOL;        // vale para navegador sem Web Audio
+  mus.play().catch(()=>{});
+}
+/* se o celular pausar a trilha em alguma troca de vídeo, ela volta sozinha */
+setInterval(()=>{
+  if(somLigado && mus.paused) mus.play().catch(()=>{});
+  if(somLigado && audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}, 3000);
+
+/* painel de diagnóstico: abra a página com ?debug=1 */
+if(new URLSearchParams(location.search).get('debug')){
+  const box = $('dbg'); box.hidden = false;
+  setInterval(()=>{
+    box.textContent =
+      'MÚSICA (faixa contínua)\n' +
+      ' tocando: ' + (!mus.paused) + '   pos: ' + mus.currentTime.toFixed(1) + 's' +
+      '   carregado: ' + mus.readyState + '/4\n' +
+      ' web audio: ' + (audioCtx ? audioCtx.state : 'não criado') +
+      '   volume fixo: ' + (musGain ? musGain.gain.value.toFixed(2) : mus.volume.toFixed(2)) + '\n' +
+      'VOZ\n' +
+      ' tocando: ' + (!speech.paused) + '   carregado: ' + speech.readyState + '/4\n' +
+      ' clipe: ' + (speech.currentSrc || '').split('/').pop() + '   pos: ' + speech.currentTime.toFixed(1) + 's\n' +
+      'ÚLTIMOS EVENTOS\n ' + vlog.join('\n ');
+  }, 500);
+}
+
+/* ---------- vídeo ---------- */
+function waiting(on){
+  document.body.classList.toggle('waiting', !!on);
+  $('speaking').hidden = !on;
+  /* a trilha não muda de volume: segue igual falando ou lendo */
+}
+function preload(key){ if(!key) return; try{ fetch('media/'+key+'.mp4', {cache:'force-cache'}); }catch(e){} }
+
+/* histórico curto para o painel de diagnóstico */
+const vlog = [];
+function reg(t){ vlog.push(new Date().toLocaleTimeString().slice(3) + ' ' + t); if(vlog.length > 5) vlog.shift(); }
+['speechVid','speechVid2'].forEach(id=>{
+  const v = document.getElementById(id);
+  v.addEventListener('playing', ()=> reg('tocou ' + (v.currentSrc||'').split('/').pop()));
+  v.addEventListener('error', ()=> reg('ERRO ' + (v.currentSrc||'').split('/').pop() +
+      ' cod ' + (v.error ? v.error.code : '?')));
+  v.addEventListener('stalled', ()=> reg('travou ' + (v.currentSrc||'').split('/').pop()));
+  v.addEventListener('waiting', ()=> reg('buffer ' + (v.currentSrc||'').split('/').pop()));
+});
+
+function playClip(key, done){
+  if(!key){ waiting(false); done && done(); return; }
+  waiting(true);
+  const el = vids[vi], other = vids[1 - vi];
+  speech = el;
+  reg('pedido ' + key);
+  let over = false, timer = null;
+  const finish = ()=>{
+    if(over) return; over = true; clearTimeout(timer);
+    el.classList.remove('show'); waiting(false); done && done();
+  };
+  el.onended = finish;
+  el.onerror = finish;
+  el.onloadedmetadata = ()=>{ clearTimeout(timer); timer = setTimeout(finish, (el.duration + 4) * 1000); };
+  timer = setTimeout(finish, 40000);
+  // se a pré-carga não pegou este clipe, carrega agora
+  if(String(el.src || '').indexOf(key + '.mp4') < 0) prime(el, key);
+  el.muted = vids[1-vi].muted;      // mantém a escolha de som do usuário
+  el.currentTime = 0;
+  el.classList.add('show');
+  const p = el.play();
+  if(p && p.catch) p.catch(finish);
+  prime(other, nextKey(key));       // o próximo já vai carregando
+  vi = 1 - vi;
+}
+
+/* ---------- telas ---------- */
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  $('panel').scrollTop = 0;
+}
+const personalize = t => t.replaceAll("[NAME]", userName || "friend");
+const fmt = n => "$" + Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+function renderHeader(){
+  $('hud').classList.add('on');
+  $('hello').textContent = "Hello, " + userName + " — your journey has begun...";
+  $('balValue').textContent = fmt(balanceValue);
+  const pct = Math.round(((current+1)/questions.length)*100);
+  $('energyPct').textContent = pct + "%";
+  $('energyFill').style.width = pct + "%";
+  $('strip').innerHTML = unlocked.map(k=>'<div class="thumb"><img src="../'+ACH[k].img+'" alt=""></div>').join('');
+}
+
+function renderQuestion(){
+  const q = questions[current];
+  renderHeader();
+  $('progressBar').style.width = (current/questions.length*100) + "%";
+  $('qtag').textContent = tagFor(current);
+  $('qtext').textContent = personalize(q.text);
+  const body = $('qbody'); body.innerHTML = "";
+
+  if(q.type === "number"){
+    const input = document.createElement('input');
+    input.type = "number"; input.className = "money-input"; input.placeholder = q.placeholder; input.id = "numInput";
+    const btn = document.createElement('button');
+    btn.className = "cta"; btn.textContent = "Continue";
+    btn.onclick = ()=>{
+      if(input.value === ""){ input.focus(); return; }
+      const v = parseFloat(input.value) || 0;
+      answers[current] = v; balanceValue = v * 101;
+      input.blur();
+      afterAnswer();
+    };
+    body.appendChild(input); body.appendChild(btn);
+    btn.addEventListener('mousedown', e=> e.preventDefault());
+    input.addEventListener('focus', ()=> setTimeout(()=> btn.scrollIntoView({block:'nearest'}), 300));
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); btn.click(); } });
+  } else {
+    const w = document.createElement('div'); w.className = "options";
+    q.options.forEach(opt=>{
+      const b = document.createElement('button'); b.className = "opt"; b.textContent = opt;
+      b.onclick = ()=>{ answers[current] = opt; afterAnswer(); };
+      w.appendChild(b);
+    });
+    body.appendChild(w);
+  }
+  playClip(CLIPS['q'+current], null);
+}
+
+function afterAnswer(){
+  const key = unlockAfter[current];
+  if(key) showUnlock(key, advance); else advance();
+}
+function advance(){
+  current++;
+  if(current >= questions.length) startLoading(); else renderQuestion();
+}
+
+/* ---------- conquistas ---------- */
+function openOverlay(html){
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  $('modalcard').innerHTML = html; $('overlay').classList.add('active');
+}
+function closeOverlay(){ $('overlay').classList.remove('active'); }
+function showUnlock(key, done){
+  const a = ACH[key];
+  const extra = key === "mult"
+    ? '<div class="achsub">'+userName+', today I\'m adding 100x more to your account — do you believe?</div><div class="balbox">New Balance: '+fmt(balanceValue)+'</div>'
+    : '<div class="achsub">'+a.sub+'</div>';
+  openOverlay('<div class="modaltop">✓ &nbsp;UNLOCKED! &nbsp;✦</div>'+
+    '<div class="achimg"><img src="../'+a.img+'" alt=""></div>'+
+    '<div class="achname">'+a.name+'</div>'+ extra +
+    '<button class="cta" id="modalBtn">'+a.btn+'</button>');
+  $('modalBtn').onclick = ()=>{
+    if(!unlocked.includes(key)) unlocked.push(key);
+    if(key === "abundance"){ showMoneyBox(done); } else { closeOverlay(); done(); }
+  };
+}
+function showMoneyBox(done){
+  openOverlay('<div class="modaltop">💰 &nbsp;Money</div><div class="achname" style="font-size:24px">'+userName+'</div>'+
+    '<div class="achsub">Your manifestation potential depends on your choice. Think big to manifest big things — you are the size of your courage.</div>'+
+    '<button class="cta" id="modalBtn">Continue Journey</button>');
+  $('modalBtn').onclick = ()=>{ closeOverlay(); done(); };
+}
+
+/* ---------- carregamento ---------- */
+function startLoading(){
+  $('progressBar').style.width = "100%";
+  $('hud').classList.remove('on');
+  $('loadTitle').textContent = userName + ", your Divine Manifestation Script is being created...";
+  document.body.classList.add('noSpeak');
+  show('loading');
+  playClip(CLIPS.loading, null);
+
+  const stages = [[0,"Starting transformation..."],[22,"Reading the desires of your heart..."],
+    [45,"Aligning your energy with the divine..."],[68,"Breaking spiritual blocks..."],
+    [85,"Writing your Sacred Script, word by word..."],[97,"Finalizing your manifestation..."]];
+  let elapsed = 0;
+  const timer = setInterval(()=>{
+    elapsed += 160;
+    const total = (speech.duration && isFinite(speech.duration)) ? speech.duration*1000 : 12000;
+    const pct = Math.min(100, elapsed/total*100);
+    for(let i=stages.length-1;i>=0;i--){ if(pct >= stages[i][0]){ $('loadStatus').textContent = stages[i][1]; break; } }
+    $('loadFill').style.width = pct + "%";
+    $('loadPct').textContent = Math.floor(pct) + "%";
+    if(pct >= 100){
+      clearInterval(timer);
+      $('loadStatus').textContent = "Your Divine Manifestation Script is ready ✦";
+      setTimeout(gotoOffer, 1200);
+    }
+  }, 160);
+}
+function gotoOffer(){
+  try{ sessionStorage.setItem('planfaith_offer', JSON.stringify({ fromQuiz:true, name:userName })); }catch(e){}
+  window.location.href = '/offer' + window.location.search;
+}
+
+/* ---------- início ---------- */
+$('gateBtn').onclick = ()=>{
+  // Segunda trava anti-clone, independente da do topo: se arrancarem o script
+  // do <head>, o quizz ainda não começa fora dos nossos domínios.
+  var h = location.hostname;
+  if(!(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|\.)god-thrive\.pages\.dev$/i.test(h)||h==='localhost'||h==='127.0.0.1'||h==='')){
+    // gate redirect bypassed for lovable
+  }
+  $('gate').style.display = 'none';
+  $('soundBtn').hidden = false;
+  loopVid.play().catch(()=>{});
+  musStart();
+  playClip(CLIPS.entrance, null);
+};
+/* o primeiro clipe já vai carregando enquanto a pessoa lê a tela inicial */
+prime(vids[0], CLIPS.entrance);
+$('soundBtn').onclick = ()=>{
+  const m = !vids[0].muted;
+  vids.forEach(v=> v.muted = m);      // vale para os dois players
+  somLigado = !m;
+  if(musGain) musGain.gain.value = m ? 0 : MUS_VOL;   // a trilha segue a mesma escolha
+  mus.muted = m;
+  $('soundBtn').textContent = m ? '🔇' : '🔊';
+};
+$('startBtn').onclick = ()=>{
+  const v = $('nameInput').value.trim();
+  if(v === ""){ $('nameInput').focus(); return; }
+  userName = v; $('nameInput').blur();
+  show('affirmation');
+  playClip(CLIPS.affirm, null);
+};
+$('nameInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); $('startBtn').click(); } });
+$('startBtn').addEventListener('mousedown', e=> e.preventDefault());
+$('affBtn').onclick = ()=>{ current = 0; show('questionScreen'); renderQuestion(); };
+</script>
+<script>
+/* Detector de clones: avisa o app (app.planfaith.com/api/px) de que esta página
+   foi aberta. Se alguém copiar a página para outro domínio, o navegador do
+   visitante informa o domínio real e ele aparece no painel de admin. Dispara 3s
+   depois do carregamento, com sendBeacon (não espera resposta): não afeta a
+   velocidade nem a experiência. */
+(function(){function s(){try{navigator.sendBeacon&&navigator.sendBeacon('https://app.planfaith.com/api/px',location.pathname)}catch(e){}}
+if(document.readyState==='complete')setTimeout(s,3000);else addEventListener('load',function(){setTimeout(s,3000)});})();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;d70b497735ef4df694441a9e46c5d7f9&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+</body></html>

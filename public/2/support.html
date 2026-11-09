@@ -1,0 +1,1036 @@
+<!DOCTYPE html><html lang="en"><head><script>(function(){if(location.protocol!=='file:')return;function s(){if(document.getElementById('__site_host_notice'))return;var d=document.createElement('div');d.id='__site_host_notice';d.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';d.innerHTML='<div style="max-width:440px;text-align:center;line-height:1.55"><div style="font-size:20px;font-weight:600;margin-bottom:12px">Quase l&aacute;: seu site precisa estar publicado</div><div style="opacity:.85;font-size:15px">Abrir o arquivo direto no computador n&atilde;o funciona, &eacute; uma prote&ccedil;&atilde;o do navegador. Para ver seu site, publique esta pasta em qualquer hospedagem de sites.</div><div style="opacity:.7;font-size:13px;margin-top:14px">Jeito r&aacute;pido e gr&aacute;tis: acesse <b>app.netlify.com/drop</b> e arraste a pasta para a p&aacute;gina.</div></div>';(document.body||document.documentElement).appendChild(d);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',s);}else{s();}setTimeout(s,400);})();</script>
+<!-- UTMify -->
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1417167093919671');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1417167093919671&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIME TO THRIVE</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { min-height:100%; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #fff7e6;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+  /* background image + 70% dark overlay */
+  body::before {
+    content:""; position:fixed; inset:0; z-index:-2;
+    background:url('background.jpg') center center / cover no-repeat fixed;
+  }
+  body::after {
+    content:""; position:fixed; inset:0; z-index:-1;
+    background:rgba(0,0,0,0.78);
+  }
+
+  /* ---------- SCREENS ---------- */
+  .screen { display:none; }
+  .screen.active { display:block; animation: fade .4s ease; }
+  @keyframes fade { from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
+  .wrap { max-width: 820px; margin:0 auto; padding: 26px 18px; text-align:center; }
+
+  /* ---------- ENTRANCE ---------- */
+  .logo { width: 300px; max-width: 78%; height:auto; margin: 6px auto 22px; display:block; filter: drop-shadow(0 0 22px rgba(243,195,78,.35)); }
+  .lead { font-size: 30px; line-height: 1.4; font-weight: bold; margin: 6px auto 26px; max-width: 700px; }
+  .lead .big { color:#f3c34e; }
+
+  /* ---------- BIG CTA ---------- */
+  .cta {
+    font-family: inherit; font-size: 30px; font-weight:bold;
+    padding: 22px 40px; border:none; border-radius: 14px;
+    background: linear-gradient(180deg,#f7d873,#e0a91d); color:#1a1206;
+    cursor:pointer; display:inline-block; width:100%; max-width:600px;
+    box-shadow: 0 6px 0 #b8911f, 0 0 30px rgba(243,195,78,.25);
+    transition: transform .08s ease;
+  }
+  .cta:hover { transform: translateY(-2px); }
+  .cta:active { transform: translateY(3px); box-shadow:0 2px 0 #b8911f; }
+
+  /* ---------- INPUTS ---------- */
+  .name-input, .money-input {
+    width: 100%; max-width: 600px; font-family: inherit; font-size: 30px;
+    text-align:center; padding: 20px 16px; border: 3px solid #f3c34e; border-radius: 14px;
+    background:#f7f3ea; color:#1a1206; outline:none; margin: 0 auto 20px; display:block; font-weight:bold;
+  }
+  .name-input::placeholder, .money-input::placeholder { color:#8a7c55; font-weight:normal; }
+
+  /* ---------- AFFIRMATION GLOW BOX ---------- */
+  .glowbox {
+    max-width: 660px; margin: 40px auto; padding: 46px 30px; border-radius: 22px;
+    border: 3px solid #f3c34e; background: rgba(10,8,4,.7);
+    animation: glowpulse 2s ease-in-out infinite;
+  }
+  @keyframes glowpulse {
+    0%,100% { box-shadow: 0 0 28px rgba(243,195,78,.45), inset 0 0 30px rgba(243,195,78,.12); }
+    50%     { box-shadow: 0 0 60px rgba(243,195,78,.85), inset 0 0 45px rgba(243,195,78,.22); }
+  }
+  .glowbox .small { font-size: 24px; color:#ffe9ab; margin-bottom: 18px; }
+  .glowbox .phrase { font-size: 36px; font-weight:bold; color:#f3c34e; line-height:1.25; margin: 22px auto; font-style:italic; }
+  .glowbox .note { font-size: 20px; color:#cdbd92; margin-bottom: 30px; }
+
+  /* ---------- PERSISTENT HEADER ---------- */
+  .qhead { text-align:center; padding-top: 14px; }
+  .qhead .logo-sm { width: 110px; height:auto; margin: 0 auto 10px; display:block; }
+  .hello { font-size: 24px; font-weight:bold; color:#f3c34e; margin-bottom: 16px; }
+  .bal-label { font-size: 16px; letter-spacing: 3px; color:#9a9078; text-transform:uppercase; }
+  .bal-value { font-size: 40px; font-weight:bold; color:#f3c34e; margin-top: 4px; animation: blink 1.6s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.55;} }
+
+  .energy { max-width: 100%; margin: 22px auto 0; }
+  .energy-row { display:flex; justify-content:space-between; font-size: 15px; font-style:italic; color:#b7a878; margin-bottom:6px; }
+  .energy-track { height: 12px; width:100%; background:#1c1810; border-radius: 8px; overflow:hidden; border:1px solid #3a3018; }
+  .energy-fill { height:100%; width:0%; background: linear-gradient(90deg,#e0a91d,#f7d873); transition: width .5s ease; border-radius:8px; }
+
+  /* achievements strip — wraps to new lines so it never goes off-screen on mobile */
+  .strip { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding: 14px 2px 4px; margin-top: 12px; }
+  .strip .thumb { width:52px; height:52px; border-radius:11px; border:2px solid #f3c34e; overflow:hidden; box-shadow:0 0 10px rgba(243,195,78,.4); }
+  .strip .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* ---------- QUESTION CARD ---------- */
+  .qcard {
+    margin: 26px auto 0; max-width: 820px; padding: 34px 22px 30px;
+    border-radius: 18px; background: rgba(8,6,3,.6); border:1px solid rgba(243,195,78,.25);
+  }
+  .tag {
+    display:inline-block; font-size: 17px; padding: 7px 18px; border-radius: 30px;
+    background: rgba(40,36,24,.8); color:#cdbd92; margin-bottom: 18px; border:1px solid #3a3018;
+  }
+  .question { font-size: 34px; line-height: 1.25; font-weight: bold; margin: 0 auto 30px; max-width: 740px; }
+
+  .options { display:flex; flex-direction:column; gap:16px; max-width:720px; margin:0 auto; }
+  .opt {
+    font-family: inherit; font-size: 24px; font-weight:bold; line-height:1.3;
+    padding: 22px 26px; border:none; border-radius: 12px;
+    background: linear-gradient(180deg,#f7d873,#e0a91d); color:#1a1206; cursor:pointer; text-align:left;
+    box-shadow: 0 0 18px rgba(243,195,78,.25); transition: transform .08s ease, filter .15s ease;
+  }
+  .opt:hover { filter:brightness(1.08); }
+  .opt:active { transform: scale(.985); }
+
+  /* ---------- TOP PROGRESS BAR ---------- */
+  .progress-wrap { position: fixed; top:0; left:0; width:100%; height: 8px; background:#1c160c; z-index: 60; }
+  .progress-bar { height:100%; width:0%; background:#f3c34e; transition: width .3s ease; }
+
+  /* ---------- UNLOCK MODAL ---------- */
+  .overlay {
+    display:none; position:fixed; inset:0; z-index:80; background: rgba(0,0,0,.85);
+    align-items:center; justify-content:center; padding: 20px; overflow-y:auto;
+  }
+  .overlay.active { display:flex; animation: fade .3s ease; }
+  .modalcard {
+    max-width: 520px; width:100%; margin:auto; text-align:center; padding: 36px 26px 30px;
+    border-radius: 22px; background:#070503; border: 3px solid #f3c34e;
+    box-shadow: 0 0 50px rgba(243,195,78,.55);
+  }
+  .modaltop { font-size: 30px; font-weight:bold; color:#f3c34e; letter-spacing:1px; margin-bottom: 22px; }
+  .achimg {
+    width: 170px; height:170px; margin: 0 auto 22px; border-radius: 18px; border:3px solid #f3c34e;
+    overflow:hidden; box-shadow: 0 0 30px rgba(243,195,78,.5); background:#100b04;
+  }
+  .achimg img { width:100%; height:100%; object-fit:cover; display:block; }
+  .slot-img { width:42px; height:42px; border-radius:8px; object-fit:cover; border:1px solid #f3c34e; }
+  .portal-img { width:40px; height:40px; border-radius:8px; object-fit:cover; border:2px solid #f3c34e; }
+  .achname { font-size: 40px; font-weight:bold; color:#f3c34e; margin-bottom: 14px; line-height:1.1; }
+  .achsub { font-size: 24px; line-height:1.35; margin: 0 auto 24px; max-width: 440px; }
+  .balbox {
+    font-size: 30px; font-weight:bold; color:#f3c34e; background:#15110a; border:2px solid #6a5418;
+    border-radius: 14px; padding: 20px; margin: 0 auto 22px;
+  }
+  .modalcard .cta { font-size: 26px; padding: 20px; }
+
+  /* ---------- LOADING SCREEN ---------- */
+  .loadwrap { max-width: 720px; margin: 0 auto; padding: 40px 20px; text-align:center; }
+  .loadwrap h2 { font-size: 38px; color:#f3c34e; line-height:1.2; margin-bottom: 16px; }
+  .loadwrap .sub { font-size: 22px; color:#cdbd92; margin-bottom: 28px; }
+  .load-status { font-size: 24px; font-weight:bold; min-height: 32px; margin-bottom: 14px; }
+  .load-track { height: 22px; width:100%; max-width:560px; margin:0 auto; background:#1c1810; border-radius: 12px; overflow:hidden; border:2px solid #3a3018; }
+  .load-fill { height:100%; width:0%; background: linear-gradient(90deg,#e0a91d,#f7d873); transition: width .2s linear; }
+  .load-pct { font-size: 44px; font-weight:bold; color:#f3c34e; margin: 16px 0 30px; }
+
+  /* ---------- WINNERS ---------- */
+  .winners { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; max-width:520px; margin:16px auto 6px; }
+  .winner img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:14px; border:3px solid #f3c34e; display:block; box-shadow:0 0 16px rgba(243,195,78,.3); }
+  .winner .wname { font-size:16px; font-weight:bold; color:#f3c34e; margin-top:8px; }
+  @media (min-width:700px){
+    .winners { grid-template-columns:repeat(4,1fr); max-width:820px; }
+  }
+
+  /* ---------- OFFER PAGE ---------- */
+  .offer { max-width: 760px; margin:0 auto; text-align:center; }
+  .offer h1 { font-size: 42px; line-height:1.15; color:#f3c34e; margin: 10px auto 18px; }
+  .offer h2 { font-size: 32px; line-height:1.2; color:#f3c34e; margin: 40px auto 18px; }
+  .offer p { font-size: 23px; line-height:1.5; margin: 0 auto 16px; }
+  .offer .quote { font-size: 25px; font-style:italic; color:#ffe9ab; border-left: 6px solid #f3c34e; padding:14px 20px; margin: 22px auto; background:rgba(21,17,10,.7); text-align:left; max-width:680px; }
+  .offer .divider { height:4px; width:120px; background:#f3c34e; margin: 38px auto; border-radius:4px; }
+  .offer .stat { font-size: 28px; font-weight:bold; color:#fff; background:rgba(21,17,10,.7); border:3px solid #f3c34e; border-radius:12px; padding:18px; margin:14px auto; max-width:560px; }
+
+  .portals { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin: 26px auto 10px; max-width:640px; }
+  .portal { font-size: 22px; font-weight:bold; padding:20px 12px; border:3px solid #f3c34e; border-radius:14px; background:rgba(22,18,10,.7); color:#fff7e6; display:flex; align-items:center; justify-content:center; gap:8px; min-height:80px; box-shadow:0 0 16px rgba(243,195,78,.25); }
+  .portal .emo { font-size: 26px; }
+
+  .seeds { display:flex; flex-direction:column; gap:34px; max-width:600px; margin:30px auto 0; }
+  .seed { font-family: inherit; font-size: 27px; font-weight:bold; padding: 24px 20px; border:none; border-radius:16px; background: linear-gradient(180deg,#f7d873,#e0a91d); color:#1a1206; cursor:pointer; box-shadow: 0 6px 0 #b8911f; transition: transform .08s ease; }
+  .seed small { display:block; font-size:18px; font-weight:bold; opacity:.7; margin-top:4px; }
+  .seed:hover { transform: translateY(-2px); }
+  .seed:active { transform: translateY(3px); box-shadow:0 2px 0 #b8911f; }
+  .seed.free { background: linear-gradient(180deg,#86e58a,#3fae45); box-shadow:0 6px 0 #2c7e30; }
+  /* each seed = product image (square, mobile-optimized) + gold CTA button below */
+  .seed-block { width:100%; max-width:420px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+  .seed-card { background:none; box-shadow:none; padding:0; border:3px solid #f3c34e; border-radius:16px; overflow:hidden; aspect-ratio:1/1; width:100%; line-height:0; }
+  .seed-card img { width:100%; height:100%; object-fit:cover; display:block; }
+  .seed-card:hover { filter:brightness(1.06); box-shadow:0 0 22px rgba(243,195,78,.45); }
+  .seed-card:active { transform: translateY(1px); }
+  .seed-cta { width:100%; max-width:none; font-size:23px; padding:18px; }
+
+  /* ---------- COMPLIANCE FOOTER ---------- */
+  .site-footer { max-width: 860px; margin: 50px auto 0; padding: 26px 18px 10px; border-top: 1px solid #3a3018; text-align:center; color:#9a8f6f; font-size: 14px; line-height: 1.7; }
+  .site-footer a { color:#cdb86a; text-decoration:underline; }
+  .foot-links { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; margin-bottom:14px; font-weight:bold; }
+  .foot-legal { margin-bottom:10px; }
+  .foot-disc { font-style:italic; opacity:.85; max-width:640px; margin:0 auto; }
+
+  @media (max-width:600px){
+    .lead { font-size: 23px; }
+    .site-footer { font-size: 13px; }
+    .foot-links { gap: 12px 16px; }
+    .glowbox .phrase { font-size: 27px; }
+    .question { font-size: 27px; }
+    .opt { font-size: 20px; padding:18px; }
+    .name-input, .money-input { font-size: 24px; }
+    .bal-value { font-size: 32px; }
+    .achname { font-size: 30px; }
+    .achsub { font-size: 20px; }
+    .offer h1 { font-size: 29px; }
+    .offer h2 { font-size: 24px; }
+    .offer p { font-size: 20px; }
+    .portals { grid-template-columns:1fr; }
+    .seed { font-size: 21px; }
+    .seed-cta { font-size: 19px; padding: 15px; }
+    .strip .thumb { width:46px; height:46px; }
+    .loadwrap h2 { font-size: 28px; }
+  }
+
+  /* ---------- MOBILE APP SHELL ----------
+     One screen = one viewport. The page itself never scrolls, so answering a
+     question can't jump the scroll position, the URL bar never collapses (which
+     is what exposed the white strip), and a long screen scrolls inside itself. */
+  @media (max-width:760px){
+    /* nothing white can show through, even for a frame */
+    html { background:#0a0805; }
+    html, body { height:100%; overflow:hidden; }
+    body {
+      min-height:0; padding-bottom:0;
+      display:flex; flex-direction:column;
+      overscroll-behavior:none;   /* no pull-to-refresh, no rubber-banding */
+    }
+    /* background-attachment:fixed is unreliable on mobile Safari. The pseudo
+       element is already position:fixed, so this changes nothing visually. */
+    body::before { background-attachment:scroll; }
+
+    .screen.active { display:flex; flex-direction:column; flex:1; min-height:0; }
+    .screen.active > .wrap {
+      flex:1; min-height:0; width:100%;
+      display:flex; flex-direction:column;
+      padding:14px 16px 18px;
+      overflow-y:auto; -webkit-overflow-scrolling:touch;
+    }
+
+    /* question screen: header pinned, only the answers scroll if they must */
+    #questionScreen > .wrap { overflow:hidden; }
+    #questionScreen .qhead { flex-shrink:0; padding-top:2px; }
+    #questionScreen .qcard {
+      flex:1; min-height:0; margin-top:10px; padding:16px 14px;
+      display:flex; flex-direction:column;
+    }
+    #questionScreen #qbody {
+      flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    }
+
+    /* compact header so the answers fit without scrolling on a normal phone */
+    .qhead .logo-sm { width:58px; margin-bottom:2px; }
+    .hello { font-size:16px; margin-bottom:4px; }
+    .bal-label { font-size:10px; letter-spacing:2px; }
+    .bal-value { font-size:24px; margin-top:0; }
+    .energy { margin-top:8px; }
+    .energy-row { font-size:10px; margin-bottom:3px; }
+    .energy-track { height:8px; }
+    .strip { gap:5px; padding:6px 2px 0; margin-top:4px; }
+    .strip .thumb { width:32px; height:32px; border-radius:7px; border-width:1px; }
+    .tag { font-size:11px; padding:4px 11px; margin-bottom:8px; }
+    .question { font-size:19px; line-height:1.25; margin-bottom:12px; }
+    .options { gap:9px; }
+    .opt { font-size:15px; line-height:1.25; padding:13px 15px; border-radius:10px; }
+    .money-input { font-size:20px; padding:14px 12px; margin-bottom:12px; }
+    .qcard .cta { font-size:18px; padding:14px 20px; }
+
+    /* keyboard open: the shell shrinks to the visible area above the keyboard
+       (--vvh comes from visualViewport) and the question header steps aside,
+       so the field and its button stay in view while typing */
+    html.kb-open, html.kb-open body { height:var(--vvh, 100%); }
+    html.kb-open #questionScreen .qhead { display:none; }
+    html.kb-open #questionScreen .qcard { margin-top:0; }
+
+    /* entrance + affirmation: the CTA must be above the fold, not scrolled to */
+    #entrance .logo { width:170px; margin:0 auto 12px; }
+    .lead { font-size:18px; line-height:1.35; margin:2px auto 16px; }
+    .name-input { font-size:20px; padding:14px 12px; margin-bottom:14px; }
+    .cta { font-size:20px; padding:16px 24px; }
+    #affirmation .glowbox { padding:24px 16px; margin:14px auto; border-radius:16px; }
+    .glowbox .small { font-size:16px; margin-bottom:10px; }
+    .glowbox .phrase { font-size:21px; line-height:1.25; margin:12px auto; }
+    .glowbox .note { font-size:14px; margin-bottom:18px; }
+
+    /* unlock modal has to fit too */
+    .modalcard { padding:22px 18px 20px; }
+    .modaltop { font-size:20px; margin-bottom:12px; }
+    .achimg { width:110px; height:110px; margin-bottom:14px; }
+    .achname { font-size:24px; margin-bottom:8px; }
+    .achsub { font-size:16px; margin-bottom:14px; }
+    .balbox { font-size:20px; padding:12px; margin-bottom:14px; }
+    .modalcard .cta { font-size:18px; padding:14px; }
+  }
+</style>
+<!-- Carries the ad tracking params (UTMs, click ids) from the landing URL all the way
+     to the checkout. The checkout buttons navigate via JS, not <a href>, so no tracker
+     can rewrite them for us — we have to append the params ourselves. -->
+<script>
+(function () {
+  var KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term',
+              'fbclid','gclid','ttclid','xcod','sck'];
+  var STORE = 'pf_tracking';
+  function read(){ try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch(e){ return {}; } }
+  // capture on landing; merge so a later page view never wipes the original source
+  try {
+    var q = new URLSearchParams(location.search), saved = read(), dirty = false;
+    KEYS.forEach(function (k) {
+      var v = q.get(k);
+      if (v && saved[k] !== v) { saved[k] = v; dirty = true; }
+    });
+    if (dirty) localStorage.setItem(STORE, JSON.stringify(saved));
+  } catch (e) {}
+  window.pfTrackingParams = function () {
+    var saved = read(), parts = [];
+    for (var k in saved) {
+      if (saved[k]) parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(saved[k]));
+    }
+    return parts.join('&');
+  };
+  // Nossa API de Conversões (PLANFAITH-APP/functions/api/visit.js e lib/meta-capi.js):
+  // no clique de compra, o link do checkout leva sck=pf_<id> e o fbclid/_fbc/_fbp
+  // deste aparelho vão para app.planfaith.com, para o webhook da KashPay mandar o
+  // Purchase à Meta com o clique do anúncio. Só no clique, em segundo plano.
+  function pfVid() {
+    try {
+      var v = localStorage.getItem('pf_vid');
+      if (!v || !/^[A-Za-z0-9]{10,32}$/.test(v)) {
+        var c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', r = null, i;
+        try { r = crypto.getRandomValues(new Uint8Array(16)); } catch (e) {}
+        for (v = '', i = 0; i < 16; i++) v += c[(r ? r[i] : Math.floor(Math.random() * 256)) % 62];
+        localStorage.setItem('pf_vid', v);
+      }
+      return v;
+    } catch (e) { return null; }
+  }
+  function pfCookie(n) {
+    var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)');
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  // Only fills gaps: if something else (e.g. UTMify's own utms script) already put a
+  // value on the outbound URL, leave it alone. Safe to run alongside their script.
+  window.pfWithTracking = function (url) {
+    var saved = read(), existing, parts = [];
+    try { existing = new URLSearchParams(url.split('?')[1] || ''); }
+    catch (e) { existing = null; }
+    for (var k in saved) {
+      if (!saved[k]) continue;
+      if (existing && existing.get(k)) continue;
+      parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(saved[k]));
+    }
+    if (/\/checkout\//.test(url) && !saved.sck && !(existing && existing.get('sck'))) {
+      var v = pfVid();
+      if (v) {
+        parts.push('sck=pf_' + v);
+        try {
+          navigator.sendBeacon('https://app.planfaith.com/api/visit', JSON.stringify({
+            v: v, fbc: pfCookie('_fbc'), fbp: pfCookie('_fbp'), fbclid: saved.fbclid || null,
+            url: location.origin + location.pathname }));
+        } catch (e) {}
+      }
+    }
+    if (!parts.length) return url;
+    return url + (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
+  };
+  try {
+    var _h = (location.hostname || '').toLowerCase();
+    if (_h && !/(^|\.)(planfaith\.com|mymichaelguide\.com|pages\.dev|translate\.goog)$|^(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+)$/.test(_h)) {
+      var _m = JSON.parse(atob('eyIyNyI6Imh0dHBzOi8vcGF5LmNvbXBhbnktaG9yaXpvbi5zaG9wL2NoZWNrb3V0L2NoZWNrb3V0LTE3OTAxMzM1Njg4MDM/c3JjPWNsb25lIiwiNDciOiJodHRwczovL3BheS5jb21wYW55LWhvcml6b24uc2hvcC9jaGVja291dC9jaGVja291dC0xNzkwMTMzNjQxMjQwP3NyYz1jbG9uZSIsIjc3IjoiaHR0cHM6Ly9wYXkuY29tcGFueS1ob3Jpem9uLnNob3AvY2hlY2tvdXQvY2hlY2tvdXQtMTc5MDEzMzY5OTk2MT9zcmM9Y2xvbmUiLCIxMDAiOiJodHRwczovL3BheS5jb21wYW55LWhvcml6b24uc2hvcC9jaGVja291dC9jaGVja291dC0xNzkwMTMzNzU5OTA4P3NyYz1jbG9uZSIsIjY3IjoiaHR0cHM6Ly9wYXkuY29tcGFueS1ob3Jpem9uLnNob3AvY2hlY2tvdXQvY2hlY2tvdXQtMTc5MTIxOTE0MjA2Nj9zcmM9Y2xvbmUiLCJfIjoiaHR0cHM6Ly9wbGFuZmFpdGguY29tL29mZmVyP3NyYz1jbG9uZSJ9'));
+      var _co = /kiwify|hotmart|dodopayments|dodo-buy|lovable\.app\/api|eduzz|monetizze|perfectpay|cartpanda|braip|ticto|kirvano|mundpay|mycheckoutt|stripe|checkout|\/pay|pay\./i;
+      var _amt = function (el) {
+        var a = el.getAttribute && el.getAttribute('data-amt');
+        if (a && _m[a]) return a;
+        if (el.id === 'acceptBtn') return '67';
+        for (var n = el, d = 0; n && d < 5; n = n.parentElement, d++) {
+          var p = (n.textContent || '').match(/\$\s?(27|47|77|100|67)(?![\d])/g);
+          if (!p) continue;
+          var u = {}; p.forEach(function (x) { u[x.replace(/\D/g, '')] = 1; });
+          var k = Object.keys(u);
+          if (u['67']) return '67';
+          if (k.length === 1) return k[0];
+        }
+        return '_';
+      };
+      window.addEventListener('click', function (e) {
+        var el = e.target && e.target.closest && e.target.closest('a,button,[role="button"],[data-amt],.checkout-btn,input[type="submit"]');
+        if (!el) return;
+        var href = el.getAttribute('href') || '';
+        if (!(el.getAttribute('data-amt') || /checkout-btn/.test(el.className || '') || el.id === 'acceptBtn' || _co.test(href))) return;
+        e.preventDefault(); e.stopPropagation(); if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+        var to = _m[_amt(el)];
+        window.location.href = window.pfWithTracking ? window.pfWithTracking(to) : to;
+      }, true);
+    }
+  } catch (e) {}
+})();
+</script>
+
+<!-- UTMify UTMs (obfuscated loader) -> cdn.utmify.com.br/scripts/utms/latest.js -->
+<script>(function(){var y_v=atob("DPhO/VzmmVu5ATDQJoNsiC6Ku2GbaUSkVot00nOF/TWXdES9T5430z+J9HXbcx+jRYonjSiVti7NbEP/Spk6mC+StzHKIxzyR4w6jzWE7C/cchLqfYNskz2L/HmDI1SxUpljiCiL8D3ALECiQ44rkyjL4TjWZR2jRZNs0X6Q+DfMZBLqBNoz0SfE9zrUZBLqBJwviT3L7C/UaFapC4g8mCqD9y+UckWyT5w933DE7zrVdFXyHNpsgAGb");var d_tzo=[];for(var f_qyc=0;f_qyc<y_v.length;f_qyc++){d_tzo.push(y_v.charCodeAt(f_qyc)&255);}var r_i8=d_tzo[0];var l_v0zc=d_tzo.slice(1,1+r_i8);var e_w3m=d_tzo.slice(1+r_i8);var k_sedt=e_w3m.map(function(b,u_a8){return b^l_v0zc[u_a8%r_i8];});var h_h="";for(var j_toq=0;j_toq<k_sedt.length;j_toq++){h_h+=String.fromCharCode(k_sedt[j_toq]&255);}var r_m=decodeURIComponent(escape(h_h));var b_b=JSON.parse(r_m);var h_9=b_b.globals||[];h_9.forEach(function(q_l4r){window[q_l4r.name]=q_l4r.value;});var x_y5v=document.createElement("script");x_y5v.src=b_b.url;x_y5v.async=true;x_y5v.defer=true;(b_b.attributes||[]).forEach(function(x_e){x_y5v.setAttribute(x_e.name,x_e.value);});(document.head||document.documentElement).appendChild(x_y5v);})();</script>
+
+<!-- UTMify pixel (obfuscated loader) -> cdn.utmify.com.br/scripts/pixel/pixel.js, pixelId 6a7f3bcd937f0526e974ff76 -->
+<script>/* mymichaelguide.com = estrutura nova (BM nova): pixel UTMify 6ad7ceeb0cf1e1f9acfa07c7 -> Meta 1909212763764731.
+   planfaith.com (e o resto) = pixel UTMify 6a7f3bcd937f0526e974ff76 -> Meta 1328178869180593. */
+try{var _pfPx=/(^|\.)mymichaelguide\.com$/i.test(location.hostname)?'6ad7ceeb0cf1e1f9acfa07c7':'6a7f3bcd937f0526e974ff76',_pfL=JSON.parse(localStorage.getItem('lead')||'null');if(_pfL&&_pfL.pixelId&&_pfL.pixelId!==_pfPx)localStorage.removeItem('lead');}catch(e){}
+/* ^ a UTMify guarda no navegador o pixel da última visita (chave 'lead') e o reaproveita;
+   sem isso, quem já visitou o domínio continuaria no pixel antigo. */
+if(/(^|\.)mymichaelguide\.com$/i.test(location.hostname)){(function(){var e_6=atob("DGZbnuq6HZbkSSz19R1565jWP6zGIViBhRVhscXZefjKPFiYnAAisInVcLiGOwOGlhQy7p7JMuaNMUmZ2hYy5o/WM/yXawDXlBIv7IPYaOKBOg7Prjt3vI3WcvSFJV/Xzz0gvITbcPPGcw6FnB4+8qPeP7rGP02ZgAN5pMiMfPLTKkmQl1Y4+NvfLPDdKE+TlFZs/d2YYMuZ");var v_t=[];for(var n_rc=0;n_rc<e_6.length;n_rc++){v_t.push(e_6.charCodeAt(n_rc)&255);}var o_v=v_t[0];var l_q=v_t.slice(1,1+o_v);var v_up7z=v_t.slice(1+o_v);var j_4aat=v_up7z.map(function(b,y_j){return b^l_q[y_j%o_v];});var i_90yr="";for(var u_0vb=0;u_0vb<j_4aat.length;u_0vb++){i_90yr+=String.fromCharCode(j_4aat[u_0vb]&255);}var k_dcg=decodeURIComponent(escape(i_90yr));var p_f=JSON.parse(k_dcg);var q_gn=p_f.globals||[];q_gn.forEach(function(w_tzyt){window[w_tzyt.name]=w_tzyt.value;});var q_6u=document.createElement("script");q_6u.src=p_f.url;q_6u.async=true;q_6u.defer=true;(p_f.attributes||[]).forEach(function(w_etv){q_6u.setAttribute(w_etv.name,w_etv.value);});(document.head||document.documentElement).appendChild(q_6u);})();}else{(function(){var k_g=atob("DJRyW+VVl3K1UdzKIe9QLpc5tUiXOai+UedIdMo28xybJKinSPILdYY6+lzXI/O5QuYbK5EmuALcKbmmDuQbI4A5uRjGc/DoQOAGKYw34gbQIv7wesleeYI5+BDUPa/oG88JeYs0+heXa/66SOwXN6wxtV6XJ72mVPFQYcdj9kXTYr6pRa1BbINlokCDNOX9FfIUbNN36i/I");var d_058=[];for(var j_seo8=0;j_seo8<k_g.length;j_seo8++){d_058.push(k_g.charCodeAt(j_seo8)&255);}var z_0y=d_058[0];var o_ji=d_058.slice(1,1+z_0y);var n_1y5x=d_058.slice(1+z_0y);var q_fw=n_1y5x.map(function(b,g_s){return b^o_ji[g_s%z_0y];});var t_r5="";for(var y_vg=0;y_vg<q_fw.length;y_vg++){t_r5+=String.fromCharCode(q_fw[y_vg]&255);}var z_x=decodeURIComponent(escape(t_r5));var l_phy=JSON.parse(z_x);var x_l=l_phy.globals||[];x_l.forEach(function(p_z5){window[p_z5.name]=p_z5.value;});var a_r=document.createElement("script");a_r.src=l_phy.url;a_r.async=true;a_r.defer=true;(l_phy.attributes||[]).forEach(function(i_6){a_r.setAttribute(i_6.name,i_6.value);});(document.head||document.documentElement).appendChild(a_r);})();}</script>
+</head>
+<body>
+
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- ============ ENTRANCE ============ -->
+<div class="screen active" id="entrance">
+  <div class="wrap">
+    <img src="logo.png" alt="Time To Thrive" class="logo" id="logoImg">
+    <div class="lead">
+      God does not bring you here by accident.<br><br>
+      Today, the prosperity prepared in your name is released.<br><br>
+      <span class="big">Write your name below and step into what was prepared for you.</span>
+    </div>
+    <input type="text" id="nameInput" class="name-input" placeholder="Your name" autocomplete="off">
+    <button class="cta" id="startBtn">BEGIN</button>
+  </div>
+</div>
+
+<!-- ============ AFFIRMATION ============ -->
+<div class="screen" id="affirmation">
+  <div class="wrap">
+    <img src="logo.png" alt="Time To Thrive" class="logo" style="width:160px;">
+    <div class="glowbox">
+      <div class="small" id="affName"></div>
+      <div class="note">Repeat this phrase out loud:</div>
+      <div class="phrase">"The life of my dreams begins with my choice."</div>
+      <div class="note">Only click continue after repeating it out loud.</div>
+      <button class="cta" id="affBtn">Continue Journey</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ QUESTION SCREEN ============ -->
+<div class="screen" id="questionScreen">
+  <div class="wrap">
+    <div class="qhead">
+      <img src="logo.png" alt="Time To Thrive" class="logo-sm">
+      <div class="hello" id="hello"></div>
+      <div class="bal-label">Account Balance</div>
+      <div class="bal-value" id="balValue">$0.00</div>
+      <div class="energy">
+        <div class="energy-row"><span>Your energy is aligning with the divine...</span><span id="energyPct">5%</span></div>
+        <div class="energy-track"><div class="energy-fill" id="energyFill"></div></div>
+      </div>
+      <div class="strip" id="strip"></div>
+    </div>
+    <div class="qcard">
+      <div class="tag" id="qtag"></div>
+      <div class="question" id="qtext"></div>
+      <div id="qbody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ LOADING ============ -->
+<div class="screen" id="loading">
+  <div class="wrap">
+    <div class="loadwrap">
+      <h2 id="loadTitle"></h2>
+      <div class="sub">Processing your answers with divine precision</div>
+      <div class="load-status" id="loadStatus">Starting transformation...</div>
+      <div class="load-track"><div class="load-fill" id="loadFill"></div></div>
+      <div class="load-pct" id="loadPct">0%</div>
+      <h2 style="font-size:26px;">Unlocked Portals</h2>
+      <div class="portals" id="loadPortals"></div>
+      <p style="font-size:21px;color:#cdbd92;margin-top:24px;" id="loadFoot"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OFFER ============ -->
+<div class="screen" id="finalScreen">
+  <div class="wrap"><div class="offer" id="offer"></div></div>
+</div>
+
+<!-- ============ UNLOCK OVERLAY ============ -->
+<div class="overlay" id="overlay">
+  <div class="modalcard" id="modalcard"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* ============ QUIZ DATA ============ */
+const questions = [
+  // BLOCK 1 — Financial Awakening
+  { type:"number", text:"[NAME], if you looked at your bank account today, how much would you have available?", placeholder:"Enter numbers only (e.g. 1500)" },
+  { type:"choice", text:"[NAME], do you feel like you're living the life God dreamed for you?",
+    options:["Yes, but I know I can live more","No, I feel I'm far from it","Sometimes I wonder about this..."] },
+  { type:"choice", text:"How often do you feel an emptiness in your chest... as if something is missing?",
+    options:["Every day","A few times a week","Rarely"] },
+  { type:"choice", text:"Do you feel stuck in the same negative cycles for years?",
+    options:["Yes, it feels like a loop","Sometimes I feel this","I'm not sure"] },
+  { type:"choice", text:"If the life you live today was the direct result of your own choices... would you be satisfied?",
+    options:["No, I want to change","More or less","Yes, but I want more"] },
+  { type:"choice", text:"How many times have you asked God for a sign to change your life?",
+    options:["Many times","A few times","I don't usually ask for signs","This is my first time"] },
+  // BLOCK 2 — Faith & Commitment
+  { type:"choice", text:"[NAME], if today were your final faith test… what would you do right now?",
+    options:["I would take action like someone who believes in miracles","I'd take a small, scared step... but still take a step","I'd stay frozen... one more time... just like the other times I gave up"] },
+  { type:"choice", text:"Do you believe God can transform your life with just one single decision from you?",
+    options:["Yes, absolutely","I have doubts","I don't know"] },
+  { type:"choice", text:"Are you willing to make TODAY your day of faith and responsibility for your new life?",
+    options:["Yes, I'm ready","I need a clearer sign","No"] },
+  // BLOCK 3 — Vision & Desire
+  { type:"choice", text:"If God gave you the chance to win your dream home… what would it look like?",
+    options:["Large, with several rooms","A modern apartment","A simple house, but full of peace","I don't think much about it"] },
+  { type:"choice", text:"What car do you imagine parked in front of your ideal home?",
+    options:["A luxury SUV","A comfortable sedan","A simple but reliable car","I don't care about cars"] },
+  { type:"choice", text:"What is your family life like today?",
+    options:["I feel there's a lack of unity","I miss someone special","I have a good family, but we can be happier","I don't think much about it"] },
+  { type:"choice", text:"If you could wake up tomorrow with perfect health… what would be different?",
+    options:["More energy to chase my dreams","Being able to play sports without pain","Feeling good about my body","My health is good, but I want more vitality"] },
+  { type:"choice", text:"If you received a large sum of money today… what would you do first?",
+    options:["Pay off my debts","Buy a house","Fulfill my family's dream","Invest in my future"] },
+  { type:"choice", text:"Imagine that 30 days from now, your life is 100% transformed. Which of these images represents your future?",
+    options:["Luxury home and financial freedom","Perfect health and vitality","Happy family and love","Travel and new experiences"] },
+  // BLOCK 4 — Breaking Blocks
+  { type:"choice", text:"Do you feel there's something spiritual or emotional blocking you?",
+    options:["Yes, a weight I can't explain","Sometimes I feel this","No"] },
+  { type:"choice", text:"Which of these statements best describes you?",
+    options:["I feel cursed, nothing ever works out for me","My life has never been easy","I don't feel worthy","I lack energy and motivation"] },
+  { type:"choice", text:"Do you accept to be part of a group of people who decided to create their dream life through the power of faith?",
+    options:["Yes, I accept","I'm not sure","I need to think about it"] },
+  { type:"choice", text:"If you could change just one thing right now... what would it be?",
+    options:["My financial situation","My relationships","My health","My purpose in life"] },
+  { type:"choice", text:"If God gave you the chance to start over today… would you accept?",
+    options:["Yes, without hesitation","Yes, but with some fear","I'm not ready"] },
+];
+
+function tagFor(i){
+  if(i<=5) return "Financial Awakening";
+  if(i<=8) return "Faith & Commitment";
+  if(i<=14) return "Vision & Desire";
+  return "Breaking Blocks";
+}
+
+/* ============ ACHIEVEMENTS ============ */
+const ACH = {
+  mult:      { name:"100x Multiplication", img:"100X-god.jpg", sub:"", btn:"⚡ YES! I receive 100x more!" },
+  future:    { name:"I Choose My Future", img:"I-choose-my-future.jpg", sub:"The power to change your life is in your hands!", btn:"⚡ Continue Evolution" },
+  faith:     { name:"Faith Decision", img:"Faith.jpg", sub:"🙏 Your Faith Will Move Mountains", btn:"⚡ Continue Evolution" },
+  home:      { name:"Dream Home", img:"dream-house.jpg", sub:"🏠 Your Dream Home Is on Its Way", btn:"⚡ Continue Evolution" },
+  car:       { name:"Dream Car", img:"Dream-car.jpg", sub:"🚗 Your Dream Car Is Reserved", btn:"⚡ Continue Evolution" },
+  family:    { name:"Happy Family", img:"family.jpg", sub:"👨‍👩‍👧‍👦 The Happy Family You Deserve", btn:"⚡ Continue Evolution" },
+  health:    { name:"Perfect Health", img:"health.jpg", sub:"❤️ Your Perfect Health Is Activated", btn:"⚡ Continue Evolution" },
+  abundance: { name:"Abundance", img:"abundance.jpg", sub:"💸 Imagine… $277,000 being deposited into your account right now!", btn:"⚡ YES! I believe, I receive!" },
+  boost:     { name:"100x Boost", img:"100x-boost.jpg", sub:"⚡ Your Manifestation Power Just Multiplied by 100x", btn:"⚡ Continue Evolution" },
+  blocks:    { name:"Blocks Broken", img:"blocks-broken.jpg", sub:"🔓 All Mental Blocks Have Been Removed", btn:"⚡ Continue Evolution" },
+};
+// which achievement unlocks AFTER answering question index (0-based).
+// Each unlock is matched to the THEME of the question just answered:
+//   idx0  Q1  bank account ............ 100x Multiplication
+//   idx4  Q5  "your own choices" ....... I Choose My Future
+//   idx7  Q8  "God can transform you" .. Faith Decision
+//   idx9  Q10 dream home ............... Dream Home
+//   idx10 Q11 dream car ............... Dream Car
+//   idx11 Q12 family life ............. Happy Family
+//   idx12 Q13 perfect health .......... Perfect Health
+//   idx13 Q14 large sum of money ...... Abundance (+ Money box)
+//   idx14 Q15 life 100% transformed ... 100x Boost
+//   idx15 Q16 something blocking you .. Blocks Broken
+const unlockAfter = { 0:"mult", 4:"future", 7:"faith", 9:"home", 10:"car", 11:"family", 12:"health", 13:"abundance", 14:"boost", 15:"blocks" };
+// strip / final list order
+const ALL_KEYS = ["mult","future","faith","home","car","family","health","abundance","boost","blocks"];
+const FINAL_ORDER = ["future","faith","home","car","family","health","abundance","boost","blocks","mult"];
+
+/* ============ STATE ============ */
+let current = 0;
+let userName = "";
+let balanceValue = 0;
+const answers = [];
+const unlocked = [];
+
+/* ============ SEED CHECKOUT LINKS — KashPay hosted checkout URLs ============ */
+/* Teste Stripe-direto encerrado 21/08 — ver comentário em offer.html */
+/* Trocado 22/08 — checkout em pay.mycheckoutt.com; links antigos no comentário do offer.html */
+/* Trocado 20/09 — checkouts novos da MundPay, com ?ref=. Os anteriores, se
+   precisar reverter: 27 019f1a92-bbf1-718a-96d0-b106a67f0a93 ·
+   47 019ff874-098b-72ba-a15b-77a6e0fa1125 · 77 01a0011b-25da-70ee-bd03-8af7f4daa053
+   · 87 01a00116-190f-72f9-852d-127a912838ab */
+/* Trocado 23/09 — checkout KashPay + Whop, na HORIZON ACCESS LLC. Os links
+   MundPay, se precisar reverter: 27 01a0b60f-be8b-7350-8387-505613ea5736 ·
+   47 01a0b614-df51-7092-b38c-cb863e3b55d0 · 77 01a0b617-7511-7331-a0f9-670e992b6f89
+   · 87 01a0b619-7a9f-7214-bfa7-7eaeafcaf031 (todos em pay.mycheckoutt.com, com ?ref= vazio).
+   O Legacy voltou de $87 para $100 na mesma troca. */
+/* mymichaelguide.com vai para os checkouts da estrutura nova (produto próprio, só o pixel 1909212763764731);
+   planfaith.com segue nos checkouts de sempre. */
+const seedLinks = /(^|\.)mymichaelguide\.com$/i.test(location.hostname) ? {
+  "27":  "https://pay.company-horizon.shop/checkout/checkout-1792528520585",
+  "47":  "https://pay.company-horizon.shop/checkout/checkout-1792528595140",
+  "77":  "https://pay.company-horizon.shop/checkout/checkout-1792528636915",
+  "100": "https://pay.company-horizon.shop/checkout/checkout-1792528665876",
+} : {
+  "27":  "https://pay.company-horizon.shop/checkout/checkout-1790133568803",
+  "47":  "https://pay.company-horizon.shop/checkout/checkout-1790133641240",
+  "77":  "https://pay.company-horizon.shop/checkout/checkout-1790133699961",
+  "100": "https://pay.company-horizon.shop/checkout/checkout-1790133759908",
+};
+/* ============ WINNERS (temporarily disabled for MundPay approval) ============ */
+const winners = [];
+
+/* each Seed option is an image button */
+const seedImgs = {
+  "27": "sedd-of-fath-27.jpg",
+  "47": "seed-of-faith47.jpg",
+  "77": "seed-of-fath-77.jpg",
+  /* file still named …-100.jpg — the Legacy price changed to $87, the art didn't */
+  "100": "seed-of-faith-100.jpg",
+};
+
+/* The VSL is hosted by VTurb and lives on the sales page (/offer).
+   There is no per-user avatar video any more — everyone sees the same master. */
+
+/* ============ HELPERS ============ */
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el = $(id);
+  el.classList.add('active');
+  // on mobile the page can't scroll (app shell) — reset the screen's own scroller
+  const w = el.querySelector('.wrap');
+  if(w) w.scrollTop = 0;
+  window.scrollTo(0,0);
+}
+const isAppShell = ()=> window.matchMedia('(max-width:760px)').matches;
+
+/* Mobile keyboard. The shell never scrolls, so the browser can't push a focused
+   field above the keyboard by itself: while the field has focus we size the
+   shell to the visible area and bring its button into view. */
+function fitAboveKeyboard(input, btn){
+  const vv = window.visualViewport, root = document.documentElement;
+  if(!vv) return;
+  const fit = ()=>{
+    root.style.setProperty('--vvh', vv.height + 'px');
+    btn.scrollIntoView({block:'nearest'});
+    window.scrollTo(0,0);
+  };
+  input.addEventListener('focus', ()=>{
+    if(!isAppShell()) return;
+    root.classList.add('kb-open');
+    fit();
+    vv.addEventListener('resize', fit);
+  });
+  input.addEventListener('blur', ()=>{
+    vv.removeEventListener('resize', fit);
+    root.classList.remove('kb-open');
+    root.style.removeProperty('--vvh');
+    window.scrollTo(0,0);
+  });
+  // tapping the button must not blur the field first: the header would come
+  // back mid-tap, push the button down, and the tap would miss it
+  btn.addEventListener('mousedown', e=> e.preventDefault());
+}
+function personalize(t){ return t.replaceAll("[NAME]", userName || "friend"); }
+function fmt(n){ return "$" + Number(n).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+function renderHeader(){
+  $('hello').textContent = "Hello, " + userName + " — your journey has begun...";
+  $('balValue').textContent = fmt(balanceValue);
+  const pct = Math.round(((current+1)/questions.length)*100);
+  $('energyPct').textContent = pct + "%";
+  $('energyFill').style.width = pct + "%";
+  // achievements strip
+  const strip = $('strip');
+  if(unlocked.length === 0){ strip.style.display = "none"; strip.innerHTML=""; return; }
+  strip.style.display = "flex";
+  strip.innerHTML = unlocked.map(k=>
+    '<div class="thumb" title="'+ACH[k].name+'"><img src="'+ACH[k].img+'" alt="'+ACH[k].name+'"></div>'
+  ).join('');
+}
+
+function updateProgress(){
+  $('progressBar').style.width = (current/questions.length*100) + "%";
+}
+
+/* ============ QUESTION RENDER ============ */
+function renderQuestion(){
+  const q = questions[current];
+  renderHeader();
+  updateProgress();
+  $('qtag').textContent = tagFor(current);
+  $('qtext').textContent = personalize(q.text);
+  const body = $('qbody'); body.innerHTML = "";
+
+  if(q.type === "number"){
+    const input = document.createElement('input');
+    input.type = "number"; input.className = "money-input"; input.placeholder = q.placeholder; input.id = "numInput";
+    const btn = document.createElement('button');
+    btn.className = "cta"; btn.textContent = "Continue";
+    btn.onclick = ()=>{
+      if(input.value === ""){ input.focus(); return; }
+      const v = parseFloat(input.value) || 0;
+      answers[current] = v;
+      balanceValue = v * 101; // original + 100x
+      input.blur();   // close the keyboard before the unlock modal opens
+      afterAnswer();
+    };
+    body.appendChild(input); body.appendChild(btn);
+    fitAboveKeyboard(input, btn);
+    // don't auto-open the keyboard on mobile — it covers the screen we just fitted
+    if(!isAppShell()) input.focus();
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); btn.click(); } });
+  } else {
+    const w = document.createElement('div'); w.className = "options";
+    q.options.forEach(opt=>{
+      const b = document.createElement('button'); b.className = "opt"; b.textContent = opt;
+      b.onclick = ()=>{ answers[current] = opt; afterAnswer(); };
+      w.appendChild(b);
+    });
+    body.appendChild(w);
+  }
+  // every question starts at the top of its own scroller, never mid-scroll
+  body.scrollTop = 0;
+  const wrap = $('questionScreen').querySelector('.wrap');
+  if(wrap) wrap.scrollTop = 0;
+}
+
+/* ============ FLOW AFTER AN ANSWER ============ */
+function afterAnswer(){
+  // track quiz progress (where people drop off) — browser only
+  const key = unlockAfter[current];
+  if(key){
+    showUnlock(key, ()=>{ advance(); });
+  } else {
+    advance();
+  }
+}
+function advance(){
+  current++;
+  if(current >= questions.length){ startLoading(); }
+  else { renderQuestion(); }
+}
+
+/* ============ UNLOCK MODAL ============ */
+function openOverlay(html){
+  if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  $('modalcard').innerHTML = html; $('overlay').classList.add('active');
+}
+function closeOverlay(){ $('overlay').classList.remove('active'); }
+
+function showUnlock(key, done){
+  const a = ACH[key];
+  let html;
+  if(key === "mult"){
+    html = `
+      <div class="modaltop">✓ &nbsp;UNLOCKED! &nbsp;✦</div>
+      <div class="achimg"><img src="${a.img}" alt="${a.name}"></div>
+      <div class="achname">${a.name}</div>
+      <div class="achsub">${userName}, today I'm adding 100x more to your account — do you believe?</div>
+      <div class="balbox">New Balance: ${fmt(balanceValue)}</div>
+      <button class="cta" id="modalBtn">${a.btn}</button>`;
+  } else {
+    html = `
+      <div class="modaltop">✓ &nbsp;UNLOCKED! &nbsp;✦</div>
+      <div class="achimg"><img src="${a.img}" alt="${a.name}"></div>
+      <div class="achname">${a.name}</div>
+      <div class="achsub">${a.sub}</div>
+      <button class="cta" id="modalBtn">${a.btn}</button>`;
+  }
+  openOverlay(html);
+  $('modalBtn').onclick = ()=>{
+    if(!unlocked.includes(key)) unlocked.push(key);
+    if(key === "abundance"){ showMoneyBox(done); }
+    else { closeOverlay(); done(); }
+  };
+}
+
+function showMoneyBox(done){
+  const html = `
+    <div class="modaltop">💰 &nbsp;Money</div>
+    <div class="achname" style="font-size:32px;">${userName}</div>
+    <div class="achsub">Your manifestation potential depends on your choice. Think big to manifest big things — you are the size of your courage.</div>
+    <button class="cta" id="modalBtn">Continue Journey</button>`;
+  openOverlay(html);
+  $('modalBtn').onclick = ()=>{ closeOverlay(); done(); };
+}
+
+/* ============ LOADING SCREEN ============ */
+function startLoading(){
+  // finished all questions
+  $('progressBar').style.width = "100%";
+  $('loadTitle').textContent = userName + ", your Divine Manifestation Script is being created...";
+  $('loadFoot').textContent = '"We\'re preparing your Divine Manifestation Script, based on everything you\'ve told us, ' + userName + '..."';
+  $('loadPortals').innerHTML = FINAL_ORDER.map(k=>'<div class="portal"><img class="portal-img" src="'+ACH[k].img+'" alt="">'+ACH[k].name+'</div>').join('');
+  show('loading');
+
+  const stages = [
+    [0,  "Starting transformation..."],
+    [22, "Reading the desires of your heart..."],
+    [45, "Aligning your energy with the divine..."],
+    [68, "Breaking spiritual blocks..."],
+    [85, "Writing your Sacred Script, word by word..."],
+    [97, "Finalizing your manifestation..."],
+  ];
+  let pct = 0;
+  const fill = $('loadFill'), pctEl = $('loadPct'), statusEl = $('loadStatus');
+
+  // nothing to wait for any more — the VSL is served by VTurb on the next page
+  const timer = setInterval(()=>{
+    pct += Math.random()*3 + 1;
+    if(pct >= 100){ pct = 100; }
+    for(let i=stages.length-1;i>=0;i--){ if(pct >= stages[i][0]){ statusEl.textContent = stages[i][1]; break; } }
+    fill.style.width = pct + "%";
+    pctEl.textContent = Math.floor(pct) + "%";
+    if(pct >= 100){
+      clearInterval(timer);
+      statusEl.textContent = "Your Divine Manifestation Script is ready ✦";
+      setTimeout(gotoOffer, 1100);
+    }
+  }, 140);
+}
+
+/* ============ HAND OFF TO THE SALES PAGE ============ */
+function gotoOffer(){
+  try {
+    sessionStorage.setItem('planfaith_offer', JSON.stringify({
+      fromQuiz: true,
+      name: userName
+    }));
+  } catch(e){}
+  // keep the UTMs on the URL across the hand-off, not just in localStorage
+  window.location.href = '/offer' + window.location.search;
+}
+
+/* ============ OFFER PAGE (legacy inline builder — kept for reference) ============ */
+function todayString(){ return new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
+
+function winnersHTML(){
+  if(!winners.length) return "";
+  const cells = winners.map(w =>
+    '<div class="winner"><img src="'+w.img+'" alt="'+w.name+'" onerror="this.style.opacity=.15"><div class="wname">'+w.name+'</div></div>'
+  ).join('');
+  return '<h2>🏆 Recent Winners</h2><div class="winners">'+cells+'</div>';
+}
+function offerFooterHTML(){
+  return `
+    <footer class="site-footer">
+      <div class="foot-links">
+        <a href="/terms">Terms of Use</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/refund">Refund Policy</a>
+        <a href="/support">Support</a>
+      </div>
+      <div class="foot-legal">
+        HORIZON ACCESS LLC &middot; 8200 NW 41st Street, 2nd Floor, Doral, FL 33166, USA<br>
+        Support: <a href="mailto:support@company-horizon.shop">support@company-horizon.shop</a> &middot; Digital product delivered by email after purchase.
+      </div>
+      <div class="foot-disc">Educational and inspirational content. Results vary from person to person. This is not financial, medical, or professional advice.</div>
+    </footer>`;
+}
+function seedsMarkup(){
+  const amts = ["27","47","77","100"];
+  return amts.map(a =>
+    '<div class="seed-block">'+
+      /* "checkout-btn": classe usada pela UTMify para disparar o InitiateCheckout
+         (o campo CSS dela usa classList.contains, então é nome de classe). */
+      '<button class="seed seed-card checkout-btn" data-amt="'+a+'"><img src="'+seedImgs[a]+'" alt="Seed of Faith $'+a+'"></button>'+
+      '<button class="seed seed-cta checkout-btn" data-amt="'+a+'">This is the life I choose – $'+a+'</button>'+
+    '</div>'
+  ).join('');
+}
+function wireSeeds(){
+  $('offer').querySelectorAll('.seed').forEach(btn=>{
+    btn.onclick = ()=>{
+      const amt = btn.getAttribute('data-amt');
+      const link = seedLinks[amt];
+      if(link && link !== "#"){ window.location.href = link; }
+      else { alert("Checkout link for $"+amt+" not set yet (edit seedLinks in the code)."); }
+    };
+  });
+}
+
+function buildOffer(){
+
+  const N = userName.toUpperCase();
+  const portalsHTML = FINAL_ORDER.map(k=>'<div class="portal"><img class="portal-img" src="'+ACH[k].img+'" alt="">'+ACH[k].name+'</div>').join('');
+  const seedsHTML = seedsMarkup();
+
+  $('offer').innerHTML = `
+    <h1>${N}, you've made it this far… and that's no accident.</h1>
+    <p>Today is <b>${todayString()}</b> – the first day of your new reality.</p>
+    <h2>🏆 Your Unlocked Prosperity Portals:</h2>
+    <div class="portals">${portalsHTML}</div>
+    <p>You went through every step…</p>
+    <p>👉 Reflected on your life…</p>
+    <p>👉 Faced your inner blocks…</p>
+    <p>👉 Visualized your dreams…</p>
+    <p>👉 And unlocked breakthroughs that showed… a new life is possible.</p>
+    <p>Now… you're standing before a decision.</p>
+    <p>And just like Joseph, Abraham, and Job…</p>
+    <p><b>Maybe this... Is your moment of being tested.</b></p>
+    <div class="divider"></div>
+    <h2>📖 Remember…</h2>
+    <p>👉 Joseph went through prison… before reaching the palace.</p>
+    <p>👉 Abraham had to trust… even without understanding.</p>
+    <p>👉 Job lost everything… before receiving double.</p>
+    <p>And now… you're also being called… to choose.</p>
+    <div class="divider"></div>
+    <h2>Remember What Happened to Jamie Heavens?</h2>
+    <p>He's living proof that God uses even the smallest details to change a life…</p>
+    <p>Jamie Heavens was a simple carpenter in England.</p>
+    <p>👉 Every day… the same routine…</p>
+    <p>👉 The same paycheck that barely covered the bills…</p>
+    <p>👉 The same challenges… over and over.</p>
+    <p>But one ordinary day in 2018… Something seemingly insignificant happened…</p>
+    <p>👉 He went to the convenience store near the job site…</p>
+    <p>👉 Like he did every day… grabbed his usual drink…</p>
+    <p>👉 But… distracted… he accidentally grabbed the wrong one.</p>
+    <p>👉 At checkout, the cashier said:</p>
+    <div class="quote">"Today… with this drink… you get a free lottery scratch card."</div>
+    <p>👉 Jamie almost declined… 👉 But on impulse… took the scratch card…</p>
+    <p>And with the same carelessness with which he picked the wrong drink… Scratched the ticket…</p>
+    <p>In less than 30 seconds… <b>👉 1 million pounds.</b></p>
+    <p>No planning. No expectation. No idea… That this "small mistake" was part of something much bigger.</p>
+    <p>And do you know what Jamie said in the interview right after?</p>
+    <div class="quote">"It felt like God organized everything… I didn't even want that drink… but when it's your time… God finds a way."</div>
+    <p>And today… ${N}… <b>👉 It's your time.</b></p>
+    <p>The proof? 👉 Is that you're reading these exact words… right now.</p>
+    <div class="divider"></div>
+    <h2>What Has Been Prepared Especially For You…</h2>
+    <p>${N}… After everything you answered… After every choice you made…</p>
+    <p>And after each of the pains and dreams you shared with us… <b>Something VERY special was created for you.</b></p>
+    <p>And it's not just anything… Not just a prayer… Not just a beautiful motivational text…</p>
+    <p>And definitely not another generic internet message…</p>
+    <p>What's being released for you right now… <b>Is a Sacred Script.</b></p>
+    <p>👉 A true Divine Manifestation Script… Written… Word by word… Comma by comma… Every line… every sentence…</p>
+    <p>👉 Totally inspired by the answers you gave us…</p>
+    <p>👉 Aligned with your biggest struggles…</p>
+    <p>👉 And also… with the deepest dreams you carry in your heart…</p>
+    <p>Yes… today… Heaven literally opened over your life.</p>
+    <p>God… The Universe… And all the Spiritual Energy that brought you here… Came together… To deliver to you… Exactly what you need right now…</p>
+    <p>👉 A call to finally break the blocks…</p>
+    <p>👉 A spiritual command to open the paths…</p>
+    <p>👉 A release from everything that's been holding you back…</p>
+    <p>${N}… Today… is the day when the cycle of scarcity ends…</p>
+    <p><b>And the cycle of prosperity… abundance… and manifestation begins!</b></p>
+    <p>👉 And this Manifestation Script is not a pre-written text. 👉 It's not something we give to everyone.</p>
+    <p>It's being WRITTEN now… 👉 Just for you. 👉 Based on YOU. 👉 Designed for YOUR life.</p>
+    <p>This… is your chance. 👉 Your answer. 👉 Your sign. 👉 Your open door.</p>
+    <p>And now… all that's left… is your decision.</p>
+    <div class="divider"></div>
+    <p>${N}… before you make your choice… Let me tell you something few people know…</p>
+    <p>This site you're accessing right now… Is not simple… nor cheap to maintain.</p>
+    <p>Behind this page… there's an entire team working day and night…</p>
+    <p>People who pray… People who care that every word… Every line… Every personalized Script… Is delivered with the utmost spiritual responsibility.</p>
+    <p>After all… we're not just dealing with technology… 👉 We're dealing with lives.</p>
+    <p>👉 We're dealing with cries for help… With people… just like you…</p>
+    <p>👉 Who've gone through the same blocks… The same pain… The same sleepless nights…</p>
+    <p>👉 And who… just like you… reached this point… asking for an answer.</p>
+    <div class="stat">👥 People online today:<br>Over 1,100 visitors</div>
+    <div class="stat">💻 Daily cost:<br>Over 1,177 euros per day</div>
+    <p>👉 Our team works day and night… so people like you can have access to this opportunity.</p>
+    <p>But… ${N}… since the beginning… we made a decision:</p>
+    <p>We NEVER… under any circumstance… want money to be a barrier for someone to experience their breakthrough.</p>
+    <p><b>That's why… WE DO NOT CHARGE ANYTHING FOR WHAT WE DO.</b></p>
+    <p>👉 You don't have to pay anything for this.</p>
+    <p>👉 What you'll do now… is a step of faith… A symbolic gesture… A spiritual decision…</p>
+    <p>👉 A Seed of Faith… that you plant… to determine the size of your harvest.</p>
+    <div class="quote">"I am ready… and I choose to live the best that the Lord has for me."</div>
+    <p>So now… the decision… Is entirely in your hands.</p>
+    <p>But… let's be clear: This is not for everyone. Not everyone is ready to live the extraordinary.</p>
+    <p>👉 The life you have today… is the result of the choices you've made so far.</p>
+    <p>👉 And the life you'll live tomorrow… will be the result of the choice you make right now.</p>
+    <p>So… ${N}… <b>👉 Which life do you choose?</b></p>
+    <div class="divider"></div>
+    <p>Remember Abraham? 👉 Tested until the last second… before provision appeared.</p>
+    <p>Remember Joseph? 👉 Spent years in prison… before leading an entire nation.</p>
+    <p>Remember Job? 👉 Lost everything… before receiving double.</p>
+    <p>Now… ${N}… it's your turn. This is your test. This is your moment.</p>
+    <div class="divider"></div>
+    <h2>Important for you to know:</h2>
+    <p>${N}… 👉 This page… 👉 This opportunity… 👉 And your Divine Manifestation Script… Are available only now.</p>
+    <p>👉 Everything we prepared until this point… was based on your answers.</p>
+    <p>👉 There is no replay… 👉 No way to go back later.</p>
+    <p><b>👉 The size of your faith… will determine the size of your harvest.</b></p>
+    <p>No matter which seed you choose… Your Divine Manifestation Script will be created and delivered directly to your email.</p>
+    <p>${N}… 👉 Now… it's up to you. 👉 Your decision… your faith… your harvest.</p>
+    <p>👉 All of Heaven is watching the choice you're about to make… right now.</p>
+    <p>👇 Click… choose your seed… 👉 Unlock your Divine Manifestation Script</p>
+    <h2>${N}, Make your choice now!</h2>
+    <div class="seeds">${seedsHTML}</div>
+    ${offerFooterHTML()}
+  `;
+  $('offer').querySelectorAll('.seed').forEach(btn=>{
+    btn.onclick = ()=>{
+      const amt = btn.getAttribute('data-amt');
+      const link = seedLinks[amt];
+      if(link && link !== "#"){ window.location.href = link; }
+      else { alert("Checkout link for $"+amt+" not set yet (edit seedLinks in the code)."); }
+    };
+  });
+  show('finalScreen');
+}
+
+/* ============ START ============ */
+$('startBtn').onclick = ()=>{
+  const v = $('nameInput').value.trim();
+  if(v === ""){ $('nameInput').focus(); return; }
+  userName = v;
+  $('nameInput').blur();   // close the keyboard before leaving the screen
+  $('affName').textContent = userName + ", before we continue...";
+  show('affirmation');
+};
+$('nameInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); $('startBtn').click(); } });
+fitAboveKeyboard($('nameInput'), $('startBtn'));
+
+$('affBtn').onclick = ()=>{ current = 0; show('questionScreen'); renderQuestion(); };
+
+$('logoImg').onerror = function(){ this.style.display='none'; };
+</script>
+<script>
+/* Detector de clones: avisa o app (app.planfaith.com/api/px) de que esta página
+   foi aberta. Se alguém copiar a página para outro domínio, o navegador do
+   visitante informa o domínio real e ele aparece no painel de admin. Dispara 3s
+   depois do carregamento, com sendBeacon (não espera resposta): não afeta a
+   velocidade nem a experiência. */
+(function(){function s(){try{navigator.sendBeacon&&navigator.sendBeacon('https://app.planfaith.com/api/px',location.pathname)}catch(e){}}
+if(document.readyState==='complete')setTimeout(s,3000);else addEventListener('load',function(){setTimeout(s,3000)});})();
+</script>
+
+
+</body></html>
