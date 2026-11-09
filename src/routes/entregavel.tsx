@@ -5,26 +5,32 @@ export const Route = createFileRoute("/entregavel")({
   component: EntregavelView,
   head: () => ({
     meta: [
-      { title: "Entregável - Bible App" },
+      { title: "Entregável | Plan Faith Sanctuary" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      {
+        name: "description",
+        content:
+          "Access your Faith & Abundance materials, prayer audios, and daily declarations.",
+      },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
 });
 
 function EntregavelView() {
-  const [iframeSrc, setIframeSrc] = useState("/entregavel.html");
+  const [iframeSrc, setIframeSrc] = useState("/faith-app.html");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setIframeSrc(`/entregavel.html${window.location.search}`);
+      setIframeSrc(`/faith-app.html${window.location.search}`);
     }
   }, []);
 
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-[#0b0b0c]">
+    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-[#0a0a0a]">
       <iframe
         src={iframeSrc}
-        title="Entregável Bible App"
+        title="My Faith Sanctuary - Members Area"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen"
       />

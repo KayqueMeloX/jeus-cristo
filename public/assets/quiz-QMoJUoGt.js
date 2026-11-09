@@ -1,0 +1,1 @@
+import{a as e}from"./index-BB_eJykV.js";import{n as t,t as n}from"./SafeBoundary-CzVXlmKQ.js";var r=e();function i(){return(0,r.jsx)(n,{name:`FaithQuiz-QuizPage`,children:(0,r.jsx)(t,{})})}export{i as component};

@@ -18,6 +18,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as EntregavelRouteImport } from './routes/entregavel'
 import { Route as MembrosRouteImport } from './routes/membros'
+import { Route as FaithAppRouteImport } from './routes/faith-app'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,12 @@ const EntregavelRoute = EntregavelRouteImport.update({
 const MembrosRoute = MembrosRouteImport.update({
   id: '/membros',
   path: '/membros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const FaithAppRoute = FaithAppRouteImport.update({
+  id: '/faith-app',
+  path: '/faith-app',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -192,6 +199,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MembrosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faith-app': {
+      id: '/faith-app'
+      path: '/faith-app'
+      fullPath: '/faith-app'
+      preLoaderRoute: typeof FaithAppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -205,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRoute,
   EntregavelRoute: EntregavelRoute,
   MembrosRoute: MembrosRoute,
+  FaithAppRoute: FaithAppRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
