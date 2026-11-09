@@ -116,6 +116,21 @@ function RootShell({ children }: { children: ReactNode }) {
               'https://connect.facebook.net/en_US/fbevents.js');
               fbq('init', '${META_PIXEL_ID}');
               fbq('track', 'PageView');
+              (function(){
+                var _orig = window.fbq;
+                var allowed = '';
+                window.fbq = function(){
+                  if(arguments[0] === 'init' && arguments[1] !== allowed){
+                    return;
+                  }
+                  return _orig.apply(this, arguments);
+                };
+                for(var p in _orig){
+                  if(Object.prototype.hasOwnProperty.call(_orig, p)){
+                    window.fbq[p] = _orig[p];
+                  }
+                }
+              })();
             `,
           }}
         />
