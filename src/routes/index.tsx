@@ -12,11 +12,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [iframeSrc, setIframeSrc] = useState("/index.html");
+  const [iframeSrc, setIframeSrc] = useState("/funnel.html");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setIframeSrc(`/index.html${window.location.search}`);
+      setIframeSrc(`/funnel.html${window.location.search}`);
     }
   }, []);
 
