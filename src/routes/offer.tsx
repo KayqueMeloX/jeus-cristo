@@ -26,7 +26,7 @@ function Offer() {
         src={iframeSrc}
         title="Plan Faith Offer"
         className="h-full w-full border-none"
-        allow="autoplay; fullscreen"
+        allow="autoplay; fullscreen; payment"
       />
     </div>
   );

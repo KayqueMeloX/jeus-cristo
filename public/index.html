@@ -655,7 +655,14 @@ function startLoading(){
 }
 function gotoOffer(){
   try{ sessionStorage.setItem('planfaith_offer', JSON.stringify({ fromQuiz:true, name:userName })); }catch(e){}
-  window.location.href = '/offer' + window.location.search;
+  var target = '/offer' + window.location.search;
+  try {
+    if (window.top && window.top !== window) {
+      window.top.location.href = target;
+      return;
+    }
+  } catch(e) {}
+  window.location.href = target;
 }
 
 /* ---------- início ---------- */

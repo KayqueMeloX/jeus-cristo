@@ -827,24 +827,36 @@ function seedsMarkup(){
   const amts = ["27","47","77","100"];
   return amts.map(a =>
     '<div class="seed-block">'+
-      /* "checkout-btn": classe usada pela UTMify para disparar o InitiateCheckout
-         (o campo CSS dela usa classList.contains, então é nome de classe). */
-      '<button class="seed seed-card checkout-btn" data-amt="'+a+'"><img src="'+seedImgs[a]+'" alt="Seed of Faith $'+a+'"></button>'+
-      '<button class="seed seed-cta checkout-btn" data-amt="'+a+'">This is the life I choose – $'+a+'</button>'+
+      '<a href="'+seedLinks[a]+'" target="_top" class="seed seed-card checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;"><img src="'+seedImgs[a]+'" alt="Seed of Faith $'+a+'"></a>'+
+      '<a href="'+seedLinks[a]+'" target="_top" class="seed seed-cta checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">This is the life I choose - $'+a+'</a>'+
     '</div>'
   ).join('');
 }
 function wireSeeds(){
   $('offer').querySelectorAll('.seed').forEach(btn=>{
-    btn.onclick = ()=>{
+    btn.onclick = (e)=>{
       const amt = btn.getAttribute('data-amt');
-      const link = seedLinks[amt];
-      if(link && link !== "#"){ window.location.href = link; }
-      else { alert("Checkout link for $"+amt+" not set yet (edit seedLinks in the code)."); }
+      const rawLink = seedLinks[amt];
+      if(!rawLink || rawLink === "#"){
+        alert("Checkout link for $"+amt+" not set yet.");
+        return false;
+      }
+      if (e && e.preventDefault) e.preventDefault();
+      const link = (typeof pfWithTracking === 'function') ? pfWithTracking(rawLink) : rawLink;
+      if (typeof fbq === 'function') {
+        try { fbq('track', 'InitiateCheckout', { value: Number(amt), currency: 'USD' }); } catch(err) {}
+      }
+      try {
+        if (window.top && window.top !== window) {
+          window.top.location.href = link;
+          return false;
+        }
+      } catch(err) {}
+      window.location.href = link;
+      return false;
     };
   });
 }
-
 function buildOffer(){
 
   const N = userName.toUpperCase();
