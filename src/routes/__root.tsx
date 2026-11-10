@@ -117,20 +117,29 @@ function RootShell({ children }: { children: ReactNode }) {
               fbq('init', '${META_PIXEL_ID}');
               fbq('track', 'PageView');
               (function(){
-                var _orig = window.fbq;
-                var allowed = '';
-                window.fbq = function(){
-                  if(arguments[0] === 'init' && arguments[1] !== allowed){
-                    return;
-                  }
-                  return _orig.apply(this, arguments);
-                };
-                for(var p in _orig){
-                  if(Object.prototype.hasOwnProperty.call(_orig, p)){
-                    window.fbq[p] = _orig[p];
-                  }
-                }
-              })();
+  var _orig = window.fbq;
+  var allowed = '29015918781408333';
+  window.fbq = function(){
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i < args.length; i++) {
+      if (String(args[i]).indexOf('1328178869180593') !== -1) {
+        return;
+      }
+    }
+    if (args[0] === 'init' && args[1] !== allowed) {
+      return;
+    }
+    if ((args[0] === 'trackSingle' || args[0] === 'trackSingleCustom') && args[1] !== allowed) {
+      return;
+    }
+    return _orig.apply(this, args);
+  };
+  for(var p in _orig){
+    if(Object.prototype.hasOwnProperty.call(_orig, p)){
+      window.fbq[p] = _orig[p];
+    }
+  }
+})();
             `,
           }}
         />

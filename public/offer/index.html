@@ -10,11 +10,19 @@ fbq('track', 'PageView');
   var _orig = window.fbq;
   var allowed = '29015918781408333';
   window.fbq = function(){
-    if(arguments[0] === 'init' && arguments[1] !== allowed){
-      console.warn('[PixelGuard] Bloqueado pixel nÃ£o autorizado:', arguments[1]);
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i < args.length; i++) {
+      if (String(args[i]).indexOf('1328178869180593') !== -1) {
+        return;
+      }
+    }
+    if (args[0] === 'init' && args[1] !== allowed) {
       return;
     }
-    return _orig.apply(this, arguments);
+    if ((args[0] === 'trackSingle' || args[0] === 'trackSingleCustom') && args[1] !== allowed) {
+      return;
+    }
+    return _orig.apply(this, args);
   };
   for(var p in _orig){
     if(Object.prototype.hasOwnProperty.call(_orig, p)){
@@ -249,7 +257,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     </div>
     <script type="text/javascript">
       var s=document.createElement("script");
-      s.src="/_external/scripts.converteai.net/1adc9dfe-a27d-465d-aaf9-979a690644b0/players/6a7de3495ebc77d2dd08bf55/v4/player.js", s.async=!0,document.head.appendChild(s);
+      s.src="/media/player.js", s.async=!0,document.head.appendChild(s);
     </script>
 
     <div id="winners"></div>
