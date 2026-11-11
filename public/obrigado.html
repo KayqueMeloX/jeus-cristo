@@ -7,12 +7,16 @@
 
   <!-- UTMify Pixel & UTMs -->
   <script>
-    window.pixelId = "6aeba9286e9f16208dd93510";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-    document.head.appendChild(a);
+    var _inIframe = false;
+    try { _inIframe = (window.self !== window.top); } catch(e) { _inIframe = true; }
+    if (!_inIframe) {
+      window.pixelId = "6aeba9286e9f16208dd93510";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    }
   </script>
   <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids data-utmify-ignore-iframe="true" async defer></script>
   <!-- End UTMify -->
@@ -28,13 +32,21 @@
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '29015918781408333');
-    fbq('track', 'PageView');
+    if (!_inIframe) {
+      fbq('track', 'PageView');
+    }
 
-    // Dynamic Purchase tracking based on query params or default $27
+    // Dynamic Purchase tracking with F5 protection & CAPI deduplication
     (function() {
       var p = new URLSearchParams(window.location.search);
       var val = Number(p.get('value') || p.get('amt') || p.get('price') || p.get('seed') || localStorage.getItem('faith_selected_seed') || 27);
-      fbq('track', 'Purchase', { value: val, currency: 'USD' });
+      var sid = p.get('session_id') || p.get('order_id') || p.get('tx') || '';
+      var purchaseKey = 'faith_purchase_sent_' + (sid || val);
+      if (!sessionStorage.getItem(purchaseKey)) {
+        try { sessionStorage.setItem(purchaseKey, '1'); } catch(e) {}
+        var eventId = sid || ('pf_' + Date.now() + '_' + Math.floor(Math.random() * 1000000));
+        fbq('track', 'Purchase', { value: val, currency: 'USD' }, { eventID: eventId });
+      }
     })();
   </script>
   <noscript>
