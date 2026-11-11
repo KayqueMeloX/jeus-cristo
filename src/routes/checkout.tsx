@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const STRIPE_LINKS: Record<string, string> = {
@@ -50,6 +50,36 @@ function CheckoutSlug() {
         }
       } catch (e) {}
 
+      // Track UTMify InitiateCheckout
+      try {
+        const utmifyPayload = {
+          type: "InitiateCheckout",
+          lead: {
+            pixelId: "6aeba9286e9f16208dd93510",
+            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+          },
+          event: {
+            sourceUrl: typeof window !== "undefined" ? window.location.href : "https://godjesus.lovable.app/checkout",
+            pageTitle: "Secure Checkout",
+          },
+          eventId: "ic_" + Math.random().toString(36).substring(2, 14),
+          detectedBy: "checkout_page",
+        };
+        if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+          navigator.sendBeacon(
+            "https://tracking.utmify.com.br/tracking/v1/events",
+            new Blob([JSON.stringify(utmifyPayload)], { type: "application/json" })
+          );
+        } else if (typeof fetch === "function") {
+          fetch("https://tracking.utmify.com.br/tracking/v1/events", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(utmifyPayload),
+            keepalive: true,
+          }).catch(() => {});
+        }
+      } catch (e) {}
+
       // Direct navigation to Stripe (escapes all iframes, no-referrer strips origin)
       const doRedirect = () => {
         try {
@@ -83,7 +113,7 @@ function CheckoutSlug() {
         <a
           href={targetUrl}
           target="_top"
-          className="inline-block w-full bg-[#f3c34e] hover:bg-[#e0a91d] text-[#121008] font-bold text-base py-3 px-5 rounded-xl shadow-lg transition-colors"
+          className="checkout-btn go-to-checkout inline-block w-full bg-[#f3c34e] hover:bg-[#e0a91d] text-[#121008] font-bold text-base py-3 px-5 rounded-xl shadow-lg transition-colors"
         >
           Proceed to Checkout &rarr;
         </a>

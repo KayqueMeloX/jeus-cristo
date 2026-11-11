@@ -123,6 +123,36 @@ export function OfferPage() {
       }
     } catch (err) {}
 
+    // Track UTMify InitiateCheckout
+    try {
+      const utmifyPayload = {
+        type: "InitiateCheckout",
+        lead: {
+          pixelId: "6aeba9286e9f16208dd93510",
+          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+        },
+        event: {
+          sourceUrl: typeof window !== "undefined" ? window.location.href : "https://godjesus.lovable.app/offer",
+          pageTitle: typeof document !== "undefined" ? document.title : "Special Sacred Offer",
+        },
+        eventId: "ic_" + Math.random().toString(36).substring(2, 14),
+        detectedBy: "button_click",
+      };
+      if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+        navigator.sendBeacon(
+          "https://tracking.utmify.com.br/tracking/v1/events",
+          new Blob([JSON.stringify(utmifyPayload)], { type: "application/json" })
+        );
+      } else if (typeof fetch === "function") {
+        fetch("https://tracking.utmify.com.br/tracking/v1/events", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(utmifyPayload),
+          keepalive: true,
+        }).catch(() => {});
+      }
+    } catch (e) {}
+
     const doRedirect = () => {
       if (typeof window !== "undefined") {
         try {
@@ -300,7 +330,8 @@ export function OfferPage() {
                 <a
                   href={`/checkout?seed=${s.amt}`}
                   onClick={(e) => openCheckout(s.amt, e)}
-                  className="block w-full cursor-pointer overflow-hidden rounded-[16px] border-[3px] border-[#f3c34e] shadow-none transition-transform hover:brightness-105 active:scale-[0.98]"
+                  data-checkout-url={STRIPE_LINKS[s.amt]}
+                  className="checkout-btn go-to-checkout block w-full cursor-pointer overflow-hidden rounded-[16px] border-[3px] border-[#f3c34e] shadow-none transition-transform hover:brightness-105 active:scale-[0.98]"
                 >
                   <img
                     src={s.img}
@@ -319,7 +350,8 @@ export function OfferPage() {
                 <a
                   href={`/checkout?seed=${s.amt}`}
                   onClick={(e) => openCheckout(s.amt, e)}
-                  className="block w-full cursor-pointer rounded-[16px] bg-gradient-to-b from-[#f7d873] to-[#e0a91d] py-4 px-3 text-center text-xl font-bold text-[#1a1206] shadow-[0_6px_0_#b8911f] transition-transform active:translate-y-[2px] active:shadow-[0_2px_0_#b8911f] sm:text-2xl"
+                  data-checkout-url={STRIPE_LINKS[s.amt]}
+                  className="checkout-btn go-to-checkout block w-full cursor-pointer rounded-[16px] bg-gradient-to-b from-[#f7d873] to-[#e0a91d] py-4 px-3 text-center text-xl font-bold text-[#1a1206] shadow-[0_6px_0_#b8911f] transition-transform active:translate-y-[2px] active:shadow-[0_2px_0_#b8911f] sm:text-2xl"
                   style={{ textDecoration: "none" }}
                 >
                   This is the life I choose — {s.label}

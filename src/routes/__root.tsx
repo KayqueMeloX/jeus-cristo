@@ -175,6 +175,26 @@ function RootShell({ children }: { children: ReactNode }) {
           }}
         />
 
+        {/* UTMify Pixel & UTMs */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.pixelId = "6aeba9286e9f16208dd93510";
+              var a = document.createElement("script");
+              a.setAttribute("async", "");
+              a.setAttribute("defer", "");
+              a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+              document.head.appendChild(a);
+            `,
+          }}
+        />
+        <script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-subids
+          async
+          defer
+        />
+
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{
