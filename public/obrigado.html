@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -212,7 +212,7 @@
       </div>
     </div>
 
-    <a id="loginBtn" href="/faith-app" class="btn-login">
+    <a id="loginBtn" href="/faith-app" target="_top" onclick="try{if(window.top&&window.top!==window){window.top.location.href='/faith-app'+window.location.search;return false;}}catch(e){}" class="btn-login">
       Access Members Area &amp; Log In &rarr;
     </a>
 
