@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en"><head>
 <!-- UTMify Pixel & UTMs -->
 <script>
   window.pixelId = "6aeba9286e9f16208dd93510";
@@ -417,6 +417,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   const seedImgs = { "27":"sedd-of-fath-27.jpg", "47":"seed-of-faith47.jpg", "77":"seed-of-fath-77.jpg", "100":"seed-of-faith-100.jpg" };
   function openCheckout(amt, e) {
     if (e && e.preventDefault) e.preventDefault();
+    try { localStorage.setItem('faith_selected_seed', String(amt)); } catch(e) {}
     var curSearch = window.location.search || '';
     try {
       if (window.top && window.top !== window && window.top.location.search) {

@@ -1,4 +1,4 @@
-﻿/* eslint-disable */
+/* eslint-disable */
 
 // @ts-nocheck
 
@@ -23,6 +23,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
+import { Route as EbookRouteImport } from './routes/ebook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -108,6 +109,12 @@ const FaithAppRoute = FaithAppRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 
+const EbookRoute = EbookRouteImport.update({
+  id: '/ebook',
+  path: '/ebook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/offer': typeof OfferRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/pay': typeof PayRoute
   '/thank-you': typeof ThankYouRoute
   '/obrigado': typeof ObrigadoRoute
+  '/ebook': typeof EbookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -137,6 +145,7 @@ export interface FileRoutesByTo {
   '/pay': typeof PayRoute
   '/thank-you': typeof ThankYouRoute
   '/obrigado': typeof ObrigadoRoute
+  '/ebook': typeof EbookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -153,6 +162,7 @@ export interface FileRoutesById {
   '/pay': typeof PayRoute
   '/thank-you': typeof ThankYouRoute
   '/obrigado': typeof ObrigadoRoute
+  '/ebook': typeof EbookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -264,6 +274,7 @@ const rootRouteChildren: RootRouteChildren = {
   PayRoute: PayRoute,
   ThankYouRoute: ThankYouRoute,
   ObrigadoRoute: ObrigadoRoute,
+  EbookRoute: EbookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

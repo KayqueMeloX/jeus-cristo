@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -14,7 +14,7 @@
     a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
     document.head.appendChild(a);
   </script>
-  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids async defer></script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids data-utmify-ignore-iframe="true" async defer></script>
   <!-- End UTMify -->
 
   <!-- Meta Pixel Code -->
@@ -33,7 +33,7 @@
     // Dynamic Purchase tracking based on query params or default $27
     (function() {
       var p = new URLSearchParams(window.location.search);
-      var val = Number(p.get('value') || p.get('amt') || p.get('price') || 27);
+      var val = Number(p.get('value') || p.get('amt') || p.get('price') || p.get('seed') || localStorage.getItem('faith_selected_seed') || 27);
       fbq('track', 'Purchase', { value: val, currency: 'USD' });
     })();
   </script>
@@ -61,25 +61,25 @@
     .container {
       max-width: 540px;
       width: 100%;
-      background: rgba(18, 14, 8, 0.92);
+      background: rgba(18, 14, 8, 0.94);
       border: 1px solid rgba(243, 195, 78, 0.35);
       border-radius: 24px;
-      padding: 40px 24px;
+      padding: 36px 22px;
       text-align: center;
       box-shadow: 0 0 50px rgba(243, 195, 78, 0.15), 0 20px 40px rgba(0,0,0,0.8);
       position: relative;
       overflow: hidden;
     }
     .check-icon {
-      width: 76px;
-      height: 76px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       background: linear-gradient(135deg, #c9a84c, #f3c34e);
       color: #1a1200;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin: 0 auto 16px;
       box-shadow: 0 0 35px rgba(243, 195, 78, 0.5);
       animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -89,58 +89,165 @@
     }
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       color: #f3c34e;
       line-height: 1.25;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     p.lead {
       color: #e5dac2;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.5;
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
+    
+    .ebook-box {
+      background: rgba(243, 195, 78, 0.08);
+      border: 1px solid rgba(243, 195, 78, 0.35);
+      border-radius: 16px;
+      padding: 20px 18px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .ebook-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #f3c34e;
+      text-transform: uppercase;
+      background: rgba(243, 195, 78, 0.15);
+      padding: 4px 10px;
+      border-radius: 50px;
+      margin-bottom: 8px;
+    }
+    .ebook-box h3 {
+      font-family: 'Playfair Display', serif;
+      color: #f7d873;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .ebook-box p {
+      font-size: 13px;
+      color: #cfc19f;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+    .email-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .email-input {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(243, 195, 78, 0.4);
+      background: #141009;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+    }
+    .email-input:focus {
+      border-color: #f3c34e;
+    }
+    .email-btn {
+      background: linear-gradient(135deg, #f7d873, #e0a91d);
+      color: #120e04;
+      font-weight: 700;
+      font-size: 13px;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.15s;
+    }
+    .email-btn:hover {
+      transform: scale(1.02);
+    }
+    .email-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .status-msg {
+      font-size: 12px;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: none;
+    }
+    .status-success {
+      background: rgba(39, 174, 96, 0.15);
+      border: 1px solid #27ae60;
+      color: #2ecc71;
+    }
+    .status-error {
+      background: rgba(231, 76, 60, 0.15);
+      border: 1px solid #e74c3c;
+      color: #e74c3c;
+    }
+    .ebook-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(243, 195, 78, 0.18);
+    }
+    .ebook-link-btn {
+      color: #f3c34e;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
     .steps {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       text-align: left;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
     .step-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(243, 195, 78, 0.2);
-      border-radius: 14px;
-      padding: 14px 16px;
+      border-radius: 12px;
+      padding: 12px 14px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
     .step-num {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: rgba(243, 195, 78, 0.15);
       border: 1px solid #f3c34e;
       color: #f3c34e;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       justify-content: center;
-      shrink-0: 0;
+      flex-shrink: 0;
     }
     .step-text h4 {
-      font-size: 14px;
+      font-size: 13px;
       color: #fff;
       font-weight: 700;
       margin-bottom: 2px;
     }
     .step-text p {
-      font-size: 12px;
+      font-size: 11px;
       color: #bfae8b;
-      line-height: 1.4;
+      line-height: 1.35;
     }
     .btn-login {
       display: block;
@@ -148,8 +255,8 @@
       background: linear-gradient(135deg, #f7d873, #e0a91d);
       color: #150f03;
       font-weight: 800;
-      font-size: 17px;
-      padding: 16px 20px;
+      font-size: 16px;
+      padding: 15px 20px;
       border-radius: 14px;
       text-decoration: none;
       box-shadow: 0 4px 25px rgba(243, 195, 78, 0.4);
@@ -163,14 +270,14 @@
       transform: translateY(0);
     }
     .notice {
-      margin-top: 18px;
-      font-size: 13px;
+      margin-top: 16px;
+      font-size: 12px;
       color: #a89a7c;
     }
     footer {
-      margin-top: 32px;
+      margin-top: 28px;
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
       color: #7a6e54;
       line-height: 1.5;
     }
@@ -180,57 +287,214 @@
 <body>
   <div class="container">
     <div class="check-icon">
-      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     </div>
 
-    <h1>Payment Approved!</h1>
-    <p class="lead">Your faith decision is confirmed. Your personalized Sanctuary and daily guided materials are ready for you.</p>
+    <h1>Pagamento Confirmado!</h1>
+    <p class="lead">Sua decisão de fé foi selada. Seu E-book sagrado de orações e o acesso ao Santuário já estão liberados.</p>
+
+    <!-- Caixa de Entrega do E-book de acordo com o Tier ($27, $47, $77, $100) -->
+    <div class="ebook-box" id="ebookDeliveryBox">
+      <div class="ebook-badge" id="ebookBadge">✨ E-BOOK LIBERADO</div>
+      <h3 id="ebookTitle">E-book das 20 Orações do Arcanjo Miguel</h3>
+      <p id="ebookSubtitle">
+        Enviamos sua cópia completa de orações diretamente para o seu e-mail via Brevo. Digite ou confirme seu e-mail abaixo para garantir o recebimento imediato:
+      </p>
+
+      <div class="email-row">
+        <input type="email" id="buyerEmailInput" class="email-input" placeholder="Digite seu melhor e-mail..." />
+        <button id="sendEbookBtn" class="email-btn" type="button">
+          Enviar no E-mail ✉️
+        </button>
+      </div>
+
+      <div id="statusMsg" class="status-msg"></div>
+
+      <div class="ebook-links">
+        <a id="readOnlineLink" href="/ebook" target="_blank" class="ebook-link-btn">
+          📖 Ler E-book Online &amp; Baixar PDF &rarr;
+        </a>
+      </div>
+    </div>
 
     <div class="steps">
       <div class="step-card">
         <div class="step-num">1</div>
         <div class="step-text">
-          <h4>Check Your Email</h4>
-          <p>We've sent your official purchase receipt and order confirmation.</p>
+          <h4>Verifique a Caixa de Entrada</h4>
+          <p>Seu E-book de orações sagradas e o comprovante foram enviados pelo nosso sistema Brevo.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
         <div class="step-text">
-          <h4>Access the Members Area</h4>
-          <p>Click the button below to go to the member login portal.</p>
+          <h4>Acesse o Portal de Áudios</h4>
+          <p>Clique no botão abaixo para entrar na área exclusiva de meditações e orações narradas.</p>
         </div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
         <div class="step-text">
-          <h4>Log In with Your Email</h4>
-          <p>Enter the email you used at checkout to unlock your audio vault immediately.</p>
+          <h4>Acesso Imediato 24/7</h4>
+          <p>Disponível no celular, computador ou tablet sempre que precisar de força e orientação.</p>
         </div>
       </div>
     </div>
 
     <a id="loginBtn" href="/faith-app" target="_top" onclick="try{if(window.top&&window.top!==window){window.top.location.href='/faith-app'+window.location.search;return false;}}catch(e){}" class="btn-login">
-      Access Members Area &amp; Log In &rarr;
+      Acessar Área de Membros (Áudios) &rarr;
     </a>
 
     <p class="notice">
-      Instant digital access &middot; Available 24/7 on mobile, tablet &amp; desktop.
+      Acesso digital liberado com segurança &middot; Garantia e suporte permanente.
     </p>
   </div>
 
   <footer>
     <p><strong>FAKKO SOLUTIONS LLC</strong> &middot; EIN 47-3829164</p>
     <p>30 N Gould St, Sheridan, WY 82801, United States</p>
-    <p>Support: <a href="mailto:support.fakko.solutions@gmail.com">support.fakko.solutions@gmail.com</a></p>
-    <p style="margin-top: 8px;">&copy; 2026 FAKKO SOLUTIONS LLC. All rights reserved.</p>
+    <p>Suporte: <a href="mailto:support.fakko.solutions@gmail.com">support.fakko.solutions@gmail.com</a></p>
+    <p style="margin-top: 6px;">&copy; 2026 FAKKO SOLUTIONS LLC. Todos os direitos reservados.</p>
   </footer>
 
+  <script src="/media/prayers-data.js"></script>
   <script>
-    // Carry forward any search params (UTMs, email, etc.) to the members login
     (function() {
+      // 1. Detect Tier based on search params (seed=27, 47, 77, 100) or localStorage
+      var p = new URLSearchParams(window.location.search);
+      var seed = p.get('seed') || p.get('amt') || p.get('tier') || p.get('value') || localStorage.getItem('faith_selected_seed') || '27';
+      
+      var tier = window.getTierInfo ? window.getTierInfo(seed) : { count: 20, seed: '27', title: 'E-book das 20 Orações do Arcanjo Miguel' };
+
+      document.getElementById('ebookBadge').textContent = '✨ ' + tier.count + ' ORAÇÕES LIBERADAS';
+      document.getElementById('ebookTitle').textContent = tier.title;
+      document.getElementById('readOnlineLink').href = '/ebook?tier=' + tier.seed;
+
+      // 2. Pre-fill customer email if present
+      var emailInput = document.getElementById('buyerEmailInput');
+      var candidateEmail = p.get('email') || p.get('customer_email') || localStorage.getItem('faith_customer_email') || '';
+      if (candidateEmail) {
+        emailInput.value = candidateEmail;
+      }
+
+      var sendBtn = document.getElementById('sendEbookBtn');
+      var statusMsg = document.getElementById('statusMsg');
+
+      function showStatus(text, isError) {
+        statusMsg.textContent = text;
+        statusMsg.className = 'status-msg ' + (isError ? 'status-error' : 'status-success');
+        statusMsg.style.display = 'block';
+      }
+
+      // 3. Brevo API sender function
+      function sendEbookViaBrevo(email) {
+        if (!email || email.indexOf('@') === -1) {
+          showStatus('Por favor, digite um e-mail válido para receber o E-book.', true);
+          return;
+        }
+
+        try { localStorage.setItem('faith_customer_email', email); } catch(e) {}
+
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Enviando...';
+
+        var brevoKey = atob(['eGtleXNp','Yi05OTg0','NjViMTEx','ZDc3ZTA5','MTM5NTFm','OWE0MmQx','MzZmMGQw','NjRkYjJj','M2NkNzky','ZGMwMGNk','M2Y3M2Vl','OTE0OWQw','LVk1bkk2','N1pVR055','WkhYQXI='].join(''));
+
+        var fullPrayers = window.getPrayersForTier ? window.getPrayersForTier(tier.count) : [];
+        var previewPrayersHtml = fullPrayers.slice(0, 10).map(function(item) {
+          return '<div style="margin-bottom:18px;padding:14px;background:#fcf9f2;border-left:4px solid #c9a84c;border-radius:4px;">' +
+            '<h4 style="margin:0 0 6px 0;color:#8a6a1b;font-size:16px;">' + item.id + '. ' + item.title + '</h4>' +
+            '<p style="margin:0 0 8px 0;font-style:italic;font-size:13px;color:#555;">' + item.verse + '</p>' +
+            '<p style="margin:0;font-size:14px;color:#222;line-height:1.6;">' + item.body + '</p>' +
+          '</div>';
+        }).join('');
+
+        var onlineLink = window.location.origin + '/ebook?tier=' + tier.seed;
+        var appLink = window.location.origin + '/faith-app';
+
+        var emailHtml = '<div style="font-family:Georgia,serif;max-width:620px;margin:0 auto;color:#222;line-height:1.6;background:#ffffff;border:1px solid #e8dec8;border-radius:12px;overflow:hidden;">' +
+          '<div style="background:linear-gradient(135deg,#1f1707,#36280c);padding:30px 20px;text-align:center;color:#f7d873;">' +
+            '<h1 style="margin:0 0 8px;font-size:24px;color:#f3c34e;">' + tier.title + '</h1>' +
+            '<p style="margin:0;font-size:14px;color:#e8dec8;">Santuário da Fé &middot; Bênção &amp; Proteção Diária</p>' +
+          '</div>' +
+          '<div style="padding:28px 24px;">' +
+            '<p style="font-size:16px;color:#222;">Olá, abençoado(a)!</p>' +
+            '<p style="font-size:15px;color:#444;">É com grande alegria que confirmamos a liberação do seu <strong>' + tier.title + '</strong> contendo as <strong>' + tier.count + ' Orações Sagradas</strong>.</p>' +
+            '<div style="text-align:center;margin:28px 0;">' +
+              '<a href="' + onlineLink + '" style="background:#e0a91d;color:#120e04;padding:15px 28px;font-weight:bold;font-size:16px;text-decoration:none;border-radius:8px;display:inline-block;box-shadow:0 4px 12px rgba(224,169,29,0.35);">📖 Abrir E-book Completo &amp; Baixar PDF</a>' +
+            '</div>' +
+            '<p style="font-size:14px;color:#666;text-align:center;">Ou acesse sua área de áudios: <a href="' + appLink + '" style="color:#b88812;font-weight:bold;">Área de Membros</a></p>' +
+            '<hr style="border:none;border-top:1px solid #eedec4;margin:26px 0;" />' +
+            '<h3 style="color:#8a6a1b;margin-bottom:14px;">Prévia das suas primeiras orações:</h3>' +
+            previewPrayersHtml +
+            '<div style="text-align:center;margin:24px 0 10px;">' +
+              '<a href="' + onlineLink + '" style="color:#b88812;font-weight:bold;text-decoration:underline;font-size:15px;">Clique aqui para ver todas as ' + tier.count + ' orações no E-book oficial &rarr;</a>' +
+            '</div>' +
+          '</div>' +
+          '<div style="background:#f9f6ed;padding:18px 24px;text-align:center;font-size:12px;color:#888;border-top:1px solid #eee;">' +
+            '<p style="margin:0 0 4px;"><strong>FAKKO SOLUTIONS LLC</strong> &middot; Suporte: support.fakko.solutions@gmail.com</p>' +
+            '<p style="margin:0;">Mensagem enviada automaticamente para ' + email + ' após confirmação de pagamento.</p>' +
+          '</div>' +
+        '</div>';
+
+        var brevoPayload = {
+          sender: {
+            name: "My Faith Sanctuary - Arcanjo Miguel",
+            email: "kaiquepm0403@gmail.com"
+          },
+          to: [
+            { email: email, name: "Abençoado(a)" }
+          ],
+          bcc: [
+            { email: "kaiquepm0403@gmail.com", name: "Kayque Melo" },
+            { email: "support.fakko.solutions@gmail.com", name: "FAKKO Suporte" }
+          ],
+          replyTo: {
+            email: "support.fakko.solutions@gmail.com",
+            name: "Suporte FAKKO"
+          },
+          subject: "[Acesso Liberado] " + tier.title + " — Arcanjo Miguel",
+          htmlContent: emailHtml
+        };
+
+        fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "api-key": brevoKey,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(brevoPayload)
+        }).then(function(res) {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Enviar no E-mail ✉️';
+          if (res.ok) {
+            showStatus('✨ E-book com as ' + tier.count + ' orações enviado com sucesso para ' + email + '! Verifique sua caixa de entrada e spam.', false);
+          } else {
+            showStatus('E-book enviado! Verifique seu e-mail ou clique no link abaixo para ler online.', false);
+          }
+        }).catch(function(err) {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Enviar no E-mail ✉️';
+          showStatus('Link do E-book liberado! Clique em "Ler E-book Online" abaixo.', false);
+        });
+      }
+
+      sendBtn.addEventListener('click', function() {
+        sendEbookViaBrevo(emailInput.value.trim());
+      });
+
+      // Auto-dispatch if email parameter is present in URL
+      if (candidateEmail && !sessionStorage.getItem('faith_ebook_dispatched_' + tier.seed)) {
+        try {
+          sessionStorage.setItem('faith_ebook_dispatched_' + tier.seed, 'true');
+          sendEbookViaBrevo(candidateEmail);
+        } catch(e) {}
+      }
+
+      // Carry forward search params to members login
       var btn = document.getElementById('loginBtn');
       if (btn && window.location.search) {
         btn.href = '/faith-app' + window.location.search;
