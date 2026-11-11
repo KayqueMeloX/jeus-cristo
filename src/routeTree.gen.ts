@@ -21,6 +21,8 @@ import { Route as MembrosRouteImport } from './routes/membros'
 import { Route as FaithAppRouteImport } from './routes/faith-app'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as PayRouteImport } from './routes/pay'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as ObrigadoRouteImport } from './routes/obrigado'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,6 +84,18 @@ const CheckoutRoute = CheckoutRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const ObrigadoRoute = ObrigadoRouteImport.update({
+  id: '/obrigado',
+  path: '/obrigado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
 const PayRoute = PayRouteImport.update({
   id: '/pay',
   path: '/pay',
@@ -106,6 +120,8 @@ export interface FileRoutesByFullPath {
   '/membros': typeof MembrosRoute
   '/checkout': typeof CheckoutRoute
   '/pay': typeof PayRoute
+  '/thank-you': typeof ThankYouRoute
+  '/obrigado': typeof ObrigadoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -119,6 +135,8 @@ export interface FileRoutesByTo {
   '/membros': typeof MembrosRoute
   '/checkout': typeof CheckoutRoute
   '/pay': typeof PayRoute
+  '/thank-you': typeof ThankYouRoute
+  '/obrigado': typeof ObrigadoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,6 +151,8 @@ export interface FileRoutesById {
   '/membros': typeof MembrosRoute
   '/checkout': typeof CheckoutRoute
   '/pay': typeof PayRoute
+  '/thank-you': typeof ThankYouRoute
+  '/obrigado': typeof ObrigadoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -242,6 +262,8 @@ const rootRouteChildren: RootRouteChildren = {
   FaithAppRoute: FaithAppRoute,
   CheckoutRoute: CheckoutRoute,
   PayRoute: PayRoute,
+  ThankYouRoute: ThankYouRoute,
+  ObrigadoRoute: ObrigadoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

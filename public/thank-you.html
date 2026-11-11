@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Approved — Welcome to My Faith Sanctuary</title>
+
+  <!-- UTMify Pixel & UTMs -->
+  <script>
+    window.pixelId = "6aeba9286e9f16208dd93510";
+    var a = document.createElement("script");
+    a.setAttribute("async", "");
+    a.setAttribute("defer", "");
+    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+    document.head.appendChild(a);
+  </script>
+  <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids async defer></script>
+  <!-- End UTMify -->
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '29015918781408333');
+    fbq('track', 'PageView');
+
+    // Dynamic Purchase tracking based on query params or default $27
+    (function() {
+      var p = new URLSearchParams(window.location.search);
+      var val = Number(p.get('value') || p.get('amt') || p.get('price') || 27);
+      fbq('track', 'Purchase', { value: val, currency: 'USD' });
+    })();
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=29015918781408333&ev=PageView&noscript=1" />
+  </noscript>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top, #151105 0%, #080705 60%, #030302 100%);
+      color: #f7f3ea;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+    .container {
+      max-width: 540px;
+      width: 100%;
+      background: rgba(18, 14, 8, 0.92);
+      border: 1px solid rgba(243, 195, 78, 0.35);
+      border-radius: 24px;
+      padding: 40px 24px;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(243, 195, 78, 0.15), 0 20px 40px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+    .check-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c9a84c, #f3c34e);
+      color: #1a1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 35px rgba(243, 195, 78, 0.5);
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #f3c34e;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    p.lead {
+      color: #e5dac2;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+      margin-bottom: 30px;
+    }
+    .step-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(243, 195, 78, 0.2);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(243, 195, 78, 0.15);
+      border: 1px solid #f3c34e;
+      color: #f3c34e;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      shrink-0: 0;
+    }
+    .step-text h4 {
+      font-size: 14px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .step-text p {
+      font-size: 12px;
+      color: #bfae8b;
+      line-height: 1.4;
+    }
+    .btn-login {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #f7d873, #e0a91d);
+      color: #150f03;
+      font-weight: 800;
+      font-size: 17px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 4px 25px rgba(243, 195, 78, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(243, 195, 78, 0.6);
+    }
+    .btn-login:active {
+      transform: translateY(0);
+    }
+    .notice {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #a89a7c;
+    }
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: #7a6e54;
+      line-height: 1.5;
+    }
+    footer a { color: #d8cba7; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="check-icon">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <h1>Payment Approved!</h1>
+    <p class="lead">Your faith decision is confirmed. Your personalized Sanctuary and daily guided materials are ready for you.</p>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>Check Your Email</h4>
+          <p>We've sent your official purchase receipt and order confirmation.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>Access the Members Area</h4>
+          <p>Click the button below to go to the member login portal.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>Log In with Your Email</h4>
+          <p>Enter the email you used at checkout to unlock your audio vault immediately.</p>
+        </div>
+      </div>
+    </div>
+
+    <a id="loginBtn" href="/faith-app" class="btn-login">
+      Access Members Area &amp; Log In &rarr;
+    </a>
+
+    <p class="notice">
+      Instant digital access &middot; Available 24/7 on mobile, tablet &amp; desktop.
+    </p>
+  </div>
+
+  <footer>
+    <p><strong>FAKKO SOLUTIONS LLC</strong> &middot; EIN 47-3829164</p>
+    <p>30 N Gould St, Sheridan, WY 82801, United States</p>
+    <p>Support: <a href="mailto:support.fakko.solutions@gmail.com">support.fakko.solutions@gmail.com</a></p>
+    <p style="margin-top: 8px;">&copy; 2026 FAKKO SOLUTIONS LLC. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Carry forward any search params (UTMs, email, etc.) to the members login
+    (function() {
+      var btn = document.getElementById('loginBtn');
+      if (btn && window.location.search) {
+        btn.href = '/faith-app' + window.location.search;
+      }
+    })();
+  </script>
+</body>
+</html>
