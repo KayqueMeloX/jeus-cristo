@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/offer")({
   component: Offer,
@@ -12,18 +11,11 @@ export const Route = createFileRoute("/offer")({
 });
 
 function Offer() {
-  const [iframeSrc, setIframeSrc] = useState("/offer.html");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIframeSrc(`/offer.html${window.location.search}`);
-    }
-  }, []);
-
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
       <iframe
-        src={iframeSrc}
+        key="main-offer-frame"
+        src="/offer.html"
         title="Plan Faith Offer"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen; payment"

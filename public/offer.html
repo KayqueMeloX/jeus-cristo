@@ -160,7 +160,13 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   function read(){ try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch(e){ return {}; } }
   // capture on landing; merge so a later page view never wipes the original source
   try {
-    var q = new URLSearchParams(location.search), saved = read(), dirty = false;
+    var searchStr = location.search;
+    try {
+      if (window.top && window.top !== window && window.top.location.search) {
+        searchStr = window.top.location.search;
+      }
+    } catch(e) {}
+    var q = new URLSearchParams(searchStr), saved = read(), dirty = false;
     KEYS.forEach(function (k) {
       var v = q.get(k);
       if (v && saved[k] !== v) { saved[k] = v; dirty = true; }
@@ -412,6 +418,11 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   function openCheckout(amt, e) {
     if (e && e.preventDefault) e.preventDefault();
     var curSearch = window.location.search || '';
+    try {
+      if (window.top && window.top !== window && window.top.location.search) {
+        curSearch = window.top.location.search;
+      }
+    } catch(e) {}
     var p = new URLSearchParams(curSearch);
     p.set('seed', amt);
     var slugUrl = '/checkout?' + p.toString();

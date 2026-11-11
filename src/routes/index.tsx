@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -12,18 +11,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  // Set once on mount to prevent any iframe reloads or restarts
-  const [iframeSrc] = useState(() => {
-    if (typeof window !== "undefined") {
-      return `/funnel.html${window.location.search}`;
-    }
-    return "/funnel.html";
-  });
-
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
       <iframe
-        src={iframeSrc}
+        key="main-funnel-frame"
+        src="/funnel.html"
         title="Time to Thrive"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen"
