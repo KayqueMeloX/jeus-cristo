@@ -22,6 +22,13 @@ const WINNERS = [
   { name: "Jamie Kay, England", img: "/winner-jamie.webp" },
 ];
 
+const STRIPE_LINKS: Record<string, string> = {
+  "27": "https://buy.stripe.com/28EdR99ibdEj1RVfl8ao803",
+  "47": "https://buy.stripe.com/aFa5kD9ibgQveEH0qeao804",
+  "77": "https://buy.stripe.com/9B6cN565Z43JeEH6OCao805",
+  "100": "https://buy.stripe.com/28EaEX51V7fVfILb4Sao806",
+};
+
 const SEEDS = [
   { amt: "27", label: "$27", img: "/sedd-of-fath-27.jpg", fallback: "/seed-of-faith-27.jpg" },
   { amt: "47", label: "$47", img: "/seed-of-faith47.jpg", fallback: "/seed-of-faith47.jpg" },
