@@ -411,31 +411,31 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   const seedImgs = { "27":"sedd-of-fath-27.jpg", "47":"seed-of-faith47.jpg", "77":"seed-of-fath-77.jpg", "100":"seed-of-faith-100.jpg" };
   function openCheckout(amt, e) {
     if (e && e.preventDefault) e.preventDefault();
-    var rawUrl = seedLinks[amt];
-    if (!rawUrl) return false;
-    var finalUrl = (typeof pfWithTracking === 'function') ? pfWithTracking(rawUrl) : rawUrl;
+    var curSearch = window.location.search || '';
+    var p = new URLSearchParams(curSearch);
+    p.set('seed', amt);
+    var slugUrl = '/checkout?' + p.toString();
     if (typeof fbq === 'function') {
       try { fbq('track', 'InitiateCheckout', { value: Number(amt), currency: 'USD' }); } catch(err) {}
     }
-    // ForÃ§a navegaÃ§Ã£o no frame superior (_top) para escapar de iframes (Stripe bloqueia iframes)
     try {
       if (window.top && window.top !== window) {
-        window.top.location.href = finalUrl;
+        window.top.location.href = slugUrl;
         return false;
       }
     } catch(err) {}
     try {
-      window.location.href = finalUrl;
+      window.location.href = slugUrl;
     } catch(err) {
-      window.open(finalUrl, '_top');
+      window.open(slugUrl, '_top');
     }
     return false;
   }
 
   $('seeds').innerHTML = ["27","47","77","100"].map(a =>
     '<div class="seed-block">'+
-      '<a href="'+seedLinks[a]+'" target="_top" class="seed-card checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;"><img src="'+seedImgs[a]+'" alt="Seed of Faith $'+a+'"></a>'+
-      '<a href="'+seedLinks[a]+'" target="_top" class="seed-cta checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">This is the life I choose &mdash; $'+a+'</a>'+
+      '<a href="/checkout?seed='+a+'" target="_top" class="seed-card checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;"><img src="'+seedImgs[a]+'" alt="Seed of Faith $'+a+'"></a>'+
+      '<a href="/checkout?seed='+a+'" target="_top" class="seed-cta checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">This is the life I choose &mdash; $'+a+'</a>'+
     '</div>').join('');
   document.querySelectorAll('[data-amt]').forEach(b=>{
     b.onclick = function(e){ return openCheckout(this.getAttribute('data-amt'), e); };

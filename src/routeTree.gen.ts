@@ -1,4 +1,4 @@
-/* eslint-disable */
+﻿/* eslint-disable */
 
 // @ts-nocheck
 
@@ -19,6 +19,8 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as EntregavelRouteImport } from './routes/entregavel'
 import { Route as MembrosRouteImport } from './routes/membros'
 import { Route as FaithAppRouteImport } from './routes/faith-app'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as PayRouteImport } from './routes/pay'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -74,6 +76,18 @@ const MembrosRoute = MembrosRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
 const FaithAppRoute = FaithAppRouteImport.update({
   id: '/faith-app',
   path: '/faith-app',
@@ -90,6 +104,8 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRoute
   '/entregavel': typeof EntregavelRoute
   '/membros': typeof MembrosRoute
+  '/checkout': typeof CheckoutRoute
+  '/pay': typeof PayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -101,6 +117,8 @@ export interface FileRoutesByTo {
   '/app': typeof AppRoute
   '/entregavel': typeof EntregavelRoute
   '/membros': typeof MembrosRoute
+  '/checkout': typeof CheckoutRoute
+  '/pay': typeof PayRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,6 +131,8 @@ export interface FileRoutesById {
   '/app': typeof AppRoute
   '/entregavel': typeof EntregavelRoute
   '/membros': typeof MembrosRoute
+  '/checkout': typeof CheckoutRoute
+  '/pay': typeof PayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -220,6 +240,8 @@ const rootRouteChildren: RootRouteChildren = {
   EntregavelRoute: EntregavelRoute,
   MembrosRoute: MembrosRoute,
   FaithAppRoute: FaithAppRoute,
+  CheckoutRoute: CheckoutRoute,
+  PayRoute: PayRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
