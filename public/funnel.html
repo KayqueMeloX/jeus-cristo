@@ -61,22 +61,8 @@ a[href*="lovable.app"] {
   }
 })();
 </script>
-<!-- UTMify Pixel & UTMs -->
-<script>
-  var _inIframe = false;
-  try { _inIframe = (window.self !== window.top); } catch(e) { _inIframe = true; }
-  if (!_inIframe) {
-    window.pixelId = "6aeba9286e9f16208dd93510";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-    document.head.appendChild(a);
-  }
-</script>
-<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids data-utmify-ignore-iframe="true" async defer></script>
-<!-- End UTMify --><script>(function(){if(location.protocol!=='file:')return;function s(){if(document.getElementById('__site_host_notice'))return;var d=document.createElement('div');d.id='__site_host_notice';d.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';d.innerHTML='<div style="max-width:440px;text-align:center;line-height:1.55"><div style="font-size:20px;font-weight:600;margin-bottom:12px">Quase l&aacute;: seu site precisa estar publicado</div><div style="opacity:.85;font-size:15px">Abrir o arquivo direto no computador n&atilde;o funciona, &eacute; uma prote&ccedil;&atilde;o do navegador. Para ver seu site, publique esta pasta em qualquer hospedagem de sites.</div><div style="opacity:.7;font-size:13px;margin-top:14px">Jeito r&aacute;pido e gr&aacute;tis: acesse <b>app.netlify.com/drop</b> e arraste a pasta para a p&aacute;gina.</div></div>';(document.body||document.documentElement).appendChild(d);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',s);}else{s();}setTimeout(s,400);})();</script>
-<!-- UTMify -->
+<script>var _inIframe = false; try { _inIframe = (window.self !== window.top); } catch(e) { _inIframe = true; }</script><script>(function(){if(location.protocol!=='file:')return;function s(){if(document.getElementById('__site_host_notice'))return;var d=document.createElement('div');d.id='__site_host_notice';d.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';d.innerHTML='<div style="max-width:440px;text-align:center;line-height:1.55"><div style="font-size:20px;font-weight:600;margin-bottom:12px">Quase l&aacute;: seu site precisa estar publicado</div><div style="opacity:.85;font-size:15px">Abrir o arquivo direto no computador n&atilde;o funciona, &eacute; uma prote&ccedil;&atilde;o do navegador. Para ver seu site, publique esta pasta em qualquer hospedagem de sites.</div><div style="opacity:.7;font-size:13px;margin-top:14px">Jeito r&aacute;pido e gr&aacute;tis: acesse <b>app.netlify.com/drop</b> e arraste a pasta para a p&aacute;gina.</div></div>';(document.body||document.documentElement).appendChild(d);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',s);}else{s();}setTimeout(s,400);})();</script>
+
 
 <!-- Meta Pixel Code -->
 <script>
@@ -116,7 +102,7 @@ if (!_inIframe) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <!-- Trava de domínio (camada extra anti-clone): esta página só roda nos nossos
      domínios. Clone que copia o HTML e sobe no domínio dele cai aqui e é mandado
-     para o nosso funil, levando as UTMs (src=clone2 separa na UTMify). Não pega
+     para o nosso funil, levando as UTMs (src=clone2). Não pega
      proxy ao vivo que reescreve a página — para esse, ver functions/_middleware.js. -->
 <script>
 (function(C){try{var h=location.hostname;
@@ -321,7 +307,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)');
     return m ? decodeURIComponent(m[1]) : null;
   }
-  // Only fills gaps: if something else (e.g. UTMify's own utms script) already put a
+  // Only fills gaps: if something else (e.g. external script) already put a
   // value on the outbound URL, leave it alone. Safe to run alongside their script.
   window.pfWithTracking = function (url) {
     var saved = read(), existing, parts = [];

@@ -175,19 +175,6 @@ function RootShell({ children }: { children: ReactNode }) {
           }}
         />
 
-        {/* UTMify Pixel */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.pixelId = "6aeba9286e9f16208dd93510";
-              var a = document.createElement("script");
-              a.setAttribute("async", "");
-              a.setAttribute("defer", "");
-              a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-              document.head.appendChild(a);
-            `,
-          }}
-        />
         {/* Meta Pixel Code */}
         <script
           dangerouslySetInnerHTML={{

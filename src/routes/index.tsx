@@ -48,15 +48,11 @@ export function Index() {
       });
     } catch (e) {}
 
-    // 3. Trava global para protótipo de iframe com tag de ignore
+    // 3. Trava global para protótipo de iframe
     try {
       const origProtoSet = HTMLIFrameElement.prototype.setAttribute;
       HTMLIFrameElement.prototype.setAttribute = function (name: string, value: string) {
-        if (
-          name.toLowerCase() === "src" &&
-          (this.getAttribute("data-utmify-ignore") === "true" ||
-            this.getAttribute("data-utmify-ignore-iframe") === "true")
-        ) {
+        if (name.toLowerCase() === "src" && this === iframeRef.current) {
           return;
         }
         return origProtoSet.apply(this, arguments as any);
@@ -79,8 +75,6 @@ export function Index() {
         title="Time to Thrive"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen"
-        data-utmify-ignore="true"
-        data-utmify-ignore-iframe="true"
         style={{
           height: "100%",
           width: "100%",

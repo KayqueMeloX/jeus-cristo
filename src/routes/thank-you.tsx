@@ -61,8 +61,6 @@ export function ThankYouPage() {
         title="Payment Approved"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen; clipboard-write"
-        data-utmify-ignore="true"
-        data-utmify-ignore-iframe="true"
         style={{
           height: "100%",
           width: "100%",

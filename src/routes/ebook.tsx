@@ -45,8 +45,6 @@ function EbookRoute() {
         title="E-book de Orações"
         className="h-full w-full border-none"
         allow="fullscreen; clipboard-write"
-        data-utmify-ignore="true"
-        data-utmify-ignore-iframe="true"
       />
     </div>
   );
