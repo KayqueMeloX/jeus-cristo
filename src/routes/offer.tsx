@@ -125,6 +125,11 @@ export function OfferPage() {
 
     // Track UTMify InitiateCheckout
     try {
+      const bytes = new Uint8Array(12);
+      if (typeof window !== "undefined" && window.crypto) {
+        window.crypto.getRandomValues(bytes);
+      }
+      const hex24 = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
       const utmifyPayload = {
         type: "InitiateCheckout",
         lead: {
@@ -135,8 +140,8 @@ export function OfferPage() {
           sourceUrl: typeof window !== "undefined" ? window.location.href : "https://godjesus.lovable.app/offer",
           pageTitle: typeof document !== "undefined" ? document.title : "Special Sacred Offer",
         },
-        eventId: "ic_" + Math.random().toString(36).substring(2, 14),
-        detectedBy: "button_click",
+        eventId: hex24.length === 24 ? hex24 : "46b0fba09ae34e40b4911a82",
+        detectedBy: "keyword",
       };
       if (typeof navigator !== "undefined" && navigator.sendBeacon) {
         navigator.sendBeacon(
