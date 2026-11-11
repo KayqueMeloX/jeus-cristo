@@ -30,7 +30,7 @@ const STRIPE_LINKS: Record<string, string> = {
 };
 
 const SEEDS = [
-  { amt: "27", label: "$27", img: "/sedd-of-fath-27.jpg", fallback: "/seed-of-faith-27.jpg" },
+  { amt: "27", label: "$27", img: "/seed-of-faith-27.jpg", fallback: "/seed-of-fath-27.jpg" },
   { amt: "47", label: "$47", img: "/seed-of-faith47.jpg", fallback: "/seed-of-faith47.jpg" },
   { amt: "77", label: "$77", img: "/seed-of-fath-77.jpg", fallback: "/seed-of-fath-77.jpg" },
   { amt: "100", label: "$100", img: "/seed-of-faith-100.jpg", fallback: "/seed-of-faith-100.jpg" },
@@ -100,27 +100,26 @@ export function OfferPage() {
     }
   };
 
-  const openCheckout = (amt: string, e?: React.MouseEvent) => {
-    if (e && e.preventDefault) e.preventDefault();
+  const getCheckoutUrl = (amt: string) => {
+    if (typeof window === "undefined") return `/checkout?seed=${amt}`;
+    let search = window.location.search || "";
+    try {
+      if (window.top && window.top !== window && window.top.location.search) {
+        search = window.top.location.search;
+      }
+    } catch (e) {}
+    const params = new URLSearchParams(search);
+    params.set("seed", amt);
+    return `/checkout?${params.toString()}`;
+  };
+
+  const handleCheckoutClick = (amt: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+    // 1. Salvar no localStorage
     try {
       localStorage.setItem("faith_selected_seed", amt);
     } catch (err) {}
 
-    let search = "";
-    if (typeof window !== "undefined") {
-      search = window.location.search || "";
-      try {
-        if (window.top && window.top !== window && window.top.location.search) {
-          search = window.top.location.search;
-        }
-      } catch (err) {}
-    }
-
-    const params = new URLSearchParams(search);
-    params.set("seed", amt);
-    const slugUrl = `/checkout?${params.toString()}`;
-
-    // Track Meta Pixel InitiateCheckout
+    // 2. Disparar Meta Pixel InitiateCheckout
     try {
       if (typeof (window as any).fbq === "function") {
         (window as any).fbq("track", "InitiateCheckout", {
@@ -130,7 +129,7 @@ export function OfferPage() {
       }
     } catch (err) {}
 
-    // Track UTMify InitiateCheckout
+    // 3. Disparar UTMify InitiateCheckout
     try {
       const bytes = new Uint8Array(12);
       if (typeof window !== "undefined" && window.crypto) {
@@ -155,30 +154,16 @@ export function OfferPage() {
           "https://tracking.utmify.com.br/tracking/v1/events",
           new Blob([JSON.stringify(utmifyPayload)], { type: "application/json" })
         );
-      } else if (typeof fetch === "function") {
-        fetch("https://tracking.utmify.com.br/tracking/v1/events", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(utmifyPayload),
-          keepalive: true,
-        }).catch(() => {});
       }
     } catch (e) {}
 
-    const doRedirect = () => {
-      if (typeof window !== "undefined") {
-        try {
-          if (window.top && window.top !== window) {
-            window.top.location.href = slugUrl;
-            return;
-          }
-        } catch (err) {}
-        window.location.href = slugUrl;
+    // 4. Se estiver dentro de iframe, forçar navegação no frame pai
+    try {
+      if (typeof window !== "undefined" && window.top && window.top !== window) {
+        e.preventDefault();
+        window.top.location.href = getCheckoutUrl(amt);
       }
-    };
-
-    // Pequeno delay de 150ms para garantir envio completo do evento pelo pixel
-    setTimeout(doRedirect, 150);
+    } catch (err) {}
   };
 
   return (
@@ -313,7 +298,7 @@ export function OfferPage() {
                 📩 Delivered instantly by email
               </div>
               <div className="rounded-[12px] border-2 border-[#f3c34e] bg-[#16120a]/70 px-4 py-3 text-sm font-bold sm:text-base">
-                💻 100% digital — no shipping
+                📱 100% digital — no shipping
               </div>
               <div className="rounded-[12px] border-2 border-[#f3c34e] bg-[#16120a]/70 px-4 py-3 text-sm font-bold sm:text-base">
                 🔒 Secure checkout
@@ -340,8 +325,8 @@ export function OfferPage() {
               <div key={s.amt} className="mx-auto flex w-full max-w-[420px] flex-col gap-3">
                 {/* Seed Card (Image) */}
                 <a
-                  href={`/checkout?seed=${s.amt}`}
-                  onClick={(e) => openCheckout(s.amt, e)}
+                  href={getCheckoutUrl(s.amt)}
+                  onClick={(e) => handleCheckoutClick(s.amt, e)}
                   data-checkout-url={STRIPE_LINKS[s.amt]}
                   className="checkout-btn go-to-checkout block w-full cursor-pointer overflow-hidden rounded-[16px] border-[3px] border-[#f3c34e] shadow-none transition-transform hover:brightness-105 active:scale-[0.98]"
                 >
@@ -360,8 +345,8 @@ export function OfferPage() {
 
                 {/* Seed CTA Button */}
                 <a
-                  href={`/checkout?seed=${s.amt}`}
-                  onClick={(e) => openCheckout(s.amt, e)}
+                  href={getCheckoutUrl(s.amt)}
+                  onClick={(e) => handleCheckoutClick(s.amt, e)}
                   data-checkout-url={STRIPE_LINKS[s.amt]}
                   className="checkout-btn go-to-checkout block w-full cursor-pointer rounded-[16px] bg-gradient-to-b from-[#f7d873] to-[#e0a91d] py-4 px-3 text-center text-xl font-bold text-[#1a1206] shadow-[0_6px_0_#b8911f] transition-transform active:translate-y-[2px] active:shadow-[0_2px_0_#b8911f] sm:text-2xl"
                   style={{ textDecoration: "none" }}
