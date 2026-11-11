@@ -102,7 +102,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* UTMify Pixel & UTMs */}
+        {/* UTMify Pixel */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -114,13 +114,6 @@ function RootShell({ children }: { children: ReactNode }) {
               document.head.appendChild(a);
             `,
           }}
-        />
-        <script
-          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-          data-utmify-prevent-subids
-          data-utmify-ignore-iframe="true"
-          async
-          defer
         />
         {/* Meta Pixel Code */}
         <script

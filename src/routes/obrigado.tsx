@@ -1,48 +1,58 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/obrigado")({
   component: ObrigadoPage,
   head: () => ({
     meta: [
-      { title: "Payment Approved — My Faith Sanctuary" },
+      { title: "Payment Approved — Welcome to My Faith Sanctuary" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
     ],
   }),
 });
 
-function ObrigadoPage() {
+export function ObrigadoPage() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [initialSrc] = useState(() => {
+    if (typeof window !== "undefined") {
+      return `/obrigado.html${window.location.search}`;
+    }
+    return "/obrigado.html";
+  });
 
   useEffect(() => {
     const frame = iframeRef.current;
     if (!frame) return;
 
-    let currentSrc = frame.getAttribute("src") || "/obrigado.html";
+    const origSetAttribute = frame.setAttribute.bind(frame);
+    frame.setAttribute = function (name: string, value: string) {
+      if (name.toLowerCase() === "src") {
+        return;
+      }
+      return origSetAttribute(name, value);
+    };
+
+    const fixedSrc = frame.getAttribute("src") || initialSrc;
     try {
       Object.defineProperty(frame, "src", {
         get() {
-          return currentSrc;
+          return fixedSrc;
         },
-        set(val: string) {
-          if (val && val.includes("obrigado.html")) {
-            return;
-          }
-          currentSrc = val;
-          frame.setAttribute("src", val);
+        set(_val: string) {
+          return;
         },
-        configurable: true,
+        configurable: false,
       });
     } catch (e) {}
-  }, []);
+  }, [initialSrc]);
 
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
       <iframe
         ref={iframeRef}
         key="main-obrigado-frame"
-        src="/obrigado.html"
-        title="Pagamento Confirmado"
+        src={initialSrc}
+        title="Payment Approved"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen; clipboard-write"
         data-utmify-ignore="true"

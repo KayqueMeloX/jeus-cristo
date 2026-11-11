@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/offer")({
   component: Offer,
@@ -11,37 +11,49 @@ export const Route = createFileRoute("/offer")({
   }),
 });
 
-function Offer() {
+export function Offer() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [initialSrc] = useState(() => {
+    if (typeof window !== "undefined") {
+      return `/offer.html${window.location.search}`;
+    }
+    return "/offer.html";
+  });
 
   useEffect(() => {
     const frame = iframeRef.current;
     if (!frame) return;
 
-    let currentSrc = frame.getAttribute("src") || "/offer.html";
+    // 1. Interceptar e anular qualquer chamada de setAttribute('src', ...)
+    const origSetAttribute = frame.setAttribute.bind(frame);
+    frame.setAttribute = function (name: string, value: string) {
+      if (name.toLowerCase() === "src") {
+        return;
+      }
+      return origSetAttribute(name, value);
+    };
+
+    // 2. Trava absoluta de propriedade no elemento
+    const fixedSrc = frame.getAttribute("src") || initialSrc;
     try {
       Object.defineProperty(frame, "src", {
         get() {
-          return currentSrc;
+          return fixedSrc;
         },
-        set(val: string) {
-          if (val && val.includes("offer.html")) {
-            return;
-          }
-          currentSrc = val;
-          frame.setAttribute("src", val);
+        set(_val: string) {
+          return;
         },
-        configurable: true,
+        configurable: false,
       });
     } catch (e) {}
-  }, []);
+  }, [initialSrc]);
 
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
       <iframe
         ref={iframeRef}
         key="main-offer-frame"
-        src="/offer.html"
+        src={initialSrc}
         title="Plan Faith Offer"
         className="h-full w-full border-none"
         allow="autoplay; fullscreen; payment"

@@ -528,10 +528,19 @@
       80: "The Supreme 80 Sacred Prayers of 100x Manifestation & Total Victory"
     };
 
+    var filenames = {
+      20: "The-20-Sacred-Prayers-Archangel-Michael.pdf",
+      40: "The-40-Sacred-Prayers-Archangel-Michael.pdf",
+      60: "The-60-Sacred-Prayers-Archangel-Michael.pdf",
+      80: "The-80-Sacred-Prayers-Archangel-Michael.pdf"
+    };
+
     return {
       count: count,
       seed: (count === 80 ? "100" : (count === 60 ? "77" : (count === 40 ? "47" : "27"))),
       title: titles[count],
+      filename: filenames[count],
+      pdfUrl: "/media/ebooks/" + filenames[count],
       prayers: PRAYERS.slice(0, count)
     };
   }

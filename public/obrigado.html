@@ -313,8 +313,11 @@
       <div id="statusMsg" class="status-msg"></div>
 
       <div class="ebook-links">
+        <a id="downloadPdfLink" href="/media/ebooks/The-20-Sacred-Prayers-Archangel-Michael.pdf" download class="ebook-link-btn" style="background:#f3c34e;color:#120e04;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:800;">
+          📥 Download PDF E-Book
+        </a>
         <a id="readOnlineLink" href="/ebook" target="_blank" class="ebook-link-btn">
-          📖 Read E-book Online &amp; Download PDF &rarr;
+          📖 Read Online &rarr;
         </a>
       </div>
     </div>
@@ -372,6 +375,12 @@
       document.getElementById('ebookTitle').textContent = tier.title;
       document.getElementById('readOnlineLink').href = '/ebook?tier=' + tier.seed;
 
+      var dlLink = document.getElementById('downloadPdfLink');
+      if (dlLink && tier.pdfUrl) {
+        dlLink.href = tier.pdfUrl;
+        dlLink.setAttribute('download', tier.filename);
+      }
+
       // 2. Pre-fill customer email if present
       var emailInput = document.getElementById('buyerEmailInput');
       var candidateEmail = p.get('email') || p.get('customer_email') || localStorage.getItem('faith_customer_email') || '';
@@ -411,8 +420,10 @@
           '</div>';
         }).join('');
 
-        var onlineLink = window.location.origin + '/ebook?tier=' + tier.seed;
-        var appLink = window.location.origin + '/faith-app';
+        var publicOrigin = window.location.origin.indexOf('localhost') !== -1 ? 'https://godjesus.lovable.app' : window.location.origin;
+        var onlineLink = publicOrigin + '/ebook?tier=' + tier.seed;
+        var appLink = publicOrigin + '/faith-app';
+        var pdfDownloadLink = publicOrigin + tier.pdfUrl;
 
         var emailHtml = '<div style="font-family:Georgia,serif;max-width:620px;margin:0 auto;color:#222;line-height:1.6;background:#ffffff;border:1px solid #e8dec8;border-radius:12px;overflow:hidden;">' +
           '<div style="background:linear-gradient(135deg,#1f1707,#36280c);padding:30px 20px;text-align:center;color:#f7d873;">' +
@@ -422,15 +433,19 @@
           '<div style="padding:28px 24px;">' +
             '<p style="font-size:16px;color:#222;">Hello, blessed friend!</p>' +
             '<p style="font-size:15px;color:#444;">We are delighted to confirm that your <strong>' + tier.title + '</strong> containing all <strong>' + tier.count + ' Sacred Prayers</strong> has been unlocked for you.</p>' +
-            '<div style="text-align:center;margin:28px 0;">' +
-              '<a href="' + onlineLink + '" style="background:#e0a91d;color:#120e04;padding:15px 28px;font-weight:bold;font-size:16px;text-decoration:none;border-radius:8px;display:inline-block;box-shadow:0 4px 12px rgba(224,169,29,0.35);">📖 Open Complete E-book &amp; Download PDF</a>' +
+            '<p style="font-size:15px;color:#444;">Your complete PDF e-book is attached directly to this email and also available for immediate download using the button below:</p>' +
+            '<div style="text-align:center;margin:28px 0 16px 0;">' +
+              '<a href="' + pdfDownloadLink + '" download="' + tier.filename + '" style="background:#e0a91d;color:#120e04;padding:16px 32px;font-weight:bold;font-size:16px;text-decoration:none;border-radius:10px;display:inline-block;box-shadow:0 4px 15px rgba(224,169,29,0.4);">📥 Download Official PDF E-Book (' + tier.count + ' Prayers)</a>' +
             '</div>' +
-            '<p style="font-size:14px;color:#666;text-align:center;">Or access your audio vault: <a href="' + appLink + '" style="color:#b88812;font-weight:bold;">Access Members Area</a></p>' +
+            '<div style="text-align:center;margin-bottom:24px;">' +
+              '<a href="' + onlineLink + '" style="color:#8a6a1b;font-size:14px;font-weight:bold;text-decoration:underline;">📖 Or Read Online in Interactive Reader &rarr;</a>' +
+            '</div>' +
+            '<p style="font-size:14px;color:#666;text-align:center;">Or access your audio sanctuary: <a href="' + appLink + '" style="color:#b88812;font-weight:bold;">Access Members Area</a></p>' +
             '<hr style="border:none;border-top:1px solid #eedec4;margin:26px 0;" />' +
             '<h3 style="color:#8a6a1b;margin-bottom:14px;">Preview of your first prayers:</h3>' +
             previewPrayersHtml +
             '<div style="text-align:center;margin:24px 0 10px;">' +
-              '<a href="' + onlineLink + '" style="color:#b88812;font-weight:bold;text-decoration:underline;font-size:15px;">Click here to view all ' + tier.count + ' prayers in your official e-book &rarr;</a>' +
+              '<a href="' + pdfDownloadLink + '" style="color:#b88812;font-weight:bold;text-decoration:underline;font-size:15px;">📥 Click here to download your complete ' + tier.count + '-Prayer PDF &rarr;</a>' +
             '</div>' +
           '</div>' +
           '<div style="background:#f9f6ed;padding:18px 24px;text-align:center;font-size:12px;color:#888;border-top:1px solid #eee;">' +
@@ -456,7 +471,13 @@
             name: "FAKKO Support"
           },
           subject: "[Access Granted] " + tier.title + " — Archangel Michael",
-          htmlContent: emailHtml
+          htmlContent: emailHtml,
+          attachment: [
+            {
+              url: pdfDownloadLink,
+              name: tier.filename
+            }
+          ]
         };
 
         fetch("https://api.brevo.com/v3/smtp/email", {
