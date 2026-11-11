@@ -161,6 +161,16 @@ if (!_inIframe) {
   .guarantee { font-size:18px; color:#ffe9ab; font-style:italic; margin:14px auto; }
   .guarantee a { color:#f3c34e; }
 
+  /* offer pitch wrapper */
+  #offerPitch {
+    display: none;
+    animation: fadeInOffer 0.5s ease-in-out;
+  }
+  @keyframes fadeInOffer {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /* seeds — permanently fixed and visible below each image */
   #chooseHead, #winners, #cleanInfo { display:block !important; visibility:visible !important; opacity:1 !important; }
   #seeds, .seeds { display:flex !important; visibility:visible !important; opacity:1 !important; flex-direction:column; gap:34px; max-width:600px; margin:24px auto 0; }
@@ -277,6 +287,13 @@ if (!_inIframe) {
         var bar = document.getElementById('vslProgressBar');
         if (!video) return;
 
+        function revealOffer() {
+          var pitch = document.getElementById('offerPitch');
+          if (pitch && pitch.style.display !== 'block') {
+            pitch.style.display = 'block';
+          }
+        }
+
         function unmuteVideo() {
           video.muted = false;
           video.currentTime = 0;
@@ -286,14 +303,44 @@ if (!_inIframe) {
             overlay.style.opacity = '0';
             setTimeout(function() { overlay.style.display = 'none'; }, 300);
           }
+          revealOffer();
         }
 
-        if (overlay) overlay.addEventListener('click', unmuteVideo);
+        if (overlay) {
+          overlay.addEventListener('click', unmuteVideo);
+          overlay.addEventListener('touchend', function(e) {
+            unmuteVideo();
+          });
+        }
+
         video.addEventListener('click', function() {
           if (video.muted) {
             unmuteVideo();
           } else {
-            if (video.paused) video.play(); else video.pause();
+            if (video.paused) {
+              video.play();
+              revealOffer();
+            } else {
+              video.pause();
+            }
+          }
+        });
+
+        video.addEventListener('volumechange', function() {
+          if (!video.muted) {
+            revealOffer();
+          }
+        });
+
+        video.addEventListener('play', function() {
+          if (!video.muted) {
+            revealOffer();
+          }
+        });
+
+        video.addEventListener('playing', function() {
+          if (!video.muted) {
+            revealOffer();
           }
         });
 
@@ -306,90 +353,93 @@ if (!_inIframe) {
       })();
     </script>
 
-    <!-- Recent Winners -->
-    <div id="winners">
-      <h2>🏆 Recent Winners</h2>
-      <div class="winners">
-        <div class="winner"><img src="winner-brian.webp" alt="Brian Sides"><div class="wname">Brian Sides</div></div>
-        <div class="winner"><img src="winner-christine.jpg" alt="Christine &amp; Nick Jane"><div class="wname">Christine &amp; Nick Jane</div></div>
-        <div class="winner"><img src="winner-deivison.jpg" alt="Deivison Alves Martins"><div class="wname">Deivison Alves Martins</div></div>
-        <div class="winner"><img src="winner-robert.jpg" alt="Robert Benaglio"><div class="wname">Robert Benaglio</div></div>
-        <div class="winner"><img src="winner-roberta.jpg" alt="Roberta Trumbo"><div class="wname">Roberta Trumbo</div></div>
-        <div class="winner"><img src="winner-terry-kay.jpg" alt="Terry Kennedy &amp; Kay Yoxall"><div class="wname">Terry Kennedy &amp; Kay Yoxall</div></div>
-        <div class="winner"><img src="winner-terry.jpg" alt="Terry Peace"><div class="wname">Terry Peace</div></div>
-        <div class="winner"><img src="winner-jamie.webp" alt="Jamie Kay, England"><div class="wname">Jamie Kay, England</div></div>
+    <!-- Offer content — hidden initially until user plays VSL -->
+    <div id="offerPitch">
+      <!-- Recent Winners -->
+      <div id="winners">
+        <h2>🏆 Recent Winners</h2>
+        <div class="winners">
+          <div class="winner"><img src="winner-brian.webp" alt="Brian Sides"><div class="wname">Brian Sides</div></div>
+          <div class="winner"><img src="winner-christine.jpg" alt="Christine &amp; Nick Jane"><div class="wname">Christine &amp; Nick Jane</div></div>
+          <div class="winner"><img src="winner-deivison.jpg" alt="Deivison Alves Martins"><div class="wname">Deivison Alves Martins</div></div>
+          <div class="winner"><img src="winner-robert.jpg" alt="Robert Benaglio"><div class="wname">Robert Benaglio</div></div>
+          <div class="winner"><img src="winner-roberta.jpg" alt="Roberta Trumbo"><div class="wname">Roberta Trumbo</div></div>
+          <div class="winner"><img src="winner-terry-kay.jpg" alt="Terry Kennedy &amp; Kay Yoxall"><div class="wname">Terry Kennedy &amp; Kay Yoxall</div></div>
+          <div class="winner"><img src="winner-terry.jpg" alt="Terry Peace"><div class="wname">Terry Peace</div></div>
+          <div class="winner"><img src="winner-jamie.webp" alt="Jamie Kay, England"><div class="wname">Jamie Kay, England</div></div>
+        </div>
       </div>
+
+      <!-- What you receive -->
+      <div id="cleanInfo">
+        <div class="info">
+          What you receive: a personalized digital inspirational Script and the complete
+          <b>Faith &amp; Abundance Blueprint</b> — a 200+ page biblical guide of prayers, scriptures,
+          and daily declarations for every area of your life.
+        </div>
+        <div class="badges">
+          <div class="badge">📩 Delivered instantly by email</div>
+          <div class="badge">💻 100% digital — no shipping</div>
+          <div class="badge">🔒 Secure checkout</div>
+        </div>
+        <div class="guarantee">Backed by our 7-day money-back guarantee — see our <a href="/refund">Refund Policy</a>.</div>
+      </div>
+
+      <!-- 4 Checkout Seeds Section -->
+      <h2 id="chooseHead">Make your choice now</h2>
+      <div class="seeds" id="seeds">
+        <!-- Seed 27 -->
+        <div class="seed-block">
+          <a href="/checkout?seed=27" target="_top" class="seed-card checkout-btn" data-amt="27" style="display:block;cursor:pointer;">
+            <img src="sedd-of-fath-27.jpg" onerror="this.onerror=null;this.src='seed-of-faith-27.jpg';" alt="Seed of Faith $27">
+          </a>
+          <a href="/checkout?seed=27" target="_top" class="seed-cta checkout-btn" data-amt="27" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+            This is the life I choose &mdash; $27
+          </a>
+        </div>
+
+        <!-- Seed 47 -->
+        <div class="seed-block">
+          <a href="/checkout?seed=47" target="_top" class="seed-card checkout-btn" data-amt="47" style="display:block;cursor:pointer;">
+            <img src="seed-of-faith47.jpg" alt="Seed of Faith $47">
+          </a>
+          <a href="/checkout?seed=47" target="_top" class="seed-cta checkout-btn" data-amt="47" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+            This is the life I choose &mdash; $47
+          </a>
+        </div>
+
+        <!-- Seed 77 -->
+        <div class="seed-block">
+          <a href="/checkout?seed=77" target="_top" class="seed-card checkout-btn" data-amt="77" style="display:block;cursor:pointer;">
+            <img src="seed-of-fath-77.jpg" alt="Seed of Faith $77">
+          </a>
+          <a href="/checkout?seed=77" target="_top" class="seed-cta checkout-btn" data-amt="77" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+            This is the life I choose &mdash; $77
+          </a>
+        </div>
+
+        <!-- Seed 100 -->
+        <div class="seed-block">
+          <a href="/checkout?seed=100" target="_top" class="seed-card checkout-btn" data-amt="100" style="display:block;cursor:pointer;">
+            <img src="seed-of-faith-100.jpg" alt="Seed of Faith $100">
+          </a>
+          <a href="/checkout?seed=100" target="_top" class="seed-cta checkout-btn" data-amt="100" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+            This is the life I choose &mdash; $100
+          </a>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <div class="foot-links">
+          <a href="/terms">Terms of Use</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/refund">Refund Policy</a>
+          <a href="/support">Support</a>
+        </div>
+        <div class="foot-legal">Digital product delivered by email immediately after purchase.</div>
+        <div class="foot-disc">Educational and inspirational content. Results vary from person to person. This is not financial, medical, or professional advice.</div>
+      </footer>
     </div>
-
-    <!-- What you receive -->
-    <div id="cleanInfo">
-      <div class="info">
-        What you receive: a personalized digital inspirational Script and the complete
-        <b>Faith &amp; Abundance Blueprint</b> — a 200+ page biblical guide of prayers, scriptures,
-        and daily declarations for every area of your life.
-      </div>
-      <div class="badges">
-        <div class="badge">📩 Delivered instantly by email</div>
-        <div class="badge">💻 100% digital — no shipping</div>
-        <div class="badge">🔒 Secure checkout</div>
-      </div>
-      <div class="guarantee">Backed by our 7-day money-back guarantee — see our <a href="/refund">Refund Policy</a>.</div>
-    </div>
-
-    <!-- 4 Checkout Seeds Section -->
-    <h2 id="chooseHead">Make your choice now</h2>
-    <div class="seeds" id="seeds">
-      <!-- Seed 27 -->
-      <div class="seed-block">
-        <a href="/checkout?seed=27" target="_top" class="seed-card checkout-btn" data-amt="27" style="display:block;cursor:pointer;">
-          <img src="sedd-of-fath-27.jpg" onerror="this.onerror=null;this.src='seed-of-faith-27.jpg';" alt="Seed of Faith $27">
-        </a>
-        <a href="/checkout?seed=27" target="_top" class="seed-cta checkout-btn" data-amt="27" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
-          This is the life I choose &mdash; $27
-        </a>
-      </div>
-
-      <!-- Seed 47 -->
-      <div class="seed-block">
-        <a href="/checkout?seed=47" target="_top" class="seed-card checkout-btn" data-amt="47" style="display:block;cursor:pointer;">
-          <img src="seed-of-faith47.jpg" alt="Seed of Faith $47">
-        </a>
-        <a href="/checkout?seed=47" target="_top" class="seed-cta checkout-btn" data-amt="47" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
-          This is the life I choose &mdash; $47
-        </a>
-      </div>
-
-      <!-- Seed 77 -->
-      <div class="seed-block">
-        <a href="/checkout?seed=77" target="_top" class="seed-card checkout-btn" data-amt="77" style="display:block;cursor:pointer;">
-          <img src="seed-of-fath-77.jpg" alt="Seed of Faith $77">
-        </a>
-        <a href="/checkout?seed=77" target="_top" class="seed-cta checkout-btn" data-amt="77" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
-          This is the life I choose &mdash; $77
-        </a>
-      </div>
-
-      <!-- Seed 100 -->
-      <div class="seed-block">
-        <a href="/checkout?seed=100" target="_top" class="seed-card checkout-btn" data-amt="100" style="display:block;cursor:pointer;">
-          <img src="seed-of-faith-100.jpg" alt="Seed of Faith $100">
-        </a>
-        <a href="/checkout?seed=100" target="_top" class="seed-cta checkout-btn" data-amt="100" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
-          This is the life I choose &mdash; $100
-        </a>
-      </div>
-    </div>
-
-    <footer class="site-footer">
-      <div class="foot-links">
-        <a href="/terms">Terms of Use</a>
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/refund">Refund Policy</a>
-        <a href="/support">Support</a>
-      </div>
-      <div class="foot-legal">Digital product delivered by email immediately after purchase.</div>
-      <div class="foot-disc">Educational and inspirational content. Results vary from person to person. This is not financial, medical, or professional advice.</div>
-    </footer>
   </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
