@@ -49,7 +49,13 @@ export function Offer() {
   }, [initialSrc]);
 
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
+    <div
+      className="fixed inset-0 w-full overflow-hidden bg-black"
+      style={{
+        height: "100dvh",
+        maxHeight: "-webkit-fill-available",
+      }}
+    >
       <iframe
         ref={iframeRef}
         key="main-offer-frame"
@@ -59,6 +65,11 @@ export function Offer() {
         allow="autoplay; fullscreen; payment"
         data-utmify-ignore="true"
         data-utmify-ignore-iframe="true"
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "block",
+        }}
       />
     </div>
   );

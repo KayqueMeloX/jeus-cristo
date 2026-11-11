@@ -131,8 +131,8 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   @keyframes dot{0%,100%{opacity:.25}50%{opacity:1}}
 
   /* ---------- CONTEÚDO SOBRE O VÍDEO (base) ---------- */
-  .panel{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:0 16px calc(18px + env(safe-area-inset-bottom));
-    max-height:74%;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center}
+  .panel{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:0 16px calc(38px + env(safe-area-inset-bottom, 20px));
+    max-height:78%;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center}
   .screen{display:none}.screen.active{display:block}
   .revealable{transition:opacity .45s ease,transform .45s ease}
   body.waiting .revealable{opacity:0;transform:translateY(12px);pointer-events:none}
@@ -146,6 +146,22 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     background:linear-gradient(180deg,#f7d873,#e0a91d);color:#1a1206;cursor:pointer;width:100%;
     box-shadow:0 4px 0 #b8911f,0 0 22px rgba(243,195,78,.25)}
   .cta:active{transform:translateY(2px);box-shadow:0 2px 0 #b8911f}
+
+  @media (max-width: 480px), (max-height: 800px) {
+    .panel{padding:0 16px calc(42px + env(safe-area-inset-bottom, 24px));max-height:82%}
+    .lead{font-size:15px;line-height:1.3;margin-bottom:9px}
+    .name-input,.money-input{font-size:17px;padding:11px 12px;margin-bottom:8px}
+    .cta{font-size:17px;padding:13px 18px}
+  }
+  @media (max-height: 680px) {
+    .panel{padding:0 14px calc(46px + env(safe-area-inset-bottom, 24px));max-height:86%}
+    .lead{font-size:14px;line-height:1.25;margin-bottom:6px}
+    .lead .big{font-size:14px}
+    .name-input,.money-input{font-size:16px;padding:9px 10px;margin-bottom:6px}
+    .cta{font-size:16px;padding:11px 14px}
+    .vow{padding:10px;margin-bottom:8px}
+    .vow .phrase{font-size:16px;margin:4px 0}
+  }
 
   .vow{border:2px solid #f3c34e;border-radius:15px;background:rgba(8,6,3,.75);padding:15px 14px;margin-bottom:12px;
     animation:glow 2s ease-in-out infinite}

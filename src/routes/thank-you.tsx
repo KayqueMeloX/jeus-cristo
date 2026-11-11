@@ -47,7 +47,13 @@ export function ThankYouPage() {
   }, [initialSrc]);
 
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
+    <div
+      className="fixed inset-0 w-full overflow-hidden bg-black"
+      style={{
+        height: "100dvh",
+        maxHeight: "-webkit-fill-available",
+      }}
+    >
       <iframe
         ref={iframeRef}
         key="main-thankyou-frame"
@@ -57,6 +63,11 @@ export function ThankYouPage() {
         allow="autoplay; fullscreen; clipboard-write"
         data-utmify-ignore="true"
         data-utmify-ignore-iframe="true"
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "block",
+        }}
       />
     </div>
   );

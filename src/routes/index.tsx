@@ -65,7 +65,13 @@ export function Index() {
   }, [initialSrc]);
 
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">
+    <div
+      className="fixed inset-0 w-full overflow-hidden bg-black"
+      style={{
+        height: "100dvh",
+        maxHeight: "-webkit-fill-available",
+      }}
+    >
       <iframe
         ref={iframeRef}
         key="main-funnel-frame"
@@ -75,6 +81,11 @@ export function Index() {
         allow="autoplay; fullscreen"
         data-utmify-ignore="true"
         data-utmify-ignore-iframe="true"
+        style={{
+          height: "100%",
+          width: "100%",
+          display: "block",
+        }}
       />
     </div>
   );
