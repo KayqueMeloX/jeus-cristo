@@ -161,16 +161,17 @@ if (!_inIframe) {
   .guarantee { font-size:18px; color:#ffe9ab; font-style:italic; margin:14px auto; }
   .guarantee a { color:#f3c34e; }
 
-  /* seeds */
-  .seeds { display:flex; flex-direction:column; gap:34px; max-width:600px; margin:24px auto 0; }
-  .seed-block { width:100%; max-width:420px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
-  .seed-card { background:none; box-shadow:none; padding:0; border:3px solid #f3c34e; border-radius:16px;
+  /* seeds — permanently fixed and visible below each image */
+  #chooseHead, #winners, #cleanInfo { display:block !important; visibility:visible !important; opacity:1 !important; }
+  #seeds, .seeds { display:flex !important; visibility:visible !important; opacity:1 !important; flex-direction:column; gap:34px; max-width:600px; margin:24px auto 0; }
+  .seed-block { display:flex !important; visibility:visible !important; opacity:1 !important; width:100%; max-width:420px; margin:0 auto; flex-direction:column; gap:12px; }
+  .seed-card { display:block !important; visibility:visible !important; opacity:1 !important; background:none; box-shadow:none; padding:0; border:3px solid #f3c34e; border-radius:16px;
     overflow:hidden; aspect-ratio:1/1; width:100%; line-height:0; cursor:pointer; }
   .seed-card img { width:100%; height:100%; object-fit:cover; display:block; }
   .seed-card:hover { filter:brightness(1.06); box-shadow:0 0 22px rgba(243,195,78,.45); }
-  .seed-cta { font-family:inherit; font-weight:bold; font-size:23px; padding:18px; width:100%; border:none;
+  .seed-cta { display:block !important; visibility:visible !important; opacity:1 !important; font-family:inherit; font-weight:bold; font-size:23px; padding:18px; width:100%; border:none;
     border-radius:16px; background:linear-gradient(180deg,#f7d873,#e0a91d); color:#1a1206; cursor:pointer;
-    box-shadow:0 6px 0 #b8911f; }
+    box-shadow:0 6px 0 #b8911f; text-decoration:none; text-align:center; }
   .seed-cta:active { transform:translateY(2px); box-shadow:0 2px 0 #b8911f; }
 
   /* footer */
