@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html><html lang="en"><head>
-
+<!DOCTYPE html><html lang="en"><head>
 <!-- Anti-Lovable badge protection -->
 <style id="anti-lovable-css">
 #lovable-badge,
@@ -61,6 +60,7 @@ a[href*="lovable.app"] {
   }
 })();
 </script>
+
 <!-- UTMify Pixel & UTMs -->
 <script>
   var _inIframe = false;
@@ -74,9 +74,8 @@ a[href*="lovable.app"] {
     document.head.appendChild(a);
   }
 </script>
-<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids async defer></script>
-<!-- End UTMify --><script>(function(){if(location.protocol!=='file:')return;function s(){if(document.getElementById('__site_host_notice'))return;var d=document.createElement('div');d.id='__site_host_notice';d.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#0A0A0A;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';d.innerHTML='<div style="max-width:440px;text-align:center;line-height:1.55"><div style="font-size:20px;font-weight:600;margin-bottom:12px">Quase l&aacute;: seu site precisa estar publicado</div><div style="opacity:.85;font-size:15px">Abrir o arquivo direto no computador n&atilde;o funciona, &eacute; uma prote&ccedil;&atilde;o do navegador. Para ver seu site, publique esta pasta em qualquer hospedagem de sites.</div><div style="opacity:.7;font-size:13px;margin-top:14px">Jeito r&aacute;pido e gr&aacute;tis: acesse <b>app.netlify.com/drop</b> e arraste a pasta para a p&aacute;gina.</div></div>';(document.body||document.documentElement).appendChild(d);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',s);}else{s();}setTimeout(s,400);})();</script>
-<!-- UTMify -->
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids data-utmify-ignore-iframe="true" async defer></script>
+<!-- End UTMify -->
 
 <!-- Meta Pixel Code -->
 <script>
@@ -114,15 +113,6 @@ if (!_inIframe) {
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Trava de domínio (camada extra anti-clone): esta página só roda nos nossos
-     domínios. Clone que copia o HTML e sobe no domínio dele cai aqui e é mandado
-     para o nosso funil, levando as UTMs (src=clone2 separa na UTMify). Não pega
-     proxy ao vivo que reescreve a página — para esse, ver functions/_middleware.js. -->
-<script>
-(function(C){try{var h=location.hostname;
-if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|\.)god-thrive\.pages\.dev$/i.test(h)||h==='localhost'||h==='127.0.0.1'||h==='')return;
-// bypassed: location.replace(C+(location.search?location.search+'&':'?')+'src=clone2');}catch(e){}})('https://mymichaelguide.com/offer');
-</script>
 <title>Your Divine Manifestation Script — Plan Faith</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -138,13 +128,8 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   h1 { font-size:40px; line-height:1.15; color:#f3c34e; margin:6px auto 10px; max-width:690px; }
   .sub { font-size:22px; line-height:1.4; color:#fff7e6; max-width:640px; margin:0 auto 22px; }
 
-  /* video — spacing only. The VTurb player styles itself; do not add rules
-     targeting vturb-smartplayer or its children. */
+  /* video — spacing only. */
   .videobox { margin:22px auto 8px; }
-  /* Hide the BROWSER's native controls that WebKit overlays on the <video>
-     inside VTurb (second bar on hover/touch, lets viewers seek). Same fix
-     already applied on the upsell page. Targets only browser pseudo-elements,
-     not VTurb's own UI. */
   .videobox video::-webkit-media-controls,
   .videobox video::-webkit-media-controls-enclosure,
   .videobox video::-webkit-media-controls-panel,
@@ -157,42 +142,10 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     width:100%; max-width:560px; box-shadow:0 6px 0 #b8911f, 0 0 30px rgba(243,195,78,.25);
     transition:transform .08s ease; margin-top:14px; }
   .cta:active { transform:translateY(3px); box-shadow:0 2px 0 #b8911f; }
-  @keyframes pulseCta {
-    0% { transform: scale(1); box-shadow: 0 6px 0 #b8911f, 0 0 20px rgba(243,195,78,0.3); }
-    50% { transform: scale(1.02); box-shadow: 0 6px 0 #b8911f, 0 0 32px rgba(243,195,78,0.6); }
-    100% { transform: scale(1); box-shadow: 0 6px 0 #b8911f, 0 0 20px rgba(243,195,78,0.3); }
-  }
-  .quick-jump-cta {
-    display: inline-block;
-    width: 100%;
-    max-width: 440px;
-    margin: 18px auto 24px;
-    padding: 16px 20px;
-    background: linear-gradient(180deg, #f7d873, #e0a91d);
-    color: #1a1206;
-    font-family: inherit;
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 14px;
-    box-shadow: 0 6px 0 #b8911f, 0 0 25px rgba(243,195,78,0.35);
-    animation: pulseCta 2s infinite ease-in-out;
-  }
-  .quick-jump-cta:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 0 #b8911f;
-  }
 
   h2 { font-size:32px; color:#f3c34e; margin:34px auto 8px; }
 
-  /* portals (quiz mode) */
-  .portals { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:20px auto 6px; max-width:640px; }
-  .portal { font-size:20px; font-weight:bold; padding:18px 12px; border:3px solid #f3c34e; border-radius:14px;
-    background:rgba(22,18,10,.7); color:#fff7e6; display:flex; align-items:center; justify-content:center; gap:8px;
-    min-height:78px; box-shadow:0 0 16px rgba(243,195,78,.25); }
-  .portal img { width:40px; height:40px; border-radius:8px; object-fit:cover; border:2px solid #f3c34e; }
-
-  /* winners (quiz mode) */
+  /* winners */
   .winners { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; max-width:520px; margin:16px auto 6px; }
   .winner img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:14px; border:3px solid #f3c34e;
     display:block; box-shadow:0 0 16px rgba(243,195,78,.3); }
@@ -207,14 +160,6 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     background:rgba(22,18,10,.7); color:#fff7e6; }
   .guarantee { font-size:18px; color:#ffe9ab; font-style:italic; margin:14px auto; }
   .guarantee a { color:#f3c34e; }
-
-  /* warning (quiz mode only) */
-  .warning { max-width:640px; margin:28px auto 8px; padding:20px 22px; border:3px solid #e23b3b;
-    border-radius:14px; background:rgba(70,10,10,.55); color:#ffdada; font-size:20px; line-height:1.5;
-    font-weight:bold; box-shadow:0 0 24px rgba(226,59,59,.45); }
-  .warning .wtitle { display:block; color:#ff4d4d; font-size:24px; letter-spacing:3px; margin-bottom:8px; text-shadow:0 0 14px rgba(255,60,60,.5); }
-  .warning b { color:#fff; }
-  @media (max-width:600px){ .warning { font-size:17px; } .warning .wtitle { font-size:21px; } }
 
   /* seeds */
   .seeds { display:flex; flex-direction:column; gap:34px; max-width:600px; margin:24px auto 0; }
@@ -238,20 +183,16 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
 
   @media (max-width:600px){
     h1 { font-size:29px; } .sub { font-size:19px; } h2 { font-size:25px; }
-    .info { font-size:18px; } .seed-cta { font-size:19px; padding:15px; } .portal { font-size:17px; }
+    .info { font-size:18px; } .seed-cta { font-size:19px; padding:15px; }
     .site-footer { font-size:13px; } .foot-links { gap:12px 16px; }
   }
 </style>
-<!-- Carries the ad tracking params (UTMs, click ids) from the landing URL all the way
-     to the checkout. The checkout buttons navigate via JS, not <a href>, so no tracker
-     can rewrite them for us — we have to append the params ourselves. -->
 <script>
 (function () {
   var KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term',
               'fbclid','gclid','ttclid','xcod','sck'];
   var STORE = 'pf_tracking';
   function read(){ try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch(e){ return {}; } }
-  // capture on landing; merge so a later page view never wipes the original source
   try {
     var searchStr = location.search;
     try {
@@ -273,72 +214,20 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     }
     return parts.join('&');
   };
-  // Nossa API de Conversões (PLANFAITH-APP/functions/api/visit.js e lib/meta-capi.js):
-  // no clique de compra, o link do checkout leva sck=pf_<id> e o fbclid/_fbc/_fbp
-  // deste aparelho vão para app.planfaith.com, para o webhook da KashPay mandar o
-  // Purchase à Meta com o clique do anúncio. Só no clique, em segundo plano.
-  function pfVid() {
-    try {
-      var v = localStorage.getItem('pf_vid');
-      if (!v || !/^[A-Za-z0-9]{10,32}$/.test(v)) {
-        var c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', r = null, i;
-        try { r = crypto.getRandomValues(new Uint8Array(16)); } catch (e) {}
-        for (v = '', i = 0; i < 16; i++) v += c[(r ? r[i] : Math.floor(Math.random() * 256)) % 62];
-        localStorage.setItem('pf_vid', v);
-      }
-      return v;
-    } catch (e) { return null; }
-  }
-  function pfCookie(n) {
-    var m = document.cookie.match('(?:^|; )' + n + '=([^;]*)');
-    return m ? decodeURIComponent(m[1]) : null;
-  }
-  // Only fills gaps: if something else (e.g. UTMify's own utms script) already put a
-  // value on the outbound URL, leave it alone. Safe to run alongside their script.
-  window.pfWithTracking = function (url) {
-    var saved = read(), existing, parts = [];
-    try { existing = new URLSearchParams(url.split('?')[1] || ''); }
-    catch (e) { existing = null; }
-    for (var k in saved) {
-      if (!saved[k]) continue;
-      if (existing && existing.get(k)) continue;
-      parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(saved[k]));
-    }
-    if (/\/checkout\//.test(url) && !saved.sck && !(existing && existing.get('sck'))) {
-      var v = pfVid();
-      if (v) {
-        parts.push('sck=pf_' + v);
-        try {
-          navigator.sendBeacon('https://app.planfaith.com/api/visit', JSON.stringify({
-            v: v, fbc: pfCookie('_fbc'), fbp: pfCookie('_fbp'), fbclid: saved.fbclid || null,
-            url: location.origin + location.pathname }));
-        } catch (e) {}
-      }
-    }
-    if (!parts.length) return url;
-    return url + (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
-  };
-  // Checkout hijacker removed
 })();
 </script>
-
-
-
-
-
-
 </head>
 <body>
   <div class="wrap">
-    <img src="logo.png" alt="Plan Faith" class="logo" onerror="this.style.display='none'">
-    <h1 id="headline">Your Divine Manifestation Script Is Ready</h1>
-    <div class="sub" id="sub">Watch the message below, then choose your Seed of Faith to receive your Script.</div>
+    <img src="logo.png" alt="TIME TO THRIVE" class="logo" onerror="this.style.display='none'">
+    <h1 id="headline">You've made it this far... and that's no accident.</h1>
+    <div class="sub" id="sub">Today is November 11, 2026 — the first day of your new reality.</div>
 
     <style>
-      @keyframes pulseGlow {
-        0% { transform: scale(1); box-shadow: 0 0 20px rgba(124,8,168,0.5); }
-        50% { transform: scale(1.04); box-shadow: 0 0 32px rgba(124,8,168,0.85); }
-        100% { transform: scale(1); box-shadow: 0 0 20px rgba(124,8,168,0.5); }
+      @keyframes pulseGlowRed {
+        0% { transform: scale(1); box-shadow: 0 0 20px rgba(184,24,24,0.5); }
+        50% { transform: scale(1.03); box-shadow: 0 0 35px rgba(184,24,24,0.85); }
+        100% { transform: scale(1); box-shadow: 0 0 20px rgba(184,24,24,0.5); }
       }
     </style>
     <div class="videobox" style="max-width:400px;margin:22px auto 8px;position:relative;border-radius:18px;overflow:hidden;box-shadow:0 0 35px rgba(243,195,78,0.25);background:#000;">
@@ -357,16 +246,20 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
           <source src="/media/vsl.mp4" type="video/mp4" />
         </video>
 
-        <!-- Unmute CTA Button Overlay (Smart Autoplay) -->
-        <div id="vslUnmuteOverlay" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);cursor:pointer;z-index:10;transition:opacity 0.3s ease;">
-          <div style="background:rgba(124,8,168,0.88);border:2px solid #fff;border-radius:12px;padding:16px 24px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 0 30px rgba(124,8,168,0.7);animation:pulseGlow 2s infinite ease-in-out;">
-            <div style="display:flex;align-items:center;gap:10px;color:#fff;font-family:sans-serif;font-weight:700;font-size:18px;">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-              </svg>
-              <span>Click to Listen</span>
+        <!-- Unmute CTA Button Overlay (Red Box matching original) -->
+        <div id="vslUnmuteOverlay" style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);cursor:pointer;z-index:10;transition:opacity 0.3s ease;">
+          <div style="background:#b31414;border-radius:10px;padding:18px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 0 30px rgba(179,20,20,0.8);animation:pulseGlowRed 2s infinite ease-in-out;width:180px;max-width:85%;">
+            <div style="color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-weight:700;font-size:18px;line-height:1.2;">
+              Click to<br><span style="font-size:26px;font-weight:800;letter-spacing:0.5px;">Listen</span>
             </div>
-            <span style="font-size:12px;color:#ffe6ff;font-family:sans-serif;">Your video has started</span>
+            <div style="margin:8px 0 6px;">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+              </svg>
+            </div>
+            <div style="font-size:11px;color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;opacity:0.95;line-height:1.25;">
+              and be first to hear his incredible message
+            </div>
           </div>
         </div>
 
@@ -376,30 +269,12 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
         </div>
       </div>
     </div>
-            <div style="margin: 16px auto 22px; max-width: 440px; padding: 0 10px;">
-      <a href="#chooseHead" class="quick-jump-cta">
-        &#11015; Choose Your Seed of Faith ($27 - $100) &#11015;
-      </a>
-    </div>
     <script>
       (function initVslPlayer() {
         var video = document.getElementById('vslVideo');
         var overlay = document.getElementById('vslUnmuteOverlay');
         var bar = document.getElementById('vslProgressBar');
         if (!video) return;
-
-        function revealPitch() {
-          try { localStorage.setItem('faith_offer_revealed_v2', '1'); } catch(e){}
-          var pitchEls = document.querySelectorAll('#winners, #portals, #cleanInfo, #chooseHead, #seeds, .badges, .guarantee, footer');
-          pitchEls.forEach(function(el) { 
-            if (el) { 
-              el.style.display = (el.id === 'seeds' ? 'flex' : 'block'); 
-            } 
-          });
-        }
-
-        // Reveal pitch & 4 checkout links IMMEDIATELY
-        revealPitch();
 
         function unmuteVideo() {
           video.muted = false;
@@ -430,12 +305,25 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
       })();
     </script>
 
-    <div id="winners"></div>
-    <div id="portals"></div>
+    <!-- Recent Winners -->
+    <div id="winners">
+      <h2>🏆 Recent Winners</h2>
+      <div class="winners">
+        <div class="winner"><img src="winner-brian.webp" alt="Brian Sides"><div class="wname">Brian Sides</div></div>
+        <div class="winner"><img src="winner-christine.jpg" alt="Christine &amp; Nick Jane"><div class="wname">Christine &amp; Nick Jane</div></div>
+        <div class="winner"><img src="winner-deivison.jpg" alt="Deivison Alves Martins"><div class="wname">Deivison Alves Martins</div></div>
+        <div class="winner"><img src="winner-robert.jpg" alt="Robert Benaglio"><div class="wname">Robert Benaglio</div></div>
+        <div class="winner"><img src="winner-roberta.jpg" alt="Roberta Trumbo"><div class="wname">Roberta Trumbo</div></div>
+        <div class="winner"><img src="winner-terry-kay.jpg" alt="Terry Kennedy &amp; Kay Yoxall"><div class="wname">Terry Kennedy &amp; Kay Yoxall</div></div>
+        <div class="winner"><img src="winner-terry.jpg" alt="Terry Peace"><div class="wname">Terry Peace</div></div>
+        <div class="winner"><img src="winner-jamie.webp" alt="Jamie Kay, England"><div class="wname">Jamie Kay, England</div></div>
+      </div>
+    </div>
 
+    <!-- What you receive -->
     <div id="cleanInfo">
       <div class="info">
-        <b>What you receive:</b> a personalized digital inspirational Script and the complete
+        What you receive: a personalized digital inspirational Script and the complete
         <b>Faith &amp; Abundance Blueprint</b> — a 200+ page biblical guide of prayers, scriptures,
         and daily declarations for every area of your life.
       </div>
@@ -447,13 +335,9 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
       <div class="guarantee">Backed by our 7-day money-back guarantee — see our <a href="/refund">Refund Policy</a>.</div>
     </div>
 
-    <div id="warningBox" class="warning" style="display:none">
-      <span class="wtitle">⚠ WARNING</span>
-      If you feel you are <b>NOT ready</b> to have the next <b>6 months of your life completely changed</b> — by an abundance so unusual it will seem strange to those who know you — we recommend that you <b>ignore this message of choice</b>.
-    </div>
-
-            <h2 id="chooseHead">Make your choice now</h2>
-    <div class="seeds" id="seeds" style="display:flex !important;">
+    <!-- 4 Checkout Seeds Section -->
+    <h2 id="chooseHead">Make your choice now</h2>
+    <div class="seeds" id="seeds">
       <!-- Seed 27 -->
       <div class="seed-block">
         <a href="/checkout?seed=27" target="_top" class="seed-card checkout-btn" data-amt="27" style="display:block;cursor:pointer;">
@@ -510,31 +394,6 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const $ = id => document.getElementById(id);
 
-  /* ---- checkout ---- */
-  /* Teste Stripe-direto encerrado 21/08 — de volta à KashPay (UTMify, upsell
-     e entrega automática funcionam de novo). Payment Links do teste, se
-     precisar: 27 …G00 · 47 …G04 · 77 …G02 · 100 …G03 em buy.stripe.com */
-  /* Trocado 22/08 a pedido do Pedro — checkout em pay.mycheckoutt.com.
-     Links KashPay anteriores, se precisar reverter:
-     27 → checkout-1786993025346 · 47 → checkout-1786993503203
-     77 → checkout-1786993549714 · 100 → checkout-1786993595986 */
-  /* Trocado 20/09 — checkouts novos da MundPay, agora com ?ref=. Anteriores:
-     27 019f1a92-bbf1-718a-96d0-b106a67f0a93 · 47 019ff874-098b-72ba-a15b-77a6e0fa1125
-     77 01a0011b-25da-70ee-bd03-8af7f4daa053 · 87 01a00116-190f-72f9-852d-127a912838ab */
-  /* Trocado 23/09 — checkout KashPay + Whop, na Time to Thrive. Os links
-     MundPay, se precisar reverter: 27 01a0b60f-be8b-7350-8387-505613ea5736 ·
-     47 01a0b614-df51-7092-b38c-cb863e3b55d0 · 77 01a0b617-7511-7331-a0f9-670e992b6f89
-     · 87 01a0b619-7a9f-7214-bfa7-7eaeafcaf031 (em pay.mycheckoutt.com, ?ref= vazio).
-     O Legacy voltou de $87 para $100 na mesma troca. */
-  /* mymichaelguide.com vai para os checkouts da estrutura nova (produto próprio, só o pixel 29015918781408333);
-     planfaith.com segue nos checkouts de sempre. */
-  const seedLinks = (window.CUSTOM_CHECKOUTS || {
-    "27":  "https://buy.stripe.com/28EdR99ibdEj1RVfl8ao803",
-    "47":  "https://buy.stripe.com/aFa5kD9ibgQveEH0qeao804",
-    "77":  "https://buy.stripe.com/9B6cN565Z43JeEH6OCao805",
-    "100": "https://buy.stripe.com/28EaEX51V7fVfILb4Sao806"
-  });
-  const seedImgs = { "27":"sedd-of-fath-27.jpg", "47":"seed-of-faith47.jpg", "77":"seed-of-fath-77.jpg", "100":"seed-of-faith-100.jpg" };
   function openCheckout(amt, e) {
     if (e && e.preventDefault) e.preventDefault();
     try { localStorage.setItem('faith_selected_seed', String(amt)); } catch(e) {}
@@ -564,82 +423,25 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     return false;
   }
 
-  $('seeds').innerHTML = ["27","47","77","100"].map(a =>
-    '<div class="seed-block">'+
-      '<a href="/checkout?seed='+a+'" target="_top" class="seed-card checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;"><img src="'+seedImgs[a]+'" alt="Seed of Faith $'+a+'"></a>'+
-      '<a href="/checkout?seed='+a+'" target="_top" class="seed-cta checkout-btn" data-amt="'+a+'" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">This is the life I choose &mdash; $'+a+'</a>'+
-    '</div>').join('');
-  document.querySelectorAll('[data-amt]').forEach(b=>{
+  document.querySelectorAll('[data-amt]').forEach(function(b){
     b.onclick = function(e){ return openCheckout(this.getAttribute('data-amt'), e); };
   });
 
-  /* ---- data for the "from quiz" enhanced version ---- */
-  const ACH = {
-    mult:{name:"100x Multiplication", img:"100X-god.jpg"},
-    future:{name:"I Choose My Future", img:"I-choose-my-future.jpg"},
-    faith:{name:"Faith Decision", img:"Faith.jpg"},
-    home:{name:"Dream Home", img:"dream-house.jpg"},
-    car:{name:"Dream Car", img:"Dream-car.jpg"},
-    family:{name:"Happy Family", img:"family.jpg"},
-    health:{name:"Perfect Health", img:"health.jpg"},
-    abundance:{name:"Abundance", img:"abundance.jpg"},
-    boost:{name:"100x Boost", img:"100x-boost.jpg"},
-    blocks:{name:"Blocks Broken", img:"blocks-broken.jpg"},
-  };
-  const FINAL_ORDER = ["future","faith","home","car","family","health","abundance","boost","blocks","mult"];
-  const winners = [
-    { img:"winner-brian.webp",   name:"Brian Sides" },
-    { img:"winner-christine.jpg", name:"Christine &amp; Nick Jane" },
-    { img:"winner-deivison.jpg",  name:"Deivison Alves Martins" },
-    { img:"winner-robert.jpg",    name:"Robert Benaglio" },
-    { img:"winner-roberta.jpg",   name:"Roberta Trumbo" },
-    { img:"winner-terry-kay.jpg", name:"Terry Kennedy &amp; Kay Yoxall" },
-    { img:"winner-terry.jpg",     name:"Terry Peace" },
-    { img:"winner-jamie.webp",    name:"Jamie Kay, England" },
-  ];
   function todayString(){ return new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
 
-  /* ---- read hand-off from the quiz ---- */
   let state = null;
   try { state = JSON.parse(sessionStorage.getItem('planfaith_offer') || 'null'); } catch(e){}
-  const fromQuiz = !!(state && state.fromQuiz);
 
-  /* ---- headline above the video: personalized whenever we know the name ---- */
   const N = (state && state.name ? String(state.name).trim() : "").toUpperCase();
-  $('headline').textContent = N
-    ? N + ", you've made it this far… and that's no accident."
-    : "You've made it this far… and that's no accident.";
-  $('sub').innerHTML = "Today is <b>"+todayString()+"</b> – the first day of your new reality.";
-  if(N){ $('chooseHead').textContent = N + ", make your choice now"; }
-
-  if(fromQuiz){
-    // quiz version: drop the clean sales info, show the warning
-    $('cleanInfo').style.display = 'none';
-    $('warningBox').style.display = 'block';
-
-    // winners
-    $('winners').innerHTML = '<h2>🏆 Recent Winners</h2><div class="winners">' +
-      winners.map(w => '<div class="winner"><img src="'+w.img+'" alt="'+w.name+'" onerror="this.style.opacity=.15"><div class="wname">'+w.name+'</div></div>').join('') +
-      '</div>';
-    // portals
-    $('portals').innerHTML = '<h2>🏆 Your Unlocked Prosperity Portals:</h2><div class="portals">' +
-      FINAL_ORDER.map(k => '<div class="portal"><img src="'+ACH[k].img+'" alt="">'+ACH[k].name+'</div>').join('') +
-      '</div>';
+  if (N) {
+    $('headline').textContent = N + ", you've made it this far… and that's no accident.";
+    $('chooseHead').textContent = N + ", make your choice now";
+  } else {
+    $('headline').textContent = "You've made it this far… and that's no accident.";
+    $('chooseHead').textContent = "Make your choice now";
   }
-
-  /* ---- VSL is hosted by VTurb: playback and watch-time tracking are handled
-          inside the VTurb dashboard (Integrations -> Meta Pixel), not here. ---- */
+  $('sub').innerHTML = "Today is <b>" + todayString() + "</b> — the first day of your new reality.";
 </script>
-<script>
-/* Detector de clones: avisa o app (app.planfaith.com/api/px) de que esta página
-   foi aberta. Se alguém copiar a página para outro domínio, o navegador do
-   visitante informa o domínio real e ele aparece no painel de admin. Dispara 3s
-   depois do carregamento, com sendBeacon (não espera resposta): não afeta a
-   velocidade nem a experiência. */
-(function(){function s(){try{navigator.sendBeacon&&navigator.sendBeacon('https://app.planfaith.com/api/px',location.pathname)}catch(e){}}
-if(document.readyState==='complete')setTimeout(s,3000);else addEventListener('load',function(){setTimeout(s,3000)});})();
-</script>
-
 
 <script src="/media/support-widget.js" defer></script>
 </body></html>
