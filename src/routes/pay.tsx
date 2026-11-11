@@ -12,7 +12,7 @@ export const Route = createFileRoute("/pay")({
   component: PaySlug,
   head: () => ({
     meta: [
-      { title: "Secure Checkout — FAKKO SOLUTIONS LLC" },
+      { title: "Secure Checkout" },
       { name: "referrer", content: "no-referrer" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
     ],
@@ -86,9 +86,7 @@ function PaySlug() {
         </a>
       </div>
       <footer className="mt-8 text-center text-xs text-gray-500 max-w-sm leading-relaxed">
-        <p><strong>FAKKO SOLUTIONS LLC</strong> &middot; EIN 47-3829164</p>
-        <p>30 N Gould St, Sheridan, WY 82801, United States</p>
-        <p>Support: support.fakko.solutions@gmail.com</p>
+        <p>&copy; 2026 Time to Thrive. All rights reserved.</p>
       </footer>
     </div>
   );

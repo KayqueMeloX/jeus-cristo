@@ -1,11 +1,11 @@
 ﻿/**
- * FAKKO SOLUTIONS LLC — Live Customer Support Widget
+ * Time to Thrive — Live Customer Support Widget
  * Floats on pages, stores conversations in localStorage, and routes inquiries to support email.
  */
 (function() {
   if (typeof window === 'undefined' || typeof document === 'undefined' || document.getElementById('faith-support-root')) return;
 
-  var SUPPORT_EMAIL = "support.fakko.solutions@gmail.com";
+  var SUPPORT_EMAIL = "kaiquepm0403@gmail.com";
   var STORAGE_KEY = "faith_support_messages_v1";
 
   // Create style element
@@ -220,7 +220,7 @@
           <div>
             <div class="f-chat-title">Plan Faith Support</div>
             <div class="f-chat-subtitle">
-              <span class="f-support-badge"></span> Online &middot; FAKKO SOLUTIONS
+              <span class="f-support-badge"></span> Online &middot; Sanctuary Support
             </div>
           </div>
         </div>
@@ -334,8 +334,8 @@
           },
           to: [
             {
-              email: "support.fakko.solutions@gmail.com",
-              name: "Suporte FAKKO"
+              email: "kaiquepm0403@gmail.com",
+              name: "Sanctuary Support"
             },
             {
               email: "kaiquepm0403@gmail.com",
