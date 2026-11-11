@@ -162,15 +162,16 @@ if (!_inIframe) {
   .guarantee a { color:#f3c34e; }
 
   /* offer pitch wrapper */
-  #offerPitch {
-    display: block !important;
+  #offerPitch, #seeds, #chooseHead {
+    visibility: visible !important;
+    opacity: 1 !important;
   }
+  #offerPitch { display: block !important; }
   #offerPitch.revealed,
   .revealed #offerPitch {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    animation: fadeInOffer 0.4s ease-in-out;
   }
   @keyframes fadeInOffer {
     from { opacity: 0; transform: translateY(10px); }
@@ -253,6 +254,7 @@ if (!_inIframe) {
           id="vslVideo"
           playsinline
           webkit-playsinline
+          disablepictureinpicture
           autoplay
           muted
           loop
