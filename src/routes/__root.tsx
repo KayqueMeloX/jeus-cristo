@@ -118,6 +118,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <script
           src="https://cdn.utmify.com.br/scripts/utms/latest.js"
           data-utmify-prevent-subids
+          data-utmify-ignore-iframe="true"
           async
           defer
         />
