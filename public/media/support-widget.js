@@ -322,7 +322,51 @@
     appendMessageToDOM(text, 'user', timeStr, true);
     msgInput.value = '';
 
-    // Send payload to FormSubmit for instant email notification to support
+    // 1. Send via Brevo API (Option 1)
+    var brevoKey = window.BREVO_API_KEY || "";
+    if (brevoKey) {
+      try {
+        var replyEmail = (contact && contact.indexOf('@') !== -1) ? contact : SUPPORT_EMAIL;
+        var brevoPayload = {
+          sender: {
+            name: "Suporte My Faith Sanctuary",
+            email: SUPPORT_EMAIL
+          },
+          to: [
+            {
+              email: SUPPORT_EMAIL,
+              name: "Kayque Melo - FAKKO Support"
+            }
+          ],
+          replyTo: {
+            email: replyEmail,
+            name: contact || "Cliente Interessado"
+          },
+          subject: "Novo contato de suporte (Offer): " + (contact || "Visitante"),
+          htmlContent: "<h2>Nova mensagem de suporte recebida no site!</h2>" +
+            "<p><strong>Contato/Email do Cliente:</strong> " + (contact || "NÃ£o informado") + "</p>" +
+            "<p><strong>Mensagem:</strong></p>" +
+            "<blockquote style='background:#f9f9f9;border-left:4px solid #f3c34e;padding:12px;font-style:italic;'>" +
+              text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") +
+            "</blockquote>" +
+            "<p><strong>PÃ¡gina:</strong> " + window.location.href + "</p>" +
+            "<p><strong>Data/Hora:</strong> " + new Date().toLocaleString() + "</p>" +
+            "<hr><p style='font-size:12px;color:#777;'>Para responder ao cliente, basta responder diretamente a este e-mail.</p>"
+        };
+
+        fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "api-key": brevoKey,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(brevoPayload)
+        }).catch(function(err){ console.error("Brevo error:", err); });
+      } catch(e) {}
+    }
+
+    // 2. Fallback notification to support email
     try {
       var payload = {
         name: contact || "Website Visitor",

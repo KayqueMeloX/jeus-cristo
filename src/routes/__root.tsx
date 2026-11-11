@@ -174,7 +174,6 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
-        <script src="/media/support-widget.js" defer />
         <Scripts />
       </body>
     </html>
