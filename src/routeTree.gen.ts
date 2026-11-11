@@ -10,178 +10,219 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as EbookRouteImport } from './routes/ebook'
+import { Route as EntregavelRouteImport } from './routes/entregavel'
+import { Route as FaithAppRouteImport } from './routes/faith-app'
+import { Route as MembrosRouteImport } from './routes/membros'
+import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as OfferRouteImport } from './routes/offer'
+import { Route as PayRouteImport } from './routes/pay'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RefundRouteImport } from './routes/refund'
 import { Route as SupportRouteImport } from './routes/support'
-import { Route as AppRouteImport } from './routes/app'
-import { Route as EntregavelRouteImport } from './routes/entregavel'
-import { Route as MembrosRouteImport } from './routes/membros'
-import { Route as FaithAppRouteImport } from './routes/faith-app'
-import { Route as CheckoutRouteImport } from './routes/checkout'
-import { Route as PayRouteImport } from './routes/pay'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
-import { Route as ObrigadoRouteImport } from './routes/obrigado'
-import { Route as EbookRouteImport } from './routes/ebook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-
-const OfferRoute = OfferRouteImport.update({
-  id: '/offer',
-  path: '/offer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const RefundRoute = RefundRouteImport.update({
-  id: '/refund',
-  path: '/refund',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
-
-const EntregavelRoute = EntregavelRouteImport.update({
-  id: '/entregavel',
-  path: '/entregavel',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const MembrosRoute = MembrosRouteImport.update({
-  id: '/membros',
-  path: '/membros',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
 const CheckoutRoute = CheckoutRouteImport.update({
   id: '/checkout',
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
-
+const EbookRoute = EbookRouteImport.update({
+  id: '/ebook',
+  path: '/ebook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntregavelRoute = EntregavelRouteImport.update({
+  id: '/entregavel',
+  path: '/entregavel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaithAppRoute = FaithAppRouteImport.update({
+  id: '/faith-app',
+  path: '/faith-app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembrosRoute = MembrosRouteImport.update({
+  id: '/membros',
+  path: '/membros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObrigadoRoute = ObrigadoRouteImport.update({
+  id: '/obrigado',
+  path: '/obrigado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfferRoute = OfferRouteImport.update({
+  id: '/offer',
+  path: '/offer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundRoute = RefundRouteImport.update({
+  id: '/refund',
+  path: '/refund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
 
-const ObrigadoRoute = ObrigadoRouteImport.update({
-  id: '/obrigado',
-  path: '/obrigado',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const PayRoute = PayRouteImport.update({
-  id: '/pay',
-  path: '/pay',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const FaithAppRoute = FaithAppRouteImport.update({
-  id: '/faith-app',
-  path: '/faith-app',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const EbookRoute = EbookRouteImport.update({
-  id: '/ebook',
-  path: '/ebook',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRoute
+  '/checkout': typeof CheckoutRoute
+  '/ebook': typeof EbookRoute
+  '/entregavel': typeof EntregavelRoute
+  '/faith-app': typeof FaithAppRoute
+  '/membros': typeof MembrosRoute
+  '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
+  '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
-  '/terms': typeof TermsRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
-  '/app': typeof AppRoute
-  '/entregavel': typeof EntregavelRoute
-  '/membros': typeof MembrosRoute
-  '/checkout': typeof CheckoutRoute
-  '/pay': typeof PayRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/obrigado': typeof ObrigadoRoute
-  '/ebook': typeof EbookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRoute
+  '/checkout': typeof CheckoutRoute
+  '/ebook': typeof EbookRoute
+  '/entregavel': typeof EntregavelRoute
+  '/faith-app': typeof FaithAppRoute
+  '/membros': typeof MembrosRoute
+  '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
+  '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
-  '/terms': typeof TermsRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
-  '/app': typeof AppRoute
-  '/entregavel': typeof EntregavelRoute
-  '/membros': typeof MembrosRoute
-  '/checkout': typeof CheckoutRoute
-  '/pay': typeof PayRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/obrigado': typeof ObrigadoRoute
-  '/ebook': typeof EbookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRoute
+  '/checkout': typeof CheckoutRoute
+  '/ebook': typeof EbookRoute
+  '/entregavel': typeof EntregavelRoute
+  '/faith-app': typeof FaithAppRoute
+  '/membros': typeof MembrosRoute
+  '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
+  '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
-  '/terms': typeof TermsRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
-  '/app': typeof AppRoute
-  '/entregavel': typeof EntregavelRoute
-  '/membros': typeof MembrosRoute
-  '/checkout': typeof CheckoutRoute
-  '/pay': typeof PayRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/obrigado': typeof ObrigadoRoute
-  '/ebook': typeof EbookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support' | '/app' | '/entregavel' | '/membros'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/checkout'
+    | '/ebook'
+    | '/entregavel'
+    | '/faith-app'
+    | '/membros'
+    | '/obrigado'
+    | '/offer'
+    | '/pay'
+    | '/privacy'
+    | '/refund'
+    | '/support'
+    | '/terms'
+    | '/thank-you'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support' | '/app' | '/entregavel' | '/membros'
-  id: '__root__' | '/' | '/offer' | '/privacy' | '/terms' | '/refund' | '/support' | '/app' | '/entregavel' | '/membros'
+  to:
+    | '/'
+    | '/app'
+    | '/checkout'
+    | '/ebook'
+    | '/entregavel'
+    | '/faith-app'
+    | '/membros'
+    | '/obrigado'
+    | '/offer'
+    | '/pay'
+    | '/privacy'
+    | '/refund'
+    | '/support'
+    | '/terms'
+    | '/thank-you'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/checkout'
+    | '/ebook'
+    | '/entregavel'
+    | '/faith-app'
+    | '/membros'
+    | '/obrigado'
+    | '/offer'
+    | '/pay'
+    | '/privacy'
+    | '/refund'
+    | '/support'
+    | '/terms'
+    | '/thank-you'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRoute
+  CheckoutRoute: typeof CheckoutRoute
+  EbookRoute: typeof EbookRoute
+  EntregavelRoute: typeof EntregavelRoute
+  FaithAppRoute: typeof FaithAppRoute
+  MembrosRoute: typeof MembrosRoute
+  ObrigadoRoute: typeof ObrigadoRoute
   OfferRoute: typeof OfferRoute
+  PayRoute: typeof PayRoute
   PrivacyRoute: typeof PrivacyRoute
-  TermsRoute: typeof TermsRoute
   RefundRoute: typeof RefundRoute
   SupportRoute: typeof SupportRoute
-  AppRoute: typeof AppRoute
-  EntregavelRoute: typeof EntregavelRoute
-  MembrosRoute: typeof MembrosRoute
+  TermsRoute: typeof TermsRoute
+  ThankYouRoute: typeof ThankYouRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -193,6 +234,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ebook': {
+      id: '/ebook'
+      path: '/ebook'
+      fullPath: '/ebook'
+      preLoaderRoute: typeof EbookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entregavel': {
+      id: '/entregavel'
+      path: '/entregavel'
+      fullPath: '/entregavel'
+      preLoaderRoute: typeof EntregavelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faith-app': {
+      id: '/faith-app'
+      path: '/faith-app'
+      fullPath: '/faith-app'
+      preLoaderRoute: typeof FaithAppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membros': {
+      id: '/membros'
+      path: '/membros'
+      fullPath: '/membros'
+      preLoaderRoute: typeof MembrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/obrigado': {
+      id: '/obrigado'
+      path: '/obrigado'
+      fullPath: '/obrigado'
+      preLoaderRoute: typeof ObrigadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/offer': {
       id: '/offer'
       path: '/offer'
@@ -200,18 +290,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OfferRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/refund': {
@@ -228,32 +318,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/entregavel': {
-      id: '/entregavel'
-      path: '/entregavel'
-      fullPath: '/entregavel'
-      preLoaderRoute: typeof EntregavelRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/membros': {
-      id: '/membros'
-      path: '/membros'
-      fullPath: '/membros'
-      preLoaderRoute: typeof MembrosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faith-app': {
-      id: '/faith-app'
-      path: '/faith-app'
-      fullPath: '/faith-app'
-      preLoaderRoute: typeof FaithAppRouteImport
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -261,20 +337,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRoute,
+  CheckoutRoute: CheckoutRoute,
+  EbookRoute: EbookRoute,
+  EntregavelRoute: EntregavelRoute,
+  FaithAppRoute: FaithAppRoute,
+  MembrosRoute: MembrosRoute,
+  ObrigadoRoute: ObrigadoRoute,
   OfferRoute: OfferRoute,
+  PayRoute: PayRoute,
   PrivacyRoute: PrivacyRoute,
-  TermsRoute: TermsRoute,
   RefundRoute: RefundRoute,
   SupportRoute: SupportRoute,
-  AppRoute: AppRoute,
-  EntregavelRoute: EntregavelRoute,
-  MembrosRoute: MembrosRoute,
-  FaithAppRoute: FaithAppRoute,
-  CheckoutRoute: CheckoutRoute,
-  PayRoute: PayRoute,
+  TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
-  ObrigadoRoute: ObrigadoRoute,
-  EbookRoute: EbookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
