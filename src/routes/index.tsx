@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -12,13 +12,13 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [iframeSrc, setIframeSrc] = useState("/funnel.html");
-
-  useEffect(() => {
+  // Set once on mount to prevent any iframe reloads or restarts
+  const [iframeSrc] = useState(() => {
     if (typeof window !== "undefined") {
-      setIframeSrc(`/funnel.html${window.location.search}`);
+      return `/funnel.html${window.location.search}`;
     }
-  }, []);
+    return "/funnel.html";
+  });
 
   return (
     <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-black">

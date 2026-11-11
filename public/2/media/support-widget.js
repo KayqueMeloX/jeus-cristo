@@ -1,9 +1,9 @@
-/**
+﻿/**
  * FAKKO SOLUTIONS LLC — Live Customer Support Widget
  * Floats on pages, stores conversations in localStorage, and routes inquiries to support email.
  */
 (function() {
-  if (document.getElementById('faith-support-root')) return;
+  if (typeof window === 'undefined' || typeof document === 'undefined' || document.getElementById('faith-support-root')) return;
 
   var SUPPORT_EMAIL = "support.fakko.solutions@gmail.com";
   var STORAGE_KEY = "faith_support_messages_v1";
