@@ -1,65 +1,11 @@
 ﻿<!DOCTYPE html><html lang="en"><head>
-<!-- Anti-Lovable badge protection -->
-<style id="anti-lovable-css">
-#lovable-badge,
-#lovable-badge-cta,
-#lovable-badge-logo,
-#lovable-badge-text,
-#lovable-badge-divider,
-#lovable-badge-close,
-[id*="lovable-badge"],
-[id*="lovable"],
-[class*="lovable-badge"],
-[class*="lovable"],
-[aria-label*="Lovable" i],
-[aria-label*="Edit with" i],
-[title*="Lovable" i],
-[title*="Edit with" i],
-a[href*="lovable.dev"],
-a[href*="lovable.app"] {
+<style>
+#lovable-badge, #lovable-badge-cta {
   display: none !important;
-  visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  width: 0 !important;
-  height: 0 !important;
-  max-width: 0 !important;
-  max-height: 0 !important;
-  clip: rect(0, 0, 0, 0) !important;
-  clip-path: inset(100%) !important;
-  transform: scale(0) !important;
-  z-index: -99999 !important;
 }
 </style>
-<script id="anti-lovable-js">
-(function() {
-  function purgeLovable() {
-    try {
-      var els = document.querySelectorAll('#lovable-badge, [id*="lovable-badge"], [class*="lovable-badge"], [aria-label*="Lovable" i], [aria-label*="Edit with" i], a[href*="lovable.dev"], a[href*="lovable.app"]');
-      for (var i = 0; i < els.length; i++) {
-        els[i].remove();
-      }
-    } catch(e) {}
-  }
-  purgeLovable();
-  if (typeof window !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', purgeLovable);
-    }
-    window.addEventListener('load', purgeLovable);
-    if (window.MutationObserver) {
-      new MutationObserver(purgeLovable).observe(document.documentElement, {
-        childList: true,
-        subtree: true
-      });
-    }
-    setInterval(purgeLovable, 250);
-  }
-})();
-</script>
 
 <script>var _inIframe = false; try { _inIframe = (window.self !== window.top); } catch(e) { _inIframe = true; }</script>
 
