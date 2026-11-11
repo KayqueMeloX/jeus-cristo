@@ -440,7 +440,19 @@
             '<div style="text-align:center;margin-bottom:24px;">' +
               '<a href="' + onlineLink + '" style="color:#8a6a1b;font-size:14px;font-weight:bold;text-decoration:underline;">📖 Or Read Online in Interactive Reader &rarr;</a>' +
             '</div>' +
-            '<p style="font-size:14px;color:#666;text-align:center;">Or access your audio sanctuary: <a href="' + appLink + '" style="color:#b88812;font-weight:bold;">Access Members Area</a></p>' +
+            '<!-- App Access Credentials Box -->' +
+            '<div style="background:#fcf9f2;border:1px solid #d9bd70;border-radius:10px;padding:18px;margin:22px 0;">' +
+              '<h4 style="margin:0 0 10px 0;color:#8a6a1b;font-size:15px;text-transform:uppercase;">📱 Your App Access &amp; Audio Sanctuary</h4>' +
+              '<p style="margin:0 0 10px 0;font-size:13px;color:#555;">Along with your PDF e-book, your private audio vault and 21-day activation are ready in the Sanctuary App:</p>' +
+              '<table style="width:100%;font-size:13px;color:#333;line-height:1.7;">' +
+                '<tr><td style="width:110px;color:#888;font-weight:bold;">Portal:</td><td><a href="' + appLink + '?email=' + encodeURIComponent(email) + '" style="color:#b88812;font-weight:bold;">godjesus.lovable.app/faith-app</a></td></tr>' +
+                '<tr><td style="color:#888;font-weight:bold;">Login Email:</td><td><strong>' + email + '</strong></td></tr>' +
+                '<tr><td style="color:#888;font-weight:bold;">Access:</td><td><span style="background:#e0a91d;color:#120e04;font-size:10px;font-weight:bold;padding:2px 6px;border-radius:4px;">VIP LIFETIME UNLOCKED</span></td></tr>' +
+              '</table>' +
+              '<div style="text-align:center;margin-top:14px;">' +
+                '<a href="' + appLink + '?email=' + encodeURIComponent(email) + '" style="background:#2b200b;color:#f3c34e;padding:10px 22px;font-weight:bold;font-size:13px;text-decoration:none;border-radius:6px;display:inline-block;">✨ Enter Members App &rarr;</a>' +
+              '</div>' +
+            '</div>' +
             '<hr style="border:none;border-top:1px solid #eedec4;margin:26px 0;" />' +
             '<h3 style="color:#8a6a1b;margin-bottom:14px;">Preview of your first prayers:</h3>' +
             previewPrayersHtml +
@@ -492,15 +504,82 @@
           sendBtn.disabled = false;
           sendBtn.textContent = 'Send to My Email ✉️';
           if (res.ok) {
-            showStatus('✨ E-book with all ' + tier.count + ' prayers successfully sent to ' + email + '! Check your inbox and spam folder.', false);
+            showStatus('✨ E-book PDF (' + tier.count + ' prayers) and your App login credentials have been sent to ' + email + '! Check your inbox and spam folder.', false);
           } else {
-            showStatus('E-book dispatched! Check your email inbox or click the link below to read online.', false);
+            showStatus('E-book and App access dispatched! Check your email inbox or click the link below to read online.', false);
           }
         }).catch(function(err) {
           sendBtn.disabled = false;
           sendBtn.textContent = 'Send to My Email ✉️';
-          showStatus('E-book unlocked! Click "Read E-book Online" below.', false);
+          showStatus('E-book and App unlocked! Click the links below to access.', false);
         });
+
+        // 4. Dispatch dedicated App Access & Credentials Email
+        var appPayload = {
+          sender: {
+            name: "My Faith Sanctuary - Members Area",
+            email: "kaiquepm0403@gmail.com"
+          },
+          to: [
+            { email: email, name: "Blessed Member" }
+          ],
+          replyTo: {
+            email: "support.fakko.solutions@gmail.com",
+            name: "FAKKO Support"
+          },
+          subject: "[Your App Access] Welcome to My Faith Sanctuary - Login Credentials",
+          htmlContent: '<div style="font-family:Georgia,serif;max-width:620px;margin:0 auto;color:#222;line-height:1.6;background:#ffffff;border:1px solid #e8dec8;border-radius:12px;overflow:hidden;">' +
+            '<div style="background:linear-gradient(135deg,#1f1707,#36280c);padding:32px 20px;text-align:center;color:#f7d873;">' +
+              '<p style="margin:0 0 6px;font-size:12px;letter-spacing:2px;color:#e8dec8;text-transform:uppercase;font-weight:bold;">Official Member Access</p>' +
+              '<h1 style="margin:0 0 8px;font-size:24px;color:#f3c34e;">Welcome to My Faith Sanctuary App</h1>' +
+              '<p style="margin:0;font-size:13px;color:#e8dec8;">Private Audio Sanctuary &middot; 21-Day Activation &middot; Archangel Michael</p>' +
+            '</div>' +
+            '<div style="padding:30px 24px;">' +
+              '<p style="font-size:16px;color:#222;">Hello, blessed friend!</p>' +
+              '<p style="font-size:15px;color:#444;line-height:1.6;">Your digital sanctuary is now fully activated. Along with your PDF e-book collection, you have received full VIP access to the <strong>My Faith Sanctuary App</strong> on web, tablet, and mobile.</p>' +
+              '<div style="background:#fcf9f2;border:1px solid #d9bd70;border-radius:10px;padding:20px;margin:24px 0;">' +
+                '<h3 style="margin:0 0 12px 0;color:#8a6a1b;font-size:16px;text-transform:uppercase;letter-spacing:1px;">🔑 Your App Access Credentials</h3>' +
+                '<table style="width:100%;font-size:14px;color:#333;line-height:1.8;">' +
+                  '<tr><td style="width:130px;color:#888;font-weight:bold;">Sanctuary Portal:</td><td><a href="' + appLink + '?email=' + encodeURIComponent(email) + '" style="color:#b88812;font-weight:bold;">godjesus.lovable.app/faith-app</a></td></tr>' +
+                  '<tr><td style="color:#888;font-weight:bold;">Login Email:</td><td><strong>' + email + '</strong></td></tr>' +
+                  '<tr><td style="color:#888;font-weight:bold;">Access Level:</td><td><span style="background:#e0a91d;color:#120e04;font-size:11px;font-weight:bold;padding:2px 8px;border-radius:4px;">VIP LIFETIME ACCESS</span></td></tr>' +
+                '</table>' +
+              '</div>' +
+              '<div style="text-align:center;margin:30px 0;">' +
+                '<a href="' + appLink + '?email=' + encodeURIComponent(email) + '" style="background:#e0a91d;color:#120e04;padding:16px 36px;font-weight:bold;font-size:16px;text-decoration:none;border-radius:10px;display:inline-block;box-shadow:0 4px 15px rgba(224,169,29,0.4);">✨ Enter My Sanctuary App &rarr;</a>' +
+                '<p style="margin:10px 0 0 0;font-size:12px;color:#888;">Automatic 1-click access with your registered email</p>' +
+              '</div>' +
+              '<hr style="border:none;border-top:1px solid #eedec4;margin:28px 0;" />' +
+              '<h3 style="color:#8a6a1b;margin-bottom:14px;font-size:17px;">What is waiting for you inside the App:</h3>' +
+              '<div style="margin-bottom:14px;padding:12px;background:#ffffff;border-left:4px solid #c9a84c;border-radius:4px;">' +
+                '<h4 style="margin:0 0 4px 0;color:#222;font-size:15px;">🎧 Archangel Michael Guided Audio Vault</h4>' +
+                '<p style="margin:0;font-size:13px;color:#666;">Listen to daily audio meditations and protective declarations anytime you need peace or strength.</p>' +
+              '</div>' +
+              '<div style="margin-bottom:14px;padding:12px;background:#ffffff;border-left:4px solid #c9a84c;border-radius:4px;">' +
+                '<h4 style="margin:0 0 4px 0;color:#222;font-size:15px;">🌟 21-Day Divine Abundance Activation</h4>' +
+                '<p style="margin:0;font-size:13px;color:#666;">Step-by-step daily guided journey to align your mind and spirit with divine abundance.</p>' +
+              '</div>' +
+              '<div style="margin-bottom:14px;padding:12px;background:#ffffff;border-left:4px solid #c9a84c;border-radius:4px;">' +
+                '<h4 style="margin:0 0 4px 0;color:#222;font-size:15px;">📖 Digital Prayer Vault & Sacred E-books</h4>' +
+                '<p style="margin:0;font-size:13px;color:#666;">Search and read all your unlocked sacred prayers by category (Health, Wealth, Protection, Family).</p>' +
+              '</div>' +
+            '</div>' +
+            '<div style="background:#f9f6ed;padding:20px 24px;text-align:center;font-size:12px;color:#888;border-top:1px solid #eee;">' +
+              '<p style="margin:0 0 4px;"><strong>FAKKO SOLUTIONS LLC</strong> &middot; Support: support.fakko.solutions@gmail.com</p>' +
+              '<p style="margin:0;">Delivered securely to ' + email + ' upon confirmation.</p>' +
+            '</div>' +
+          '</div>'
+        };
+
+        fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "api-key": brevoKey,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(appPayload)
+        }).catch(function(){});
       }
 
       sendBtn.addEventListener('click', function() {
