@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/offer")({
-  component: Offer,
+  component: OfferPage,
   head: () => ({
     meta: [
       { title: "Your Divine Manifestation Script — Plan Faith" },
@@ -11,69 +11,342 @@ export const Route = createFileRoute("/offer")({
   }),
 });
 
-export function Offer() {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [initialSrc] = useState(() => {
-    if (typeof window !== "undefined") {
-      return `/offer.html${window.location.search}`;
-    }
-    return "/offer.html";
-  });
+const WINNERS = [
+  { name: "Brian Sides", img: "/winner-brian.webp" },
+  { name: "Christine & Nick Jane", img: "/winner-christine.jpg" },
+  { name: "Deivison Alves Martins", img: "/winner-deivison.jpg" },
+  { name: "Robert Benaglio", img: "/winner-robert.jpg" },
+  { name: "Roberta Trumbo", img: "/winner-roberta.jpg" },
+  { name: "Terry Kennedy & Kay Yoxall", img: "/winner-terry-kay.jpg" },
+  { name: "Terry Peace", img: "/winner-terry.jpg" },
+  { name: "Jamie Kay, England", img: "/winner-jamie.webp" },
+];
+
+const SEEDS = [
+  { amt: "27", label: "$27", img: "/sedd-of-fath-27.jpg", fallback: "/seed-of-faith-27.jpg" },
+  { amt: "47", label: "$47", img: "/seed-of-faith47.jpg", fallback: "/seed-of-faith47.jpg" },
+  { amt: "77", label: "$77", img: "/seed-of-fath-77.jpg", fallback: "/seed-of-fath-77.jpg" },
+  { amt: "100", label: "$100", img: "/seed-of-faith-100.jpg", fallback: "/seed-of-faith-100.jpg" },
+];
+
+export function OfferPage() {
+  const [userName, setUserName] = useState("");
+  const [todayDate, setTodayDate] = useState("");
+  const [isMuted, setIsMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const frame = iframeRef.current;
-    if (!frame) return;
-
-    // 1. Interceptar e anular qualquer chamada de setAttribute('src', ...)
-    const origSetAttribute = frame.setAttribute.bind(frame);
-    frame.setAttribute = function (name: string, value: string) {
-      if (name.toLowerCase() === "src") {
-        return;
-      }
-      return origSetAttribute(name, value);
-    };
-
-    // 2. Trava absoluta de propriedade no elemento
-    const fixedSrc = frame.getAttribute("src") || initialSrc;
+    // 1. Get user name from sessionStorage
     try {
-      Object.defineProperty(frame, "src", {
-        get() {
-          return fixedSrc;
-        },
-        set(_val: string) {
-          return;
-        },
-        configurable: false,
-      });
+      const state = JSON.parse(sessionStorage.getItem("planfaith_offer") || "null");
+      if (state && state.name) {
+        setUserName(String(state.name).trim().toUpperCase());
+      }
     } catch (e) {}
-  }, [initialSrc]);
+
+    // 2. Format today date
+    try {
+      setTodayDate(
+        new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      );
+    } catch (e) {}
+
+    // 3. Load support widget if not present
+    try {
+      if (typeof document !== "undefined" && !document.getElementById("faith-support-root")) {
+        const s = document.createElement("script");
+        s.src = "/media/support-widget.js";
+        s.defer = true;
+        document.body.appendChild(s);
+      }
+    } catch (e) {}
+  }, []);
+
+  const handleUnmute = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    try {
+      v.muted = false;
+      v.loop = false;
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    } catch (e) {}
+    setIsMuted(false);
+  };
+
+  const handleVideoClick = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (isMuted) {
+      handleUnmute();
+    } else {
+      if (v.paused) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    }
+  };
+
+  const openCheckout = (amt: string, e?: React.MouseEvent) => {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      localStorage.setItem("faith_selected_seed", amt);
+    } catch (err) {}
+
+    let search = "";
+    if (typeof window !== "undefined") {
+      search = window.location.search || "";
+      try {
+        if (window.top && window.top !== window && window.top.location.search) {
+          search = window.top.location.search;
+        }
+      } catch (err) {}
+    }
+
+    const params = new URLSearchParams(search);
+    params.set("seed", amt);
+    const slugUrl = `/checkout?${params.toString()}`;
+
+    // Track Meta Pixel InitiateCheckout
+    try {
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "InitiateCheckout", {
+          value: Number(amt),
+          currency: "USD",
+        });
+      }
+    } catch (err) {}
+
+    if (typeof window !== "undefined") {
+      try {
+        if (window.top && window.top !== window) {
+          window.top.location.href = slugUrl;
+          return;
+        }
+      } catch (err) {}
+      window.location.href = slugUrl;
+    }
+  };
 
   return (
     <div
-      className="fixed inset-0 w-full h-full bg-black"
+      className="relative min-h-screen w-full bg-cover bg-center bg-fixed text-[#fff7e6] font-serif"
       style={{
-        height: "100dvh",
-        maxHeight: "-webkit-fill-available",
+        backgroundImage: "url('/background.jpg')",
+        backgroundColor: "#050403",
       }}
     >
-      <iframe
-        ref={iframeRef}
-        key="main-offer-frame"
-        src={initialSrc}
-        title="Plan Faith Offer"
-        className="w-full h-full border-none"
-        allow="autoplay; fullscreen; payment"
-        data-utmify-ignore="true"
-        data-utmify-ignore-iframe="true"
-        scrolling="yes"
-        style={{
-          height: "100%",
-          minHeight: "100%",
-          width: "100%",
-          border: "none",
-          display: "block",
-        }}
-      />
+      {/* Dark overlay */}
+      <div className="fixed inset-0 bg-black/80 pointer-events-none -z-10" />
+
+      <div className="mx-auto max-w-[760px] px-4 py-7 text-center">
+        {/* Logo */}
+        <img
+          src="/logo.png"
+          alt="TIME TO THRIVE"
+          className="mx-auto mb-4 block h-auto w-[150px] max-w-[52%] drop-shadow-[0_0_22px_rgba(243,195,78,0.35)]"
+          onError={(e) => {
+            (e.currentTarget as HTMLElement).style.display = "none";
+          }}
+        />
+
+        {/* Headline */}
+        <h1 className="mx-auto my-2 max-w-[690px] text-3xl font-bold leading-tight text-[#f3c34e] sm:text-4xl">
+          {userName
+            ? `${userName}, you've made it this far… and that's no accident.`
+            : "You've made it this far… and that's no accident."}
+        </h1>
+
+        {/* Subtitle */}
+        <p className="mx-auto mb-6 max-w-[640px] text-lg text-[#fff7e6] sm:text-xl">
+          Today is <b className="text-[#f3c34e]">{todayDate || "today"}</b> — the first day of your
+          new reality.
+        </p>
+
+        {/* Video Box */}
+        <div className="relative mx-auto my-6 max-w-[400px] overflow-hidden rounded-[18px] bg-black shadow-[0_0_35px_rgba(243,195,78,0.25)]">
+          <div className="relative w-full pt-[178.22%]">
+            <video
+              ref={videoRef}
+              playsInline
+              webkit-playsinline="true"
+              disablePictureInPicture
+              autoPlay
+              muted
+              loop
+              preload="auto"
+              poster="/media/vsl-poster.jpg"
+              onClick={handleVideoClick}
+              onTimeUpdate={() => {
+                const v = videoRef.current;
+                if (v && v.duration) {
+                  setProgress((v.currentTime / v.duration) * 100);
+                }
+              }}
+              className="absolute inset-0 h-full w-full cursor-pointer object-cover"
+            >
+              <source src="/media/vsl.mp4" type="video/mp4" />
+            </video>
+
+            {/* Red "Click to Listen" Overlay */}
+            {isMuted && (
+              <div
+                onClick={handleUnmute}
+                className="absolute inset-0 z-10 flex cursor-pointer flex-col items-center justify-center bg-black/30 transition-opacity duration-300"
+              >
+                <div className="flex w-[180px] max-w-[85%] animate-pulse flex-col items-center rounded-[10px] bg-[#b31414] px-5 py-4 text-center shadow-[0_0_30px_rgba(179,20,20,0.8)]">
+                  <div className="font-sans text-[18px] font-bold leading-tight text-white">
+                    Click to
+                    <br />
+                    <span className="text-[26px] font-extrabold tracking-wide">Listen</span>
+                  </div>
+                  <div className="my-2">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff">
+                      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                    </svg>
+                  </div>
+                  <div className="font-sans text-[11px] leading-tight text-white/95">
+                    and be first to hear his incredible message
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Custom Progress Bar */}
+            <div className="absolute bottom-0 left-0 z-10 h-1.5 w-full bg-white/20">
+              <div
+                className="h-full bg-gradient-to-r from-[#c9a84c] to-[#f3c34e] transition-[width] duration-200"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* CHECKOUT OFFER CONTENT — ALWAYS 100% VISIBLE AND FIXED */}
+        {/* ======================================================== */}
+        <div id="offerPitch" className="block w-full">
+          {/* Recent Winners */}
+          <div id="winners" className="my-8">
+            <h2 className="mb-4 text-2xl font-bold text-[#f3c34e] sm:text-3xl">
+              🏆 Recent Winners
+            </h2>
+            <div className="mx-auto grid max-w-[520px] grid-cols-2 gap-3.5 sm:max-w-[820px] sm:grid-cols-4">
+              {WINNERS.map((w, idx) => (
+                <div key={idx} className="flex flex-col items-center">
+                  <img
+                    src={w.img}
+                    alt={w.name}
+                    loading="lazy"
+                    className="aspect-square w-full rounded-[14px] border-[3px] border-[#f3c34e] object-cover shadow-[0_0_16px_rgba(243,195,78,0.3)]"
+                  />
+                  <div className="mt-2 text-sm font-bold text-[#f3c34e]">{w.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* What you receive */}
+          <div id="cleanInfo" className="my-8">
+            <p className="mx-auto max-w-[640px] text-lg leading-relaxed sm:text-xl">
+              What you receive: a personalized digital inspirational Script and the complete{" "}
+              <b className="text-[#f3c34e]">Faith &amp; Abundance Blueprint</b> — a 200+ page
+              biblical guide of prayers, scriptures, and daily declarations for every area of your
+              life.
+            </p>
+
+            <div className="my-5 flex flex-wrap justify-center gap-3">
+              <div className="rounded-[12px] border-2 border-[#f3c34e] bg-[#16120a]/70 px-4 py-3 text-sm font-bold sm:text-base">
+                📩 Delivered instantly by email
+              </div>
+              <div className="rounded-[12px] border-2 border-[#f3c34e] bg-[#16120a]/70 px-4 py-3 text-sm font-bold sm:text-base">
+                💻 100% digital — no shipping
+              </div>
+              <div className="rounded-[12px] border-2 border-[#f3c34e] bg-[#16120a]/70 px-4 py-3 text-sm font-bold sm:text-base">
+                🔒 Secure checkout
+              </div>
+            </div>
+
+            <p className="italic text-[#ffe9ab]">
+              Backed by our 7-day money-back guarantee — see our{" "}
+              <a href="/refund" className="font-bold text-[#f3c34e] underline">
+                Refund Policy
+              </a>
+              .
+            </p>
+          </div>
+
+          {/* Make your choice now Header */}
+          <h2 id="chooseHead" className="my-8 text-2xl font-bold text-[#f3c34e] sm:text-3xl">
+            {userName ? `${userName}, make your choice now` : "Make your choice now"}
+          </h2>
+
+          {/* 4 Seeds Section (Images + Checkout Buttons) */}
+          <div id="seeds" className="mx-auto flex max-w-[600px] flex-col gap-8">
+            {SEEDS.map((s) => (
+              <div key={s.amt} className="mx-auto flex w-full max-w-[420px] flex-col gap-3">
+                {/* Seed Card (Image) */}
+                <a
+                  href={`/checkout?seed=${s.amt}`}
+                  onClick={(e) => openCheckout(s.amt, e)}
+                  className="block w-full cursor-pointer overflow-hidden rounded-[16px] border-[3px] border-[#f3c34e] shadow-none transition-transform hover:brightness-105 active:scale-[0.98]"
+                >
+                  <img
+                    src={s.img}
+                    alt={`Seed of Faith ${s.label}`}
+                    loading="lazy"
+                    onError={(e) => {
+                      if (s.fallback && e.currentTarget.src !== s.fallback) {
+                        e.currentTarget.src = s.fallback;
+                      }
+                    }}
+                    className="aspect-square w-full object-cover"
+                  />
+                </a>
+
+                {/* Seed CTA Button */}
+                <a
+                  href={`/checkout?seed=${s.amt}`}
+                  onClick={(e) => openCheckout(s.amt, e)}
+                  className="block w-full cursor-pointer rounded-[16px] bg-gradient-to-b from-[#f7d873] to-[#e0a91d] py-4 px-3 text-center text-xl font-bold text-[#1a1206] shadow-[0_6px_0_#b8911f] transition-transform active:translate-y-[2px] active:shadow-[0_2px_0_#b8911f] sm:text-2xl"
+                  style={{ textDecoration: "none" }}
+                >
+                  This is the life I choose — {s.label}
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <footer className="mx-auto mt-14 max-w-[860px] border-t border-[#3a3018] px-4 pt-7 pb-4 text-center text-sm leading-relaxed text-[#9a8f6f]">
+            <div className="mb-3 flex flex-wrap justify-center gap-4 font-bold">
+              <a href="/terms" className="text-[#cdb86a] underline">
+                Terms of Use
+              </a>
+              <a href="/privacy" className="text-[#cdb86a] underline">
+                Privacy Policy
+              </a>
+              <a href="/refund" className="text-[#cdb86a] underline">
+                Refund Policy
+              </a>
+              <a href="/support" className="text-[#cdb86a] underline">
+                Support
+              </a>
+            </div>
+            <p className="mb-2">Digital product delivered by email immediately after purchase.</p>
+            <p className="mx-auto max-w-[640px] text-xs italic opacity-85">
+              Educational and inspirational content. Results vary from person to person. This is not
+              financial, medical, or professional advice.
+            </p>
+          </footer>
+        </div>
+      </div>
     </div>
   );
 }
