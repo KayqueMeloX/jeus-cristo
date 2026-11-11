@@ -4,10 +4,10 @@
  */
 
 export const META_PIXEL_ID =
-  process.env.META_PIXEL_ID || "29015918781408333";
+  process.env["META_PIXEL_ID"] || "29015918781408333";
 
 export const META_ACCESS_TOKEN =
-  process.env.META_ACCESS_TOKEN ||
+  process.env["META_ACCESS_TOKEN"] ||
   "EAAMZCDQyWTsoBSZCPAnuKotWiVC5rDSZAF6qMJSSJaoQECgAiHOD6p4BFGTjxUE3DXc2hMK9FQakniX2D97a6BWZBM1OV0TlYbtfjZCclEOBRGY8GMWw3J9bSMSRxzQA66TBwa6QFAJVDohStvncw5gOz5niYQSG3Y3mRXaUM8hYx1wKLUDzhoWufZBa6ZBXQZDZD";
 
 export interface MetaConversionUserData {
