@@ -27,7 +27,7 @@ function PaySlug() {
       const search = window.location.search || "";
       const params = new URLSearchParams(search);
       const seed = params.get("seed") || params.get("id") || params.get("tier") || params.get("amt") || "27";
-      const baseStripe = STRIPE_LINKS[seed.trim()] || STRIPE_LINKS["27"];
+      const baseStripe = STRIPE_LINKS[seed.trim()] || STRIPE_LINKS["27"]!;
 
       const forwardParams = new URLSearchParams();
       params.forEach((val, key) => {
@@ -66,6 +66,7 @@ function PaySlug() {
       const timer = setTimeout(doRedirect, 150);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, []);
 
   return (
