@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head>
+﻿<!DOCTYPE html><html lang="en"><head>
 <!-- Anti-Lovable badge protection -->
 <style id="anti-lovable-css">
 #lovable-badge,
@@ -161,26 +161,21 @@ if (!_inIframe) {
   .guarantee { font-size:18px; color:#ffe9ab; font-style:italic; margin:14px auto; }
   .guarantee a { color:#f3c34e; }
 
-  /* offer pitch wrapper */
-  #offerPitch, #seeds, #chooseHead {
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-  #offerPitch { display: block !important; }
-  #offerPitch.revealed,
-  .revealed #offerPitch {
+  /* offer pitch wrapper â€” ALWAYS VISIBLE */
+  #offerPitch, #chooseHead, #winners, #cleanInfo {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
   }
-  @keyframes fadeInOffer {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  #seeds, .seeds {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-direction: column;
+    gap: 34px;
+    max-width: 600px;
+    margin: 24px auto 0;
   }
-
-  /* seeds — permanently fixed and visible below each image */
-  #chooseHead, #winners, #cleanInfo { display:block !important; visibility:visible !important; opacity:1 !important; }
-  #seeds, .seeds { display:flex !important; visibility:visible !important; opacity:1 !important; flex-direction:column; gap:34px; max-width:600px; margin:24px auto 0; }
   .seed-block { display:flex !important; visibility:visible !important; opacity:1 !important; width:100%; max-width:420px; margin:0 auto; flex-direction:column; gap:12px; }
   .seed-card { display:block !important; visibility:visible !important; opacity:1 !important; background:none; box-shadow:none; padding:0; border:3px solid #f3c34e; border-radius:16px;
     overflow:hidden; aspect-ratio:1/1; width:100%; line-height:0; cursor:pointer; }
@@ -293,109 +288,43 @@ if (!_inIframe) {
         var video = document.getElementById('vslVideo');
         var overlay = document.getElementById('vslUnmuteOverlay');
         var bar = document.getElementById('vslProgressBar');
-        var videobox = document.querySelector('.videobox');
-        var _hasRevealed = false;
 
-        function revealOffer() {
-          _hasRevealed = true;
-          try {
-            var pitch = document.getElementById('offerPitch');
-            if (pitch) {
-              pitch.style.setProperty('display', 'block', 'important');
-              pitch.classList.add('revealed');
-            }
-            document.body.classList.add('revealed');
-            var seeds = document.getElementById('seeds');
-            if (seeds) {
-              seeds.style.setProperty('display', 'flex', 'important');
-            }
-            var chooseHead = document.getElementById('chooseHead');
-            if (chooseHead) {
-              chooseHead.style.setProperty('display', 'block', 'important');
-            }
-            var winners = document.getElementById('winners');
-            if (winners) {
-              winners.style.setProperty('display', 'block', 'important');
-            }
-            var cleanInfo = document.getElementById('cleanInfo');
-            if (cleanInfo) {
-              cleanInfo.style.setProperty('display', 'block', 'important');
-            }
-          } catch(e) {}
-        }
-
-        function triggerPlayAndReveal(e) {
-          revealOffer();
-
+        function unmuteVideo() {
+          if (!video) return;
+          try { video.muted = false; } catch(e){}
+          try { video.loop = false; } catch(e){}
+          try { var p = video.play(); if (p && p.catch) p.catch(function(){}); } catch(e){}
           if (overlay) {
-            try {
-              overlay.style.opacity = '0';
-              overlay.style.pointerEvents = 'none';
-              setTimeout(function() {
-                try { overlay.style.display = 'none'; } catch(err){}
-              }, 250);
-            } catch(err) {}
-          }
-
-          if (video) {
-            try { video.muted = false; } catch(err){}
-            try { video.loop = false; } catch(err){}
-            try {
-              var p = video.play();
-              if (p && p.catch) p.catch(function(){});
-            } catch(err) {}
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+            setTimeout(function() { try { overlay.style.display = 'none'; } catch(e){} }, 250);
           }
         }
 
         if (overlay) {
-          overlay.addEventListener('click', triggerPlayAndReveal);
-          overlay.addEventListener('touchend', function(e) {
-            triggerPlayAndReveal(e);
-          }, { passive: true });
+          overlay.addEventListener('click', unmuteVideo);
+          overlay.addEventListener('touchend', unmuteVideo, { passive: true });
         }
-
-        if (videobox) {
-          videobox.addEventListener('click', triggerPlayAndReveal);
-          videobox.addEventListener('touchend', function(e) {
-            triggerPlayAndReveal(e);
-          }, { passive: true });
-        }
-
         if (video) {
-          video.addEventListener('click', triggerPlayAndReveal);
-          video.addEventListener('touchend', function(e) {
-            triggerPlayAndReveal(e);
+          video.addEventListener('click', function() {
+            if (video.muted) { unmuteVideo(); }
+            else { if (video.paused) video.play(); else video.pause(); }
+          });
+          video.addEventListener('touchend', function() {
+            if (video.muted) { unmuteVideo(); }
           }, { passive: true });
-
-          video.addEventListener('play', function() {
-            revealOffer();
-          });
-          video.addEventListener('playing', function() {
-            revealOffer();
-          });
-          video.addEventListener('volumechange', function() {
-            revealOffer();
-          });
-
           video.addEventListener('timeupdate', function() {
-            if (_hasRevealed || !video.muted) {
-              revealOffer();
-            }
-            if (video.duration) {
-              var pct = (video.currentTime / video.duration) * 100;
-              if (bar) bar.style.width = pct + '%';
+            if (video.duration && bar) {
+              bar.style.width = ((video.currentTime / video.duration) * 100) + '%';
             }
           });
         }
-
-        setTimeout(function() {
-          revealOffer();
-        }, 30000);
       })();
     </script>
 
-    <!-- Offer content — hidden initially until user plays VSL -->
-    <div id="offerPitch">
+    <!-- All offer content â€” ALWAYS VISIBLE, never hidden -->
+    <!-- All offer content â€” ALWAYS VISIBLE, never hidden -->
+    <div id="offerPitch" style="display:block !important; visibility:visible !important; opacity:1 !important;">
       <!-- Recent Winners -->
       <div id="winners">
         <h2>🏆 Recent Winners</h2>
@@ -536,4 +465,42 @@ if (!_inIframe) {
 </script>
 
 <script src="/media/support-widget.js" defer></script>
+<!-- GUARDIAN: Keep checkouts permanently visible and fixed, never hidden -->
+<script>
+(function guardOfferForever() {
+  var TARGET_IDS = ['offerPitch', 'winners', 'cleanInfo', 'chooseHead', 'seeds'];
+  function enforce() {
+    for (var i = 0; i < TARGET_IDS.length; i++) {
+      var el = document.getElementById(TARGET_IDS[i]);
+      if (!el) continue;
+      el.style.setProperty('display', TARGET_IDS[i] === 'seeds' ? 'flex' : 'block', 'important');
+      el.style.setProperty('visibility', 'visible', 'important');
+      el.style.setProperty('opacity', '1', 'important');
+    }
+    var buttons = document.querySelectorAll('.seed-cta, .seed-card, .seed-block, .checkout-btn');
+    for (var j = 0; j < buttons.length; j++) {
+      var b = buttons[j];
+      b.style.setProperty('visibility', 'visible', 'important');
+      b.style.setProperty('opacity', '1', 'important');
+      if (b.classList.contains('seed-block')) {
+        b.style.setProperty('display', 'flex', 'important');
+      } else {
+        b.style.setProperty('display', 'block', 'important');
+      }
+    }
+  }
+  enforce();
+  if (window.MutationObserver) {
+    new MutationObserver(enforce).observe(document.documentElement, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+      attributeFilter: ['style', 'class', 'hidden']
+    });
+  }
+  setInterval(enforce, 250);
+  window.addEventListener('load', enforce);
+  document.addEventListener('DOMContentLoaded', enforce);
+})();
+</script>
 </body></html>
