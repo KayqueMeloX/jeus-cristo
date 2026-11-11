@@ -123,15 +123,20 @@ export function OfferPage() {
       }
     } catch (err) {}
 
-    if (typeof window !== "undefined") {
-      try {
-        if (window.top && window.top !== window) {
-          window.top.location.href = slugUrl;
-          return;
-        }
-      } catch (err) {}
-      window.location.href = slugUrl;
-    }
+    const doRedirect = () => {
+      if (typeof window !== "undefined") {
+        try {
+          if (window.top && window.top !== window) {
+            window.top.location.href = slugUrl;
+            return;
+          }
+        } catch (err) {}
+        window.location.href = slugUrl;
+      }
+    };
+
+    // Pequeno delay de 150ms para garantir envio completo do evento pelo pixel
+    setTimeout(doRedirect, 150);
   };
 
   return (
