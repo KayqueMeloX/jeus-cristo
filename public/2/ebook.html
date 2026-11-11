@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-book de Orações Sagradas — My Faith Sanctuary</title>
+  <title>Sacred Prayers E-book — My Faith Sanctuary</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -171,20 +171,22 @@
       color: #f7d873;
       font-weight: 700;
     }
-    .prayer-verse {
-      background: rgba(243, 195, 78, 0.08);
+    .prayer-theme {
+      background: rgba(243, 195, 78, 0.1);
       border-left: 3px solid #f3c34e;
-      padding: 10px 14px;
+      padding: 8px 14px;
       border-radius: 0 8px 8px 0;
-      font-style: italic;
-      font-size: 13px;
-      color: #e5dac2;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f3c34e;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       margin-bottom: 16px;
     }
     .prayer-body {
       font-size: 15px;
       color: #f1ebd8;
-      line-height: 1.75;
+      line-height: 1.8;
       text-align: justify;
     }
 
@@ -239,7 +241,7 @@
       .prayer-title {
         color: #000 !important;
       }
-      .prayer-verse {
+      .prayer-theme {
         background: #f7f7f7 !important;
         border-left: 3px solid #000 !important;
         color: #333 !important;
@@ -253,10 +255,10 @@
 <body>
 
   <header>
-    <div class="badge" id="tierBadge">20 ORAÇÕES LIBERADAS</div>
-    <h1 id="bookTitle">E-book das 20 Orações Sagradas do Arcanjo Miguel</h1>
+    <div class="badge" id="tierBadge">20 PRAYERS UNLOCKED</div>
+    <h1 id="bookTitle">The 20 Sacred Prayers of Archangel Michael</h1>
     <p class="subtitle" id="bookSubtitle">
-      Guia diário de oração, proteção divina e multiplicação financeira abençoada para transformar a sua realidade.
+      Your daily manual of spiritual strength, divine protection, and blessed abundance to transform your life.
     </p>
 
     <div class="actions-bar">
@@ -266,18 +268,18 @@
           <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
           <rect x="6" y="14" width="12" height="8"></rect>
         </svg>
-        Salvar em PDF / Imprimir
+        Download PDF / Print
       </button>
 
       <a href="/faith-app" class="btn btn-outline">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="5 3 19 12 5 21 5 3"></polygon>
         </svg>
-        Área de Membros (Áudios)
+        Members Area (Audio Vault)
       </a>
 
       <a href="/thank-you" class="btn btn-outline">
-        &larr; Voltar
+        &larr; Back to Order Confirmation
       </a>
     </div>
   </header>
@@ -288,7 +290,7 @@
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="searchInput" class="search-input" placeholder="Buscar por tema (ex: dívidas, proteção, negócios, saúde, família)...">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search prayers by topic (e.g. debt relief, protection, family, abundance, peace)...">
     </div>
 
     <div id="prayersList" class="prayers-list">
@@ -296,8 +298,8 @@
     </div>
 
     <footer>
-      <p><strong>FAKKO SOLUTIONS LLC</strong> &middot; My Faith Sanctuary &copy; 2026. Todos os direitos reservados.</p>
-      <p style="margin-top: 6px;">Uso pessoal e intransferível. Que estas orações sejam instrumento de bênção contínua na sua vida.</p>
+      <p><strong>FAKKO SOLUTIONS LLC</strong> &middot; My Faith Sanctuary &copy; 2026. All rights reserved.</p>
+      <p style="margin-top: 6px;">Personal and confidential access. May these prayers be an instrument of continuous light in your journey.</p>
     </footer>
   </div>
 
@@ -309,7 +311,7 @@
       
       var tier = window.getTierInfo(seed);
 
-      document.getElementById('tierBadge').textContent = tier.count + " ORAÇÕES LIBERADAS";
+      document.getElementById('tierBadge').textContent = tier.count + " PRAYERS UNLOCKED";
       document.getElementById('bookTitle').textContent = tier.title;
       document.title = tier.title + " — My Faith Sanctuary";
 
@@ -318,7 +320,7 @@
       function render(items) {
         var el = document.getElementById('prayersList');
         if (items.length === 0) {
-          el.innerHTML = '<div style="text-align:center;padding:40px;color:#a89a7c;">Nenhuma oração encontrada para essa busca. Tente outro termo.</div>';
+          el.innerHTML = '<div style="text-align:center;padding:40px;color:#a89a7c;">No prayers matched your search. Try another word.</div>';
           return;
         }
 
@@ -328,7 +330,7 @@
               '<div class="prayer-num">' + item.id + '</div>' +
               '<h2 class="prayer-title">' + item.title + '</h2>' +
             '</div>' +
-            '<div class="prayer-verse">' + item.verse + '</div>' +
+            '<div class="prayer-theme">Focus: ' + item.theme + '</div>' +
             '<div class="prayer-body">' + item.body + '</div>' +
           '</article>';
         }).join('');
@@ -345,7 +347,7 @@
         }
         var filtered = prayers.filter(function(item) {
           return item.title.toLowerCase().indexOf(query) !== -1 ||
-                 item.verse.toLowerCase().indexOf(query) !== -1 ||
+                 item.theme.toLowerCase().indexOf(query) !== -1 ||
                  item.body.toLowerCase().indexOf(query) !== -1;
         });
         render(filtered);

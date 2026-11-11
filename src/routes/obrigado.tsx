@@ -5,7 +5,7 @@ export const Route = createFileRoute("/obrigado")({
   component: ObrigadoPage,
   head: () => ({
     meta: [
-      { title: "Pagamento Confirmado — Santuário da Fé" },
+      { title: "Payment Approved — My Faith Sanctuary" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
     ],
   }),

@@ -5,7 +5,7 @@ export const Route = createFileRoute("/ebook")({
   component: EbookRoute,
   head: () => ({
     meta: [
-      { title: "E-book de Orações Sagradas — My Faith Sanctuary" },
+      { title: "Sacred Prayers E-book — My Faith Sanctuary" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
     ],
   }),
