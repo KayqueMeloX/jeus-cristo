@@ -50,10 +50,11 @@ export function Offer() {
 
   return (
     <div
-      className="fixed inset-0 w-full overflow-hidden bg-black"
+      className="fixed inset-0 w-full bg-black overflow-y-auto"
       style={{
         height: "100dvh",
         maxHeight: "-webkit-fill-available",
+        WebkitOverflowScrolling: "touch",
       }}
     >
       <iframe
@@ -61,14 +62,17 @@ export function Offer() {
         key="main-offer-frame"
         src={initialSrc}
         title="Plan Faith Offer"
-        className="h-full w-full border-none"
+        className="w-full h-full border-none"
         allow="autoplay; fullscreen; payment"
         data-utmify-ignore="true"
         data-utmify-ignore-iframe="true"
+        scrolling="yes"
         style={{
           height: "100%",
+          minHeight: "100%",
           width: "100%",
           display: "block",
+          WebkitOverflowScrolling: "touch",
         }}
       />
     </div>

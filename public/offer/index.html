@@ -126,7 +126,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
 <title>Your Divine Manifestation Script — Plan Faith</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { min-height:100%; }
+  html, body { min-height:100%; width:100%; overflow-x:hidden; overflow-y:auto !important; -webkit-overflow-scrolling:touch !important; }
   body { font-family: Georgia, 'Times New Roman', serif; color:#fff7e6; min-height:100vh; padding-bottom:20px; }
   body::before { content:""; position:fixed; inset:0; z-index:-2;
     background:url('background.jpg') center center / cover no-repeat fixed; }
@@ -157,6 +157,31 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     width:100%; max-width:560px; box-shadow:0 6px 0 #b8911f, 0 0 30px rgba(243,195,78,.25);
     transition:transform .08s ease; margin-top:14px; }
   .cta:active { transform:translateY(3px); box-shadow:0 2px 0 #b8911f; }
+  @keyframes pulseCta {
+    0% { transform: scale(1); box-shadow: 0 6px 0 #b8911f, 0 0 20px rgba(243,195,78,0.3); }
+    50% { transform: scale(1.02); box-shadow: 0 6px 0 #b8911f, 0 0 32px rgba(243,195,78,0.6); }
+    100% { transform: scale(1); box-shadow: 0 6px 0 #b8911f, 0 0 20px rgba(243,195,78,0.3); }
+  }
+  .quick-jump-cta {
+    display: inline-block;
+    width: 100%;
+    max-width: 440px;
+    margin: 18px auto 24px;
+    padding: 16px 20px;
+    background: linear-gradient(180deg, #f7d873, #e0a91d);
+    color: #1a1206;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 14px;
+    box-shadow: 0 6px 0 #b8911f, 0 0 25px rgba(243,195,78,0.35);
+    animation: pulseCta 2s infinite ease-in-out;
+  }
+  .quick-jump-cta:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b8911f;
+  }
 
   h2 { font-size:32px; color:#f3c34e; margin:34px auto 8px; }
 
@@ -351,6 +376,11 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
         </div>
       </div>
     </div>
+            <div style="margin: 16px auto 22px; max-width: 440px; padding: 0 10px;">
+      <a href="#chooseHead" class="quick-jump-cta">
+        &#11015; Choose Your Seed of Faith ($27 - $100) &#11015;
+      </a>
+    </div>
     <script>
       (function initVslPlayer() {
         var video = document.getElementById('vslVideo');
@@ -358,24 +388,18 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
         var bar = document.getElementById('vslProgressBar');
         if (!video) return;
 
-        var pitchRevealed = false;
-        var PITCH_TIME = 153;
-
         function revealPitch() {
-          if (pitchRevealed) return;
-          pitchRevealed = true;
           try { localStorage.setItem('faith_offer_revealed_v2', '1'); } catch(e){}
-          var pitchEls = document.querySelectorAll('#winners, #portals, #cleanInfo, #warningBox, #chooseHead, #seeds, .badges, .guarantee, footer');
-          pitchEls.forEach(function(el) { if (el) el.style.display = 'block'; });
-          var choose = document.getElementById('chooseHead');
-          if (choose) choose.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var pitchEls = document.querySelectorAll('#winners, #portals, #cleanInfo, #chooseHead, #seeds, .badges, .guarantee, footer');
+          pitchEls.forEach(function(el) { 
+            if (el) { 
+              el.style.display = (el.id === 'seeds' ? 'flex' : 'block'); 
+            } 
+          });
         }
 
-        try {
-          if (localStorage.getItem('faith_offer_revealed_v2') === '1') {
-            revealPitch();
-          }
-        } catch(e) {}
+        // Reveal pitch & 4 checkout links IMMEDIATELY
+        revealPitch();
 
         function unmuteVideo() {
           video.muted = false;
@@ -401,17 +425,8 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
           if (video.duration) {
             var pct = (video.currentTime / video.duration) * 100;
             if (bar) bar.style.width = pct + '%';
-            if (video.currentTime >= PITCH_TIME) {
-              revealPitch();
-            }
           }
         });
-
-        video.addEventListener('ended', function() {
-          revealPitch();
-        });
-
-        setTimeout(revealPitch, 155000);
       })();
     </script>
 
@@ -437,8 +452,48 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
       If you feel you are <b>NOT ready</b> to have the next <b>6 months of your life completely changed</b> — by an abundance so unusual it will seem strange to those who know you — we recommend that you <b>ignore this message of choice</b>.
     </div>
 
-    <h2 id="chooseHead">Make your choice now</h2>
-    <div class="seeds" id="seeds"></div>
+            <h2 id="chooseHead">Make your choice now</h2>
+    <div class="seeds" id="seeds" style="display:flex !important;">
+      <!-- Seed 27 -->
+      <div class="seed-block">
+        <a href="/checkout?seed=27" target="_top" class="seed-card checkout-btn" data-amt="27" style="display:block;cursor:pointer;">
+          <img src="sedd-of-fath-27.jpg" onerror="this.onerror=null;this.src='seed-of-faith-27.jpg';" alt="Seed of Faith $27">
+        </a>
+        <a href="/checkout?seed=27" target="_top" class="seed-cta checkout-btn" data-amt="27" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+          This is the life I choose &mdash; $27
+        </a>
+      </div>
+
+      <!-- Seed 47 -->
+      <div class="seed-block">
+        <a href="/checkout?seed=47" target="_top" class="seed-card checkout-btn" data-amt="47" style="display:block;cursor:pointer;">
+          <img src="seed-of-faith47.jpg" alt="Seed of Faith $47">
+        </a>
+        <a href="/checkout?seed=47" target="_top" class="seed-cta checkout-btn" data-amt="47" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+          This is the life I choose &mdash; $47
+        </a>
+      </div>
+
+      <!-- Seed 77 -->
+      <div class="seed-block">
+        <a href="/checkout?seed=77" target="_top" class="seed-card checkout-btn" data-amt="77" style="display:block;cursor:pointer;">
+          <img src="seed-of-fath-77.jpg" alt="Seed of Faith $77">
+        </a>
+        <a href="/checkout?seed=77" target="_top" class="seed-cta checkout-btn" data-amt="77" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+          This is the life I choose &mdash; $77
+        </a>
+      </div>
+
+      <!-- Seed 100 -->
+      <div class="seed-block">
+        <a href="/checkout?seed=100" target="_top" class="seed-card checkout-btn" data-amt="100" style="display:block;cursor:pointer;">
+          <img src="seed-of-faith-100.jpg" alt="Seed of Faith $100">
+        </a>
+        <a href="/checkout?seed=100" target="_top" class="seed-cta checkout-btn" data-amt="100" style="display:block;cursor:pointer;text-decoration:none;text-align:center;">
+          This is the life I choose &mdash; $100
+        </a>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div class="foot-links">
