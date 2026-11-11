@@ -164,10 +164,16 @@ if (!_inIframe) {
   /* offer pitch wrapper */
   #offerPitch {
     display: none;
-    animation: fadeInOffer 0.5s ease-in-out;
+  }
+  #offerPitch.revealed,
+  .revealed #offerPitch {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    animation: fadeInOffer 0.4s ease-in-out;
   }
   @keyframes fadeInOffer {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -285,71 +291,104 @@ if (!_inIframe) {
         var video = document.getElementById('vslVideo');
         var overlay = document.getElementById('vslUnmuteOverlay');
         var bar = document.getElementById('vslProgressBar');
-        if (!video) return;
+        var videobox = document.querySelector('.videobox');
+        var _hasRevealed = false;
 
         function revealOffer() {
-          var pitch = document.getElementById('offerPitch');
-          if (pitch && pitch.style.display !== 'block') {
-            pitch.style.display = 'block';
-          }
+          _hasRevealed = true;
+          try {
+            var pitch = document.getElementById('offerPitch');
+            if (pitch) {
+              pitch.style.setProperty('display', 'block', 'important');
+              pitch.classList.add('revealed');
+            }
+            document.body.classList.add('revealed');
+            var seeds = document.getElementById('seeds');
+            if (seeds) {
+              seeds.style.setProperty('display', 'flex', 'important');
+            }
+            var chooseHead = document.getElementById('chooseHead');
+            if (chooseHead) {
+              chooseHead.style.setProperty('display', 'block', 'important');
+            }
+            var winners = document.getElementById('winners');
+            if (winners) {
+              winners.style.setProperty('display', 'block', 'important');
+            }
+            var cleanInfo = document.getElementById('cleanInfo');
+            if (cleanInfo) {
+              cleanInfo.style.setProperty('display', 'block', 'important');
+            }
+          } catch(e) {}
         }
 
-        function unmuteVideo() {
-          video.muted = false;
-          video.currentTime = 0;
-          video.loop = false;
-          video.play().catch(function(){});
-          if (overlay) {
-            overlay.style.opacity = '0';
-            setTimeout(function() { overlay.style.display = 'none'; }, 300);
-          }
+        function triggerPlayAndReveal(e) {
           revealOffer();
+
+          if (overlay) {
+            try {
+              overlay.style.opacity = '0';
+              overlay.style.pointerEvents = 'none';
+              setTimeout(function() {
+                try { overlay.style.display = 'none'; } catch(err){}
+              }, 250);
+            } catch(err) {}
+          }
+
+          if (video) {
+            try { video.muted = false; } catch(err){}
+            try { video.loop = false; } catch(err){}
+            try {
+              var p = video.play();
+              if (p && p.catch) p.catch(function(){});
+            } catch(err) {}
+          }
         }
 
         if (overlay) {
-          overlay.addEventListener('click', unmuteVideo);
+          overlay.addEventListener('click', triggerPlayAndReveal);
           overlay.addEventListener('touchend', function(e) {
-            unmuteVideo();
+            triggerPlayAndReveal(e);
+          }, { passive: true });
+        }
+
+        if (videobox) {
+          videobox.addEventListener('click', triggerPlayAndReveal);
+          videobox.addEventListener('touchend', function(e) {
+            triggerPlayAndReveal(e);
+          }, { passive: true });
+        }
+
+        if (video) {
+          video.addEventListener('click', triggerPlayAndReveal);
+          video.addEventListener('touchend', function(e) {
+            triggerPlayAndReveal(e);
+          }, { passive: true });
+
+          video.addEventListener('play', function() {
+            revealOffer();
+          });
+          video.addEventListener('playing', function() {
+            revealOffer();
+          });
+          video.addEventListener('volumechange', function() {
+            revealOffer();
+          });
+
+          video.addEventListener('timeupdate', function() {
+            if (_hasRevealed || !video.muted) {
+              revealOffer();
+            }
+            if (video.duration) {
+              var pct = (video.currentTime / video.duration) * 100;
+              if (bar) bar.style.width = pct + '%';
+            }
           });
         }
 
-        video.addEventListener('click', function() {
-          if (video.muted) {
-            unmuteVideo();
-          } else {
-            if (video.paused) {
-              video.play();
-              revealOffer();
-            } else {
-              video.pause();
-            }
-          }
-        });
-
-        video.addEventListener('volumechange', function() {
-          if (!video.muted) {
-            revealOffer();
-          }
-        });
-
-        video.addEventListener('play', function() {
-          if (!video.muted) {
-            revealOffer();
-          }
-        });
-
-        video.addEventListener('playing', function() {
-          if (!video.muted) {
-            revealOffer();
-          }
-        });
-
-        video.addEventListener('timeupdate', function() {
-          if (video.duration) {
-            var pct = (video.currentTime / video.duration) * 100;
-            if (bar) bar.style.width = pct + '%';
-          }
-        });
+        setTimeout(function() {
+          revealOffer();
+        }, 30000);
       })();
     </script>
 

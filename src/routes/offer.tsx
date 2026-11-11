@@ -50,11 +50,10 @@ export function Offer() {
 
   return (
     <div
-      className="fixed inset-0 w-full bg-black overflow-y-auto"
+      className="fixed inset-0 w-full h-full bg-black"
       style={{
         height: "100dvh",
         maxHeight: "-webkit-fill-available",
-        WebkitOverflowScrolling: "touch",
       }}
     >
       <iframe
@@ -71,8 +70,8 @@ export function Offer() {
           height: "100%",
           minHeight: "100%",
           width: "100%",
+          border: "none",
           display: "block",
-          WebkitOverflowScrolling: "touch",
         }}
       />
     </div>
