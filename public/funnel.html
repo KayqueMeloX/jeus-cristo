@@ -751,10 +751,10 @@ $('gateBtn').onclick = ()=>{
   $('soundBtn').hidden = false;
   loopVid.play().catch(()=>{});
   musStart();
-  playClip(CLIPS.entrance, null);
+  /* o arcanjo só fala depois que a pessoa digita o nome */
 };
 /* o primeiro clipe já vai carregando enquanto a pessoa lê a tela inicial */
-prime(vids[0], CLIPS.entrance);
+prime(vids[0], CLIPS.affirm);
 $('soundBtn').onclick = ()=>{
   const m = !vids[0].muted;
   vids.forEach(v=> v.muted = m);      // vale para os dois players
