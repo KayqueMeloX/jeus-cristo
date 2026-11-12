@@ -141,6 +141,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   .screen{display:none}.screen.active{display:block}
   .revealable{transition:opacity .45s ease,transform .45s ease}
   body.waiting .revealable{opacity:0;transform:translateY(12px);pointer-events:none}
+  body.waiting #entrance .revealable{opacity:1;transform:none;pointer-events:auto}
 
   .lead{font-size:17px;line-height:1.35;margin-bottom:12px;text-shadow:0 2px 8px #000}
   .lead .big{color:#f3c34e;font-weight:bold}
