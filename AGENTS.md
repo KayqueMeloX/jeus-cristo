@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Quiz delivery
+- Keep `public/funnel.html` and `public/index.html` identical whenever changing the static quiz so alternate entry paths share the same experience.

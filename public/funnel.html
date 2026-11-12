@@ -69,6 +69,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
 <title>TIME TO THRIVE</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
+  :root{--quiz-gate-surface:rgba(4,3,2,.9);--quiz-input-muted:#898377}
   html,body{height:100%;overflow:hidden;background:#000}
   body{font-family:Georgia,'Times New Roman',serif;color:#fff7e6;-webkit-font-smoothing:antialiased}
 
@@ -136,8 +137,8 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   @keyframes dot{0%,100%{opacity:.25}50%{opacity:1}}
 
   /* ---------- CONTEÚDO SOBRE O VÍDEO (base) ---------- */
-  .panel{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:0 16px calc(38px + env(safe-area-inset-bottom, 20px));
-    max-height:78%;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center}
+  .panel{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:0 16px calc(18px + env(safe-area-inset-bottom, 0px));
+    max-height:74%;overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center}
   .screen{display:none}.screen.active{display:block}
   .revealable{transition:opacity .45s ease,transform .45s ease}
   body.waiting .revealable{opacity:0;transform:translateY(12px);pointer-events:none}
@@ -152,21 +153,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
     box-shadow:0 4px 0 #b8911f,0 0 22px rgba(243,195,78,.25)}
   .cta:active{transform:translateY(2px);box-shadow:0 2px 0 #b8911f}
 
-  @media (max-width: 480px), (max-height: 800px) {
-    .panel{padding:0 16px calc(42px + env(safe-area-inset-bottom, 24px));max-height:82%}
-    .lead{font-size:15px;line-height:1.3;margin-bottom:9px}
-    .name-input,.money-input{font-size:17px;padding:11px 12px;margin-bottom:8px}
-    .cta{font-size:17px;padding:13px 18px}
-  }
-  @media (max-height: 680px) {
-    .panel{padding:0 14px calc(46px + env(safe-area-inset-bottom, 24px));max-height:86%}
-    .lead{font-size:14px;line-height:1.25;margin-bottom:6px}
-    .lead .big{font-size:14px}
-    .name-input,.money-input{font-size:16px;padding:9px 10px;margin-bottom:6px}
-    .cta{font-size:16px;padding:11px 14px}
-    .vow{padding:10px;margin-bottom:8px}
-    .vow .phrase{font-size:16px;margin:4px 0}
-  }
+  .name-input::placeholder,.money-input::placeholder{color:var(--quiz-input-muted);opacity:1}
 
   .vow{border:2px solid #f3c34e;border-radius:15px;background:rgba(8,6,3,.75);padding:15px 14px;margin-bottom:12px;
     animation:glow 2s ease-in-out infinite}
@@ -191,7 +178,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
   .load-pct{font-size:26px;font-weight:bold;color:#f3c34e;margin:8px 0 4px;text-shadow:0 2px 10px #000}
 
   /* ---------- PORTA DE ENTRADA ---------- */
-  .gate{position:absolute;inset:0;z-index:20;background:#050403 radial-gradient(circle at 50% 35%, rgba(26,19,10,.98), #040302 85%);display:flex;flex-direction:column;
+  .gate{position:absolute;inset:0;z-index:20;background:var(--quiz-gate-surface);display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
   .gate img{width:130px;filter:drop-shadow(0 0 20px rgba(243,195,78,.35))}
   .gate-t{font-size:20px;color:#f3c34e;font-weight:bold;line-height:1.3}
@@ -316,7 +303,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
 <div class="app" id="app">
 
   <div class="stage" id="stage">
-    <video id="loopVid" src="media/loop.mp4?v=5" muted="" loop="" playsinline="" webkit-playsinline="" preload="auto"></video>
+    <video id="loopVid" src="media/loop.mp4?v=5" muted="" autoplay="" loop="" playsinline="" webkit-playsinline="" preload="auto"></video>
     <!-- dois players: enquanto um fala, o outro já carrega o clipe seguinte -->
     <video id="speechVid" playsinline="" webkit-playsinline="" preload="auto"></video>
     <video id="speechVid2" playsinline="" webkit-playsinline="" preload="auto"></video>
@@ -333,7 +320,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
 
   <div class="hud" id="hud">
     <div class="hello" id="hello"></div>
-    <div class="bal-label">Account Balance</div>
+    <div class="bal-label">Spiritual Balance</div>
     <div class="bal-value" id="balValue">$0.00</div>
     <div class="energy-row"><span>Your energy is aligning with the divine...</span><span id="energyPct">5%</span></div>
     <div class="energy-track"><div class="energy-fill" id="energyFill"></div></div>
@@ -347,7 +334,7 @@ if(/(^|\.)planfaith\.com$/i.test(h)||/(^|\.)mymichaelguide\.com$/i.test(h)||/(^|
       <div class="revealable">
         <div class="lead">God does not bring you here by accident.<br>
           <span class="big">Type your name below and step into what was prepared for you.</span></div>
-        <input type="text" id="nameInput" class="name-input" placeholder="Your name" autocomplete="off">
+        <input type="text" id="nameInput" class="name-input" placeholder="Your name" aria-label="Your name" autocomplete="off">
         <button class="cta" id="startBtn">BEGIN</button>
       </div>
     </div>
@@ -454,7 +441,7 @@ const ACH = {
   car:       { name:"Dream Car", img:"Dream-car.jpg", sub:"🚗 Your Dream Car Is Reserved", btn:"⚡ Continue Evolution" },
   family:    { name:"Happy Family", img:"family.jpg", sub:"👨‍👩‍👧‍👦 The Happy Family You Deserve", btn:"⚡ Continue Evolution" },
   health:    { name:"Perfect Health", img:"health.jpg", sub:"❤️ Your Perfect Health Is Activated", btn:"⚡ Continue Evolution" },
-  abundance: { name:"Abundance", img:"abundance.jpg", sub:"💸 Imagine… $277,000 being deposited into your account right now!", btn:"⚡ YES! I believe, I receive!" },
+  abundance: { name:"Abundance", img:"abundance.jpg", sub:"💸 Imagine abundance flowing into every area of your life right now!", btn:"⚡ YES! I believe, I receive!" },
   boost:     { name:"100x Boost", img:"100x-boost.jpg", sub:"⚡ Your Manifestation Power Just Multiplied by 100x", btn:"⚡ Continue Evolution" },
   blocks:    { name:"Blocks Broken", img:"blocks-broken.jpg", sub:"🔓 All Mental Blocks Have Been Removed", btn:"⚡ Continue Evolution" },
 };
@@ -566,6 +553,11 @@ if(new URLSearchParams(location.search).get('debug')){
 function waiting(on){
   document.body.classList.toggle('waiting', !!on);
   $('speaking').hidden = !on;
+  // Tracking scripts may insert whitespace; preserve real names, but reveal
+  // the placeholder when the entrance field has no meaningful value.
+  if(!on && $('entrance').classList.contains('active') && !$('nameInput').value.trim()){
+    $('nameInput').value = '';
+  }
   /* a trilha não muda de volume: segue igual falando ou lendo */
 }
 function preload(key){ if(!key) return; try{ fetch('media/'+key+'.mp4', {cache:'force-cache'}); }catch(e){} }
@@ -681,7 +673,7 @@ function closeOverlay(){ $('overlay').classList.remove('active'); }
 function showUnlock(key, done){
   const a = ACH[key];
   const extra = key === "mult"
-    ? '<div class="achsub">'+userName+', today I\'m adding 100x more to your account — do you believe?</div><div class="balbox">New Balance: '+fmt(balanceValue)+'</div>'
+    ? '<div class="achsub">'+userName+', today I\'m adding 100x more to your spiritual balance — do you believe?</div><div class="balbox">New Spiritual Balance: '+fmt(balanceValue)+'</div>'
     : '<div class="achsub">'+a.sub+'</div>';
   openOverlay('<div class="modaltop">✓ &nbsp;UNLOCKED! &nbsp;✦</div>'+
     '<div class="achimg"><img src="'+a.img+'" onerror="this.onerror=null;this.src=\'/\'+a.img" alt=""></div>'+
@@ -693,8 +685,8 @@ function showUnlock(key, done){
   };
 }
 function showMoneyBox(done){
-  openOverlay('<div class="modaltop">💰 &nbsp;Money</div><div class="achname" style="font-size:24px">'+userName+'</div>'+
-    '<div class="achsub">Your manifestation potential depends on your choice. Think big to manifest big things — you are the size of your courage.</div>'+
+  openOverlay('<div class="modaltop">✦ &nbsp;Abundance</div><div class="achname" style="font-size:24px">'+userName+'</div>'+
+    '<div class="achsub">Your manifestation potential depends on your choice. Think big — you are the size of your courage.</div>'+
     '<button class="cta" id="modalBtn">Continue Journey</button>');
   $('modalBtn').onclick = ()=>{ closeOverlay(); done(); };
 }

@@ -6,6 +6,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "TIME TO THRIVE" },
+      { name: "description", content: "Begin your guided faith journey with Archangel Michael and discover your personalized inspirational manifestation script." },
+      { property: "og:title", content: "TIME TO THRIVE" },
+      { property: "og:description", content: "Begin your guided faith journey with Archangel Michael and discover your personalized inspirational manifestation script." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0, viewport-fit=cover" },
     ],
   }),
@@ -55,7 +60,7 @@ export function Index() {
         if (name.toLowerCase() === "src" && this === iframeRef.current) {
           return;
         }
-        return origProtoSet.apply(this, arguments as any);
+        return origProtoSet.call(this, name, value);
       };
     } catch (e) {}
   }, [initialSrc]);
