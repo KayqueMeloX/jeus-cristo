@@ -167,15 +167,15 @@ export function OfferPage() {
   };
 
   return (
-    <div
-      className="relative min-h-screen w-full bg-cover bg-center bg-fixed text-[#fff7e6] font-serif"
-      style={{
-        backgroundImage: "url('/background.jpg')",
-        backgroundColor: "#050403",
-      }}
-    >
-      {/* Dark overlay */}
-      <div className="fixed inset-0 bg-black/80 pointer-events-none -z-10" />
+    <div className="relative isolate min-h-screen w-full text-[#fff7e6] font-serif">
+      {/* Fixed background image + dark overlay (same structure as reference page) */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 -z-10 bg-cover bg-center pointer-events-none"
+        style={{ backgroundImage: "url('/background.jpg')", backgroundColor: "#050403" }}
+      >
+        <div className="absolute inset-0 bg-[rgba(22,18,12,0.82)]" />
+      </div>
 
       <div className="mx-auto max-w-[760px] px-4 py-7 text-center">
         {/* Logo */}
