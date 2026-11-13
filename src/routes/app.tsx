@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { MembersFrame } from "@/components/MembersFrame";
 
 export const Route = createFileRoute("/app")({
   component: AppView,
@@ -18,22 +18,5 @@ export const Route = createFileRoute("/app")({
 });
 
 function AppView() {
-  const [iframeSrc, setIframeSrc] = useState("/faith-app.html");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIframeSrc(`/faith-app.html${window.location.search}`);
-    }
-  }, []);
-
-  return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden bg-[#0a0a0a]">
-      <iframe
-        src={iframeSrc}
-        title="My Faith Sanctuary - Members Area"
-        className="h-full w-full border-none"
-        allow="autoplay; fullscreen"
-      />
-    </div>
-  );
+  return <MembersFrame />;
 }
