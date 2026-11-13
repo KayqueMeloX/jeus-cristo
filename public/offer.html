@@ -370,9 +370,7 @@ if (!_inIframe) {
     var p = new URLSearchParams(curSearch);
     p.set('seed', amt);
     var slugUrl = '/checkout?' + p.toString();
-    if (typeof fbq === 'function') {
-      try { fbq('track', 'InitiateCheckout', { value: Number(amt), currency: 'USD' }); } catch(err) {}
-    }
+    // InitiateCheckout fires once, on /checkout (avoids double counting)
     try {
       if (window.top && window.top !== window) {
         window.top.location.href = slugUrl;

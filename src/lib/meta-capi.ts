@@ -27,6 +27,11 @@ export interface SendMetaConversionParams {
   eventId?: string;
 }
 
+async function sha256(v: string): Promise<string> {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v));
+  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 export async function sendMetaConversionEvent({
   eventName,
   eventSourceUrl,
@@ -45,6 +50,7 @@ export async function sendMetaConversionEvent({
         event_source_url: eventSourceUrl,
         event_id: eventId,
         user_data: {
+          em: userData?.email ? [await sha256(userData.email.trim().toLowerCase())] : undefined,
           client_ip_address: userData?.clientIpAddress,
           client_user_agent: userData?.clientUserAgent,
           fbc: userData?.fbc,

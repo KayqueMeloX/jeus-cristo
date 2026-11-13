@@ -27,7 +27,7 @@
   a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
   document.head.appendChild(a);
 </script>
-<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-subids async defer></script>
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-is-stripe data-utmify-prevent-subids async defer></script>
 <!-- End UTMify -->
 <!-- Meta Pixel Code -->
   <script>
@@ -173,6 +173,16 @@
         }
       });
 
+      // UTMify reads the creative only from Stripe's client_reference_id
+      try {
+        var saved = {}; try { saved = JSON.parse(localStorage.getItem("pf_tracking") || "{}"); } catch (e) {}
+        var clean = function (v) { if (!v) return ""; var h = String(v).split("::")[0]; if (h.indexOf("|") !== -1) h = h.substring(h.lastIndexOf("|") + 1); return h.replace(/[^A-Za-z0-9_-]/g, ""); };
+        var parts = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].map(function (k) { return clean(params.get(k) || saved[k]); });
+        if (parts.some(function (x) { return x; }) && !forwardParams.get("client_reference_id")) {
+          forwardParams.set("client_reference_id", parts.join("__").slice(0, 200));
+        }
+      } catch (e) {}
+
       var targetUrl = baseStripe;
       var queryString = forwardParams.toString();
       if (queryString) {
@@ -185,7 +195,7 @@
           fbq("track", "InitiateCheckout", {
             value: Number(seed) || 27,
             currency: "USD"
-          });
+          }, { eventID: "ic_" + seed + "_" + Date.now() });
         } catch (e) {}
       }
 

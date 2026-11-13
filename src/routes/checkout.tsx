@@ -1,5 +1,6 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribution";
 
 const STRIPE_LINKS: Record<string, string> = {
   "27": "https://buy.stripe.com/28EdR99ibdEj1RVfl8ao803",
@@ -36,6 +37,10 @@ function CheckoutSlug() {
         }
       });
 
+      // UTMify reads the creative only from Stripe's client_reference_id
+      const ref = buildClientReferenceId(readTrackingGetter(params));
+      if (ref && !forwardParams.get("client_reference_id")) forwardParams.set("client_reference_id", ref);
+
       const queryString = forwardParams.toString();
       const finalUrl = queryString ? `${baseStripe}${baseStripe.includes("?") ? "&" : "?"}${queryString}` : baseStripe;
       setTargetUrl(finalUrl);
@@ -46,7 +51,7 @@ function CheckoutSlug() {
           (window as any).fbq("track", "InitiateCheckout", {
             value: Number(seed) || 27,
             currency: "USD",
-          });
+          }, { eventID: `ic_${seed}_${Date.now()}` });
         }
       } catch (e) {}
 

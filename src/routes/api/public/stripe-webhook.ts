@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor, prayerCountForAmount, verifyStripeSignature } from "@/lib/prayer-tiers";
 
 const SITE = "https://godjesus.lovable.app";
@@ -9,6 +10,8 @@ const sessionSchema = z.object({
   type: z.string(),
   data: z.object({
     object: z.object({
+      id: z.string().optional(),
+      currency: z.string().nullable().optional(),
       amount_total: z.number().nullable().optional(),
       customer_details: z.object({ email: z.string().email().nullable().optional(), name: z.string().nullable().optional() }).nullable().optional(),
       customer_email: z.string().email().nullable().optional(),
@@ -60,6 +63,17 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
         if (!email) return new Response("no email", { status: 200 });
         const count = prayerCountForAmount((obj.amount_total ?? 0) / 100);
         const name = obj.customer_details?.name || "Blessed Friend";
+
+        // Server-side Purchase. event_id = Stripe session id, the same eventID the
+        // member app Pixel uses, so Meta deduplicates and counts the sale once.
+        const capi = await sendMetaConversionEvent({
+          eventName: "Purchase",
+          ...(obj.id ? { eventId: obj.id } : {}),
+          eventSourceUrl: `${SITE}/faith-app`,
+          userData: { email },
+          customData: { value: (obj.amount_total ?? 0) / 100, currency: (obj.currency || "usd").toUpperCase() },
+        });
+        console.log("Meta CAPI Purchase:", JSON.stringify(capi));
 
         const res = await fetch(`${GATEWAY_URL}/smtp/email`, {
           method: "POST",

@@ -119,43 +119,7 @@ export function OfferPage() {
       localStorage.setItem("faith_selected_seed", amt);
     } catch (err) {}
 
-    // 2. Disparar Meta Pixel InitiateCheckout
-    try {
-      if (typeof (window as any).fbq === "function") {
-        (window as any).fbq("track", "InitiateCheckout", {
-          value: Number(amt),
-          currency: "USD",
-        });
-      }
-    } catch (err) {}
-
-    // 3. Disparar UTMify InitiateCheckout
-    try {
-      const bytes = new Uint8Array(12);
-      if (typeof window !== "undefined" && window.crypto) {
-        window.crypto.getRandomValues(bytes);
-      }
-      const hex24 = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
-      const utmifyPayload = {
-        type: "InitiateCheckout",
-        lead: {
-          pixelId: "6aeba9286e9f16208dd93510",
-          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-        },
-        event: {
-          sourceUrl: typeof window !== "undefined" ? window.location.href : "https://godjesus.lovable.app/offer",
-          pageTitle: typeof document !== "undefined" ? document.title : "Special Sacred Offer",
-        },
-        eventId: hex24.length === 24 ? hex24 : "46b0fba09ae34e40b4911a82",
-        detectedBy: "keyword",
-      };
-      if (typeof navigator !== "undefined" && navigator.sendBeacon) {
-        navigator.sendBeacon(
-          "https://tracking.utmify.com.br/tracking/v1/events",
-          new Blob([JSON.stringify(utmifyPayload)], { type: "application/json" })
-        );
-      }
-    } catch (e) {}
+    // InitiateCheckout (Pixel + UTMify) fires once, on /checkout, to avoid double counting.
 
     // 4. Se estiver dentro de iframe, forçar navegação no frame pai
     try {
