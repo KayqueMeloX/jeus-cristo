@@ -22,9 +22,11 @@ import { Route as PayRouteImport } from './routes/pay'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RefundRouteImport } from './routes/refund'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as SupportemailRouteImport } from './routes/supportemail'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+import { Route as ApiPublicSupportRouteImport } from './routes/api/public/support'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -91,6 +93,11 @@ const SupportRoute = SupportRouteImport.update({
   path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SupportemailRoute = SupportemailRouteImport.update({
+  id: '/supportemail',
+  path: '/supportemail',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -104,6 +111,11 @@ const ThankYouRoute = ThankYouRouteImport.update({
 const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   id: '/api/public/stripe-webhook',
   path: '/api/public/stripe-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicSupportRoute = ApiPublicSupportRouteImport.update({
+  id: '/api/public/support',
+  path: '/api/public/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -121,9 +133,11 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
+  '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/support': typeof ApiPublicSupportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,9 +153,11 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
+  '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/support': typeof ApiPublicSupportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -158,9 +174,11 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
+  '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/support': typeof ApiPublicSupportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -178,9 +196,11 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/refund'
     | '/support'
+    | '/supportemail'
     | '/terms'
     | '/thank-you'
     | '/api/public/stripe-webhook'
+    | '/api/public/support'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -196,9 +216,11 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/refund'
     | '/support'
+    | '/supportemail'
     | '/terms'
     | '/thank-you'
     | '/api/public/stripe-webhook'
+    | '/api/public/support'
   id:
     | '__root__'
     | '/'
@@ -214,9 +236,11 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/refund'
     | '/support'
+    | '/supportemail'
     | '/terms'
     | '/thank-you'
     | '/api/public/stripe-webhook'
+    | '/api/public/support'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -233,9 +257,11 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   RefundRoute: typeof RefundRoute
   SupportRoute: typeof SupportRoute
+  SupportemailRoute: typeof SupportemailRoute
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicSupportRoute: typeof ApiPublicSupportRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -331,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/supportemail': {
+      id: '/supportemail'
+      path: '/supportemail'
+      fullPath: '/supportemail'
+      preLoaderRoute: typeof SupportemailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -352,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/support': {
+      id: '/api/public/support'
+      path: '/api/public/support'
+      fullPath: '/api/public/support'
+      preLoaderRoute: typeof ApiPublicSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -369,9 +409,11 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   RefundRoute: RefundRoute,
   SupportRoute: SupportRoute,
+  SupportemailRoute: SupportemailRoute,
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicSupportRoute: ApiPublicSupportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

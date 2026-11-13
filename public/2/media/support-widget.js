@@ -5,7 +5,7 @@
 (function() {
   if (typeof window === 'undefined' || typeof document === 'undefined' || document.getElementById('faith-support-root')) return;
 
-  var SUPPORT_EMAIL = "kaiquepm0403@gmail.com";
+  
   var STORAGE_KEY = "faith_support_messages_v1";
 
   // Create style element
@@ -236,14 +236,12 @@
       </div>
 
       <div class="f-chat-footer">
-        <input type="text" id="fUserContact" class="f-input-field" placeholder="Your Name or Email / Seu Email (optional)" />
+        <input id="fUserContact" class="f-input-field" placeholder="Your email (required) / Seu e-mail (obrigatório)" type="email" required />
         <div class="f-input-row">
           <input type="text" id="fUserMsg" class="f-input-field" placeholder="Type your question here... / Digite sua dúvida..." />
           <button id="fSendBtn" class="f-btn-send">Send</button>
         </div>
-        <div class="f-sub-notice">
-          Direct email: <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>
-        </div>
+        <div class="f-sub-notice">We reply to the email you enter above.</div>
       </div>
     </div>
   `;
@@ -314,86 +312,36 @@
 
   function handleSend() {
     var text = msgInput.value.trim();
-    if (!text) return;
-
     var contact = contactInput.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) {
+      contactInput.style.borderColor = '#e74c3c';
+      contactInput.focus();
+      appendMessageToDOM('Please enter your email so we can reply to you. / Informe seu e-mail para podermos responder.', 'bot', '', false);
+      return;
+    }
+    contactInput.style.borderColor = '';
+    if (!text) { msgInput.focus(); return; }
+    try { localStorage.setItem('faith_support_email', contact); } catch(e) {}
     var timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
     appendMessageToDOM(text, 'user', timeStr, true);
     msgInput.value = '';
-
-    // 1. Send via Brevo API (Option 1)
-    var brevoKey = window.BREVO_API_KEY || atob(['eGtleXNp','Yi05OTg0','NjViMTEx','ZDc3ZTA5','MTM5NTFm','OWE0MmQx','MzZmMGQw','NjRkYjJj','M2NkNzky','ZGMwMGNk','M2Y3M2Vl','OTE0OWQw','LVk1bkk2','N1pVR055','WkhYQXI='].join(''));
-    if (brevoKey) {
-      try {
-        var replyEmail = (contact && contact.indexOf('@') !== -1) ? contact : SUPPORT_EMAIL;
-        var brevoPayload = {
-          sender: {
-            name: "My Faith Sanctuary Suporte",
-            email: "kaiquepm0403@gmail.com"
-          },
-          to: [
-            {
-              email: "kaiquepm0403@gmail.com",
-              name: "Sanctuary Support"
-            },
-            {
-              email: "kaiquepm0403@gmail.com",
-              name: "Kayque Melo"
-            }
-          ],
-          replyTo: {
-            email: replyEmail,
-            name: contact || "Cliente Interessado"
-          },
-          subject: "Novo contato de suporte (Offer): " + (contact || "Visitante"),
-          htmlContent: "<h2>Nova mensagem de suporte recebida no site!</h2>" +
-            "<p><strong>Contato/Email do Cliente:</strong> " + (contact || "NÃ£o informado") + "</p>" +
-            "<p><strong>Mensagem:</strong></p>" +
-            "<blockquote style='background:#f9f9f9;border-left:4px solid #f3c34e;padding:12px;font-style:italic;'>" +
-              text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>") +
-            "</blockquote>" +
-            "<p><strong>PÃ¡gina:</strong> " + window.location.href + "</p>" +
-            "<p><strong>Data/Hora:</strong> " + new Date().toLocaleString() + "</p>" +
-            "<hr><p style='font-size:12px;color:#777;'>Para responder ao cliente, basta responder diretamente a este e-mail.</p>"
-        };
-
-        fetch("https://api.brevo.com/v3/smtp/email", {
-          method: "POST",
-          headers: {
-            "api-key": brevoKey,
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(brevoPayload)
-        }).catch(function(err){ console.error("Brevo error:", err); });
-      } catch(e) {}
-    }
-
-    // 2. Fallback notification to support email
-    try {
-      var payload = {
-        name: contact || "Website Visitor",
-        message: text,
-        page: window.location.href,
-        date: new Date().toISOString()
-      };
-      fetch("https://formsubmit.co/ajax/" + SUPPORT_EMAIL, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      }).catch(function() {});
-    } catch(e) {}
-
-    // Simulated immediate reassurance response
-    setTimeout(function() {
-      var reply = "Thank you! We have received your message. Our support team at " + SUPPORT_EMAIL + " has been notified and will reply shortly. 🙏";
-      appendMessageToDOM(reply, 'bot', new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), true);
-    }, 800);
+    sendBtn.disabled = true;
+    fetch('/api/public/support', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: contact, message: text, page: String(window.location.href).slice(0, 500) })
+    }).then(function(r){ return r.json().then(function(j){ return { ok: r.ok && j.ok }; }); })
+      .then(function(res){
+        var reply = res.ok
+          ? 'Thank you! We received your message and will reply to ' + contact + ' shortly. 🙏'
+          : 'Sorry, your message could not be sent. Please try again.';
+        appendMessageToDOM(reply, 'bot', new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), res.ok);
+      })
+      .catch(function(){ appendMessageToDOM('Sorry, your message could not be sent. Please try again.', 'bot', '', false); })
+      .then(function(){ sendBtn.disabled = false; });
   }
+
+  try { var savedEmail = localStorage.getItem('faith_support_email'); if (savedEmail) contactInput.value = savedEmail; } catch(e) {}
 
   sendBtn.addEventListener('click', handleSend);
   msgInput.addEventListener('keydown', function(e) {
