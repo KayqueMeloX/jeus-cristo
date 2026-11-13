@@ -100,7 +100,7 @@ function CheckoutSlug() {
         }
       };
 
-      const timer = setTimeout(doRedirect, 150);
+      const timer = setTimeout(doRedirect, 900);
       return () => clearTimeout(timer);
     }
     return undefined;
