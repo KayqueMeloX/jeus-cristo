@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Whop webhook helpers (Standard Webhooks spec).
  * Signed content = `${webhook-id}.${webhook-timestamp}.${body}`, HMAC-SHA256,
@@ -52,9 +53,9 @@ export interface WhopPayment {
 
 /** Reads both current (`type`, `data.total`, `data.user.email`) and legacy (`action`, `final_amount`) shapes. */
 export function parseWhopPayment(payload: unknown): { event: string; payment: WhopPayment } {
-  const p = (payload ?? {}) as Record<string, any>;
+  const p = (payload ?? {}) as any;
   const event = String(p.type ?? p.action ?? "");
-  const d = (p.data ?? {}) as Record<string, any>;
+  const d = (p.data ?? {}) as any;
   const rawAmount = d.total ?? d.usd_total ?? d.subtotal ?? d.final_amount ?? d.amount ?? 0;
   let amount = Number(rawAmount) || 0;
   if (d.final_amount !== undefined && d.total === undefined && amount > 500) amount = amount / 100;
