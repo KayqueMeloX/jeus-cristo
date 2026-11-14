@@ -11,9 +11,9 @@ function b64(bytes: ArrayBuffer): string {
   return btoa(s);
 }
 
-function candidateKeys(secret: string): Uint8Array[] {
+function candidateKeys(secret: string): Uint8Array<ArrayBuffer>[] {
   const enc = new TextEncoder();
-  const keys: Uint8Array[] = [enc.encode(secret)];
+  const keys: Uint8Array<ArrayBuffer>[] = [enc.encode(secret)];
   const raw = secret.startsWith("whsec_") ? secret.slice(6) : secret;
   try {
     const bin = atob(raw);
@@ -36,7 +36,7 @@ export async function verifyWhopSignature(
   const provided = signature.split(" ").map((p) => p.split(",")[1]).filter(Boolean);
   const content = new TextEncoder().encode(`${id}.${timestamp}.${body}`);
   for (const key of candidateKeys(secret)) {
-    const k = await crypto.subtle.importKey("raw", key, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const k = await crypto.subtle.importKey("raw", key as BufferSource, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
     const expected = b64(await crypto.subtle.sign("HMAC", k, content));
     if (provided.some((p) => p === expected)) return true;
   }
