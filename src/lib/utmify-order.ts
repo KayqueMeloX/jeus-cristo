@@ -46,7 +46,7 @@ export function buildUtmifyOrder(i: UtmifyOrderInput) {
 
 /** Pulls utm_* from any metadata-like object in the Whop payload. */
 export function extractUtms(data: unknown): Partial<Record<UtmKey, string>> {
-  const d = (data ?? {}) as Record<string, any>;
+  const d = (data ?? {}) as any;
   const sources = [d.metadata, d.checkout_configuration?.metadata, d.membership?.metadata, d.tracking, d];
   const out: Partial<Record<UtmKey, string>> = {};
   for (const k of UTM_KEYS) {
