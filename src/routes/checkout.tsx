@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribution";
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://buy.stripe.com/28EdR99ibdEj1RVfl8ao803",
-  "47": "https://buy.stripe.com/aFa5kD9ibgQveEH0qeao804",
-  "77": "https://buy.stripe.com/9B6cN565Z43JeEH6OCao805",
-  "100": "https://buy.stripe.com/28EaEX51V7fVfILb4Sao806",
+  "27": "https://whop.com/checkout/ch_7TaY3pR1yLmblJM/",
+  "47": "https://whop.com/checkout/ch_auUghEk76RLYamk/",
+  "77": "https://whop.com/checkout/ch_5ndgWE0bS0XQZqr/",
+  "100": "https://whop.com/checkout/ch_mVSDwAjxTtq7Hhl/",
 };
 
 export const Route = createFileRoute("/checkout")({
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://buy.stripe.com/28EdR99ibdEj1RVfl8ao803");
+  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_7TaY3pR1yLmblJM/");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
