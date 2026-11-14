@@ -49,7 +49,7 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
         if (parsed.event !== "payment.succeeded") return new Response("ignored", { status: 200 });
         const { email, amount, currency, id } = parsed.payment;
         if (!email) { console.error("whop-webhook: payment without email", id); return new Response("no email", { status: 200 }); }
-        const count = prayerCountForAmount(amount);
+        const count = parsed.payment.tier ?? prayerCountForAmount(amount);
         const name = parsed.payment.name || "Blessed Friend";
 
         const capi = await sendMetaConversionEvent({

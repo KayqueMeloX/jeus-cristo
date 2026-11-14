@@ -21,3 +21,19 @@ describe("whop webhook", () => {
     expect(r.payment.email).toBe("a@b.com");
   });
 });
+
+import { tierForWhopPayment } from "./whop-webhook";
+describe("whop offer detection ignores coupons/currency", () => {
+  it.each([
+    ["ch_7TaY3pR1yLmblJM", 20], ["ch_auUghEk76RLYamk", 40],
+    ["ch_5ndgWE0bS0XQZqr", 60], ["ch_mVSDwAjxTtq7Hhl", 80],
+  ])("%s -> %i prayers even at 98%% off", (ch, n) => {
+    expect(tierForWhopPayment({ checkout_configuration_id: ch, total: { amount: "0.67" } })).toBe(n);
+  });
+  it("reads real test payment shape", () => {
+    const p = parseWhopPayment({ type: "payment.succeeded", data: { customer_email: "a@b.com", variant_id: "plan_OtTwB9YlhFKef", total: { amount: "0.67" } } });
+    expect(p.payment.email).toBe("a@b.com");
+    expect(p.payment.tier).toBe(20);
+    expect(p.payment.amount).toBe(0.67);
+  });
+});

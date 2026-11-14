@@ -49,6 +49,34 @@ export interface WhopPayment {
   name: string | undefined;
   amount: number;
   currency: string;
+  /** Prayer count of the plan bought, from the Whop checkout/plan IDs (independent of coupons/currency). */
+  tier: 20 | 40 | 60 | 80 | undefined;
+}
+
+/** Whop checkout config + plan IDs for each offer. */
+const TIER_BY_ID: Record<string, 20 | 40 | 60 | 80> = {
+  ch_7TaY3pR1yLmblJM: 20, plan_OtTwB9YlhFKef: 20,
+  ch_auUghEk76RLYamk: 40, plan_vOp19uSJJHI79: 40,
+  ch_5ndgWE0bS0XQZqr: 60, plan_yTgaDFwhDlkvv: 60,
+  ch_mVSDwAjxTtq7Hhl: 80, plan_q1cIquPUPcfcA: 80,
+};
+const TIER_BY_PRICE: Record<number, 20 | 40 | 60 | 80> = { 27: 20, 47: 40, 77: 60, 100: 80 };
+
+function num(v: any): number | undefined {
+  if (v && typeof v === "object" && "amount" in v) v = v.amount;
+  const n = Number(v);
+  return v !== undefined && v !== null && Number.isFinite(n) ? n : undefined;
+}
+
+export function tierForWhopPayment(d: any): 20 | 40 | 60 | 80 | undefined {
+  const ids = [d.checkout_configuration_id, d.variant_id, d.plan_id, d.plan?.id, d.variant?.id, d.checkout_configuration?.id,
+    ...(Array.isArray(d.line_items) ? d.line_items.map((l: any) => l?.variant_id) : [])];
+  for (const id of ids) if (typeof id === "string" && TIER_BY_ID[id]) return TIER_BY_ID[id];
+  const title = String(d.product?.title ?? d.line_items?.[0]?.product_title ?? "");
+  const m = title.match(/\b(20|40|60|80) Sacred/);
+  if (m) return Number(m[1]) as 20 | 40 | 60 | 80;
+  const usd = num(d.subtotal);
+  return usd !== undefined ? TIER_BY_PRICE[Math.round(usd)] : undefined;
 }
 
 /** Reads both current (`type`, `data.total`, `data.user.email`) and legacy (`action`, `final_amount`) shapes. */
@@ -56,10 +84,10 @@ export function parseWhopPayment(payload: unknown): { event: string; payment: Wh
   const p = (payload ?? {}) as any;
   const event = String(p.type ?? p.action ?? "");
   const d = (p.data ?? {}) as any;
-  const rawAmount = d.total ?? d.usd_total ?? d.subtotal ?? d.final_amount ?? d.amount ?? 0;
-  let amount = Number(rawAmount) || 0;
+  const rawAmount = d.usd_total ?? d.total ?? d.subtotal ?? d.final_amount ?? d.amount ?? 0;
+  let amount = num(rawAmount) ?? 0;
   if (d.final_amount !== undefined && d.total === undefined && amount > 500) amount = amount / 100;
-  const email = d.user?.email ?? d.user_email ?? d.email ?? d.member?.email ?? d.billing_address?.email;
+  const email = d.customer_email ?? d.user?.email ?? d.user_email ?? d.email ?? d.member?.email ?? d.billing_address?.email;
   const name = d.user?.name ?? d.user?.username ?? d.billing_address?.name;
   return {
     event,
@@ -69,6 +97,7 @@ export function parseWhopPayment(payload: unknown): { event: string; payment: Wh
       name: typeof name === "string" ? name : undefined,
       amount,
       currency: String(d.currency ?? "usd").toUpperCase(),
+      tier: tierForWhopPayment(d),
     },
   };
 }
