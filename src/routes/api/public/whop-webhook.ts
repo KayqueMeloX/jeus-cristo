@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createFileRoute } from "@tanstack/react-router";
 import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor, prayerCountForAmount } from "@/lib/prayer-tiers";
 import { parseWhopPayment, verifyWhopSignature } from "@/lib/whop-webhook";
+import { buildUtmifyOrder, extractUtms, sendUtmifyOrder } from "@/lib/utmify-order";
 
 const SITE = "https://godjesus.lovable.app";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
@@ -42,7 +44,8 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
         if (!ok) return new Response("Invalid signature", { status: 401 });
 
         let parsed: ReturnType<typeof parseWhopPayment>;
-        try { parsed = parseWhopPayment(JSON.parse(body)); } catch { return new Response("ignored", { status: 200 }); }
+        let raw: any = {};
+        try { raw = JSON.parse(body); parsed = parseWhopPayment(raw); } catch { return new Response("ignored", { status: 200 }); }
         if (parsed.event !== "payment.succeeded") return new Response("ignored", { status: 200 });
         const { email, amount, currency, id } = parsed.payment;
         if (!email) { console.error("whop-webhook: payment without email", id); return new Response("no email", { status: 200 }); }
@@ -57,6 +60,18 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
           customData: { value: amount, currency },
         });
         console.log("Meta CAPI Purchase:", JSON.stringify(capi));
+
+        const utmifyToken = process.env["UTMIFY_API_TOKEN"];
+        if (utmifyToken) {
+          try {
+            const order = buildUtmifyOrder({
+              orderId: id || `whop_${Date.now()}`, email, name, amount, prayerCount: count,
+              approvedAt: new Date(), tracking: extractUtms(raw?.data),
+            });
+            const r = await sendUtmifyOrder(utmifyToken, order);
+            console.log("UTMify order:", r.status, r.body.slice(0, 200));
+          } catch (e) { console.error("UTMify order failed", e); }
+        }
 
         const res = await fetch(`${GATEWAY_URL}/smtp/email`, {
           method: "POST",
