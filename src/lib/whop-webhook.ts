@@ -59,6 +59,10 @@ const TIER_BY_ID: Record<string, 20 | 40 | 60 | 80> = {
   ch_auUghEk76RLYamk: 40, plan_vOp19uSJJHI79: 40,
   ch_5ndgWE0bS0XQZqr: 60, plan_yTgaDFwhDlkvv: 60,
   ch_mVSDwAjxTtq7Hhl: 80, plan_q1cIquPUPcfcA: 80,
+  ch_BIYDSurST8auzgU: 20,
+  ch_oBUGokyOMnDkBDp: 40,
+  ch_NpwHFMT88pWtlBu: 60,
+  ch_I8Zyqs9rlQEl00b: 80,
 };
 const TIER_BY_PRICE: Record<number, 20 | 40 | 60 | 80> = { 27: 20, 47: 40, 77: 60, 100: 80 };
 
