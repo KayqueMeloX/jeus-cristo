@@ -47,48 +47,17 @@ function CheckoutSlug() {
 
       // Track InitiateCheckout
       try {
-        if (typeof (window as any).fbq === "function") {
-          (window as any).fbq("track", "InitiateCheckout", {
+        const w = window as any;
+        if (typeof w.fbq === "function" && !w.__icFired) {
+          w.__icFired = true;
+          w.fbq("track", "InitiateCheckout", {
             value: Number(seed) || 27,
             currency: "USD",
           }, { eventID: `ic_${seed}_${Date.now()}` });
         }
       } catch (e) {}
 
-      // Track UTMify InitiateCheckout
-      try {
-        const bytes = new Uint8Array(12);
-        if (typeof window !== "undefined" && window.crypto) {
-          window.crypto.getRandomValues(bytes);
-        }
-        const hex24 = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
-        const utmifyPayload = {
-          type: "InitiateCheckout",
-          lead: {
-            pixelId: "6aeba9286e9f16208dd93510",
-            userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-          },
-          event: {
-            sourceUrl: typeof window !== "undefined" ? window.location.href : "https://godjesus.lovable.app/checkout",
-            pageTitle: "Secure Checkout",
-          },
-          eventId: hex24.length === 24 ? hex24 : "46b0fba09ae34e40b4911a82",
-          detectedBy: "keyword",
-        };
-        if (typeof navigator !== "undefined" && navigator.sendBeacon) {
-          navigator.sendBeacon(
-            "https://tracking.utmify.com.br/tracking/v1/events",
-            new Blob([JSON.stringify(utmifyPayload)], { type: "application/json" })
-          );
-        } else if (typeof fetch === "function") {
-          fetch("https://tracking.utmify.com.br/tracking/v1/events", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(utmifyPayload),
-            keepalive: true,
-          }).catch(() => {});
-        }
-      } catch (e) {}
+      // UTMify InitiateCheckout is captured by its own pixel (URL rule) — no manual send, to avoid duplicates.
 
       // Direct navigation to Stripe (escapes all iframes, no-referrer strips origin)
       const doRedirect = () => {

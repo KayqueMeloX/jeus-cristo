@@ -190,7 +190,8 @@
       }
 
       // Track InitiateCheckout on pixel
-      if (typeof fbq === "function") {
+      if (typeof fbq === "function" && !window.__icFired) {
+        window.__icFired = true;
         try {
           fbq("track", "InitiateCheckout", {
             value: Number(seed) || 27,
