@@ -67,6 +67,7 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
             const order = buildUtmifyOrder({
               orderId: id || `whop_${Date.now()}`, email, name, amount, prayerCount: count,
               approvedAt: new Date(), tracking: extractUtms(raw?.data),
+              country: raw?.data?.billing_address?.country ?? null,
             });
             const r = await sendUtmifyOrder(utmifyToken, order);
             console.log("UTMify order:", r.status, r.body.slice(0, 200));

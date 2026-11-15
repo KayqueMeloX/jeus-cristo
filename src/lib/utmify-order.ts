@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/** Builds and sends an approved order to UTMify's external orders API. */
+/** Builds and sends an approved order to UTMify's external orders API (values in USD). */
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
 type UtmKey = (typeof UTM_KEYS)[number];
 
@@ -7,9 +7,10 @@ export interface UtmifyOrderInput {
   orderId: string;
   email: string;
   name: string;
-  amount: number; // in dollars
+  amount: number; // in US dollars
   prayerCount: number;
   approvedAt: Date;
+  country?: string | null;
   tracking: Partial<Record<UtmKey, string | null | undefined>>;
 }
 
@@ -17,11 +18,21 @@ function fmt(d: Date): string {
   return d.toISOString().replace("T", " ").slice(0, 19);
 }
 
+/** Removes Meta click-id suffixes ("::IwZ...") and source junk so UTMify can match the ad. */
+export function cleanUtm(key: UtmKey, v: string | null | undefined): string | null {
+  if (!v) return null;
+  let s = String(v).split("::")[0]!.trim();
+  if (key === "utm_source" && /^FB/i.test(s)) s = "FB";
+  return s || null;
+}
+
 export function buildUtmifyOrder(i: UtmifyOrderInput) {
   const cents = Math.round(i.amount * 100);
-  const trackingParameters = Object.fromEntries(
-    UTM_KEYS.map((k) => [k, i.tracking[k] ? String(i.tracking[k]) : null]),
-  ) as Record<UtmKey, string | null>;
+  const trackingParameters = {
+    src: null as string | null,
+    sck: null as string | null,
+    ...(Object.fromEntries(UTM_KEYS.map((k) => [k, cleanUtm(k, i.tracking[k])])) as Record<UtmKey, string | null>),
+  };
   return {
     orderId: i.orderId,
     platform: "Whop",
@@ -30,7 +41,7 @@ export function buildUtmifyOrder(i: UtmifyOrderInput) {
     createdAt: fmt(i.approvedAt),
     approvedDate: fmt(i.approvedAt),
     refundedAt: null,
-    customer: { name: i.name, email: i.email, phone: null, document: null },
+    customer: { name: i.name, email: i.email, phone: null, document: null, ...(i.country ? { country: i.country } : {}) },
     products: [{
       id: `seed_${Math.round(i.amount)}`,
       name: `Seed of Faith — ${i.prayerCount} Sacred Prayers`,
@@ -40,14 +51,16 @@ export function buildUtmifyOrder(i: UtmifyOrderInput) {
       priceInCents: cents,
     }],
     trackingParameters,
-    commission: { totalPriceInCents: cents, gatewayFeeInCents: 0, userCommissionInCents: cents },
+    commission: { totalPriceInCents: cents, gatewayFeeInCents: 0, userCommissionInCents: cents, currency: "USD" },
+    isTest: false,
   };
 }
 
-/** Pulls utm_* from any metadata-like object in the Whop payload. */
+/** Pulls utm_* from the Whop payload (acquisition_data first, then metadata). */
 export function extractUtms(data: unknown): Partial<Record<UtmKey, string>> {
   const d = (data ?? {}) as any;
-  const sources = [d.metadata, d.checkout_configuration?.metadata, d.membership?.metadata, d.tracking, d];
+  const sources = [d.acquisition_data, d.membership?.acquisition_data, d.metadata, d.membership_metadata,
+    d.checkout_configuration?.metadata, d.membership?.metadata, d.tracking, d];
   const out: Partial<Record<UtmKey, string>> = {};
   for (const k of UTM_KEYS) {
     for (const s of sources) {

@@ -13,4 +13,15 @@ describe("utmify order", () => {
   it("reads UTMs from Whop metadata", () => {
     expect(extractUtms({ metadata: { utm_source: "FB" } }).utm_source).toBe("FB");
   });
+  it("sends values in USD", () => {
+    const o = buildUtmifyOrder({ orderId: "p", email: "a@b.com", name: "A", amount: 27, prayerCount: 20, approvedAt: new Date(), tracking: {} });
+    expect(o.commission.currency).toBe("USD");
+    expect(o.commission.totalPriceInCents).toBe(2700);
+  });
+  it("reads Whop acquisition_data and cleans Meta suffixes", () => {
+    const t = extractUtms({ acquisition_data: { utm_source: "FBjLj6af99", utm_content: "ANUNCIO 1|1201::IwZXh0bg::" } });
+    const o = buildUtmifyOrder({ orderId: "p", email: "a@b.com", name: "A", amount: 27, prayerCount: 20, approvedAt: new Date(), tracking: t });
+    expect(o.trackingParameters.utm_source).toBe("FB");
+    expect(o.trackingParameters.utm_content).toBe("ANUNCIO 1|1201");
+  });
 });
