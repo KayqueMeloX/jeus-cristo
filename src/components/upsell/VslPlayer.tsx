@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 export interface VslPlayerProps {
   src: string;
-  poster?: string;
+  poster?: string | undefined;
   /** Called on every time update with the current second. */
   onProgress?: (seconds: number) => void;
 }
