@@ -51,6 +51,33 @@ export interface WhopPayment {
   currency: string;
   /** Prayer count of the plan bought, from the Whop checkout/plan IDs (independent of coupons/currency). */
   tier: 20 | 40 | 60 | 80 | undefined;
+  /** Upsell product bought (post-purchase offers), when this payment is not a front-end prayer tier. */
+  upsell: UpsellKey | undefined;
+}
+
+export type UpsellKey = "activation" | "activationDiscount" | "journey" | "protection";
+/** Whop checkout + plan IDs of the post-purchase upsells. Checked before price fallback so a $47 upsell never ships the 40-prayer PDF. */
+export const UPSELL_BY_ID: Record<string, UpsellKey> = {
+  ch_yjwshMx2SirMfDS: "activation", plan_xOAgZjifkAAWd: "activation",
+  ch_MGxxrvLHMtSOu0p: "activationDiscount", plan_DI8gFJ6XmFmu1: "activationDiscount",
+  ch_zwV7RtOonIHJNYU: "journey", plan_iTpoKl5SkZ8ps: "journey",
+  ch_z3uXxmMYAFuaeV3: "protection", plan_F8gGYIH1LDTbM: "protection",
+};
+export const UPSELL_NAMES: Record<UpsellKey, string> = {
+  activation: "90-Day Faith Activation Plan",
+  activationDiscount: "90-Day Faith Activation Plan",
+  journey: "Faith Daily Sanctuary App",
+  protection: "The 7 Holy Seals — Family Prayer Study",
+};
+
+function idsOf(d: any): unknown[] {
+  return [d.checkout_configuration_id, d.variant_id, d.plan_id, d.plan?.id, d.variant?.id, d.checkout_configuration?.id,
+    ...(Array.isArray(d.line_items) ? d.line_items.map((l: any) => l?.variant_id) : [])];
+}
+
+export function upsellForWhopPayment(d: any): UpsellKey | undefined {
+  for (const id of idsOf(d)) if (typeof id === "string" && UPSELL_BY_ID[id]) return UPSELL_BY_ID[id];
+  return undefined;
 }
 
 /** Whop checkout config + plan IDs for each offer. */
@@ -63,6 +90,10 @@ const TIER_BY_ID: Record<string, 20 | 40 | 60 | 80> = {
   ch_oBUGokyOMnDkBDp: 40,
   ch_NpwHFMT88pWtlBu: 60,
   ch_I8Zyqs9rlQEl00b: 80,
+  ch_Syja7DUXGhmJUnM: 20,
+  ch_vqS1bj7iXF2KYmr: 40,
+  ch_4epwqogPOb1XMND: 60,
+  ch_izAZjRpNTw93aTj: 80,
 };
 const TIER_BY_PRICE: Record<number, 20 | 40 | 60 | 80> = { 27: 20, 47: 40, 77: 60, 100: 80 };
 
@@ -73,8 +104,8 @@ function num(v: any): number | undefined {
 }
 
 export function tierForWhopPayment(d: any): 20 | 40 | 60 | 80 | undefined {
-  const ids = [d.checkout_configuration_id, d.variant_id, d.plan_id, d.plan?.id, d.variant?.id, d.checkout_configuration?.id,
-    ...(Array.isArray(d.line_items) ? d.line_items.map((l: any) => l?.variant_id) : [])];
+  if (upsellForWhopPayment(d)) return undefined;
+  const ids = idsOf(d);
   for (const id of ids) if (typeof id === "string" && TIER_BY_ID[id]) return TIER_BY_ID[id];
   const title = String(d.product?.title ?? d.line_items?.[0]?.product_title ?? "");
   const m = title.match(/\b(20|40|60|80) Sacred/);
@@ -102,6 +133,7 @@ export function parseWhopPayment(payload: unknown): { event: string; payment: Wh
       amount,
       currency: String(d.currency ?? "usd").toUpperCase(),
       tier: tierForWhopPayment(d),
+      upsell: upsellForWhopPayment(d),
     },
   };
 }

@@ -3,11 +3,19 @@ import { useEffect, useState } from "react";
 import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribution";
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://whop.com/checkout/ch_BIYDSurST8auzgU/",
-  "47": "https://whop.com/checkout/ch_oBUGokyOMnDkBDp/",
-  "77": "https://whop.com/checkout/ch_NpwHFMT88pWtlBu/",
-  "100": "https://whop.com/checkout/ch_I8Zyqs9rlQEl00b/",
+  // Front offers — after payment Whop sends the buyer to the first upsell (/faith-activation).
+  "27": "https://whop.com/checkout/ch_Syja7DUXGhmJUnM/",
+  "47": "https://whop.com/checkout/ch_vqS1bj7iXF2KYmr/",
+  "77": "https://whop.com/checkout/ch_4epwqogPOb1XMND/",
+  "100": "https://whop.com/checkout/ch_izAZjRpNTw93aTj/",
+  // Upsells
+  activation: "https://whop.com/checkout/ch_yjwshMx2SirMfDS/",
+  activationDiscount: "https://whop.com/checkout/ch_MGxxrvLHMtSOu0p/",
+  journey: "https://whop.com/checkout/ch_zwV7RtOonIHJNYU/",
+  protection: "https://whop.com/checkout/ch_z3uXxmMYAFuaeV3/",
 };
+
+const UPSELL_VALUE: Record<string, number> = { activation: 97, activationDiscount: 47, journey: 0, protection: 47 };
 
 export const Route = createFileRoute("/checkout")({
   component: CheckoutSlug,
@@ -21,18 +29,18 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_BIYDSurST8auzgU/");
+  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_Syja7DUXGhmJUnM/");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const search = window.location.search || "";
       const params = new URLSearchParams(search);
-      const seed = params.get("seed") || params.get("id") || params.get("tier") || params.get("amt") || "27";
+      const seed = params.get("plan") || params.get("seed") || params.get("id") || params.get("tier") || params.get("amt") || "27";
       const baseStripe = STRIPE_LINKS[seed.trim()] || STRIPE_LINKS["27"]!;
 
       const forwardParams = new URLSearchParams();
       params.forEach((val, key) => {
-        if (key !== "seed" && key !== "id" && key !== "tier" && key !== "amt") {
+        if (key !== "plan" && key !== "seed" && key !== "id" && key !== "tier" && key !== "amt") {
           forwardParams.append(key, val);
         }
       });
@@ -51,7 +59,7 @@ function CheckoutSlug() {
         if (typeof w.fbq === "function" && !w.__icFired) {
           w.__icFired = true;
           w.fbq("track", "InitiateCheckout", {
-            value: Number(seed) || 27,
+            value: UPSELL_VALUE[seed] ?? (Number(seed) || 27),
             currency: "USD",
           }, { eventID: `ic_${seed}_${Date.now()}` });
         }

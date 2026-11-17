@@ -2,7 +2,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor, prayerCountForAmount } from "@/lib/prayer-tiers";
-import { parseWhopPayment, verifyWhopSignature } from "@/lib/whop-webhook";
+import { parseWhopPayment, verifyWhopSignature, UPSELL_NAMES } from "@/lib/whop-webhook";
 import { buildUtmifyOrder, extractUtms, sendUtmifyOrder } from "@/lib/utmify-order";
 
 const SITE = "https://godjesus.lovable.app";
@@ -49,6 +49,7 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
         if (parsed.event !== "payment.succeeded") return new Response("ignored", { status: 200 });
         const { email, amount, currency, id } = parsed.payment;
         if (!email) { console.error("whop-webhook: payment without email", id); return new Response("no email", { status: 200 }); }
+        const upsell = parsed.payment.upsell;
         const count = parsed.payment.tier ?? prayerCountForAmount(amount);
         const name = parsed.payment.name || "Blessed Friend";
 
@@ -65,13 +66,30 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
         if (utmifyToken) {
           try {
             const order = buildUtmifyOrder({
-              orderId: id || `whop_${Date.now()}`, email, name, amount, prayerCount: count,
+              orderId: id || `whop_${Date.now()}`, email, name, amount, prayerCount: count, ...(upsell ? { productName: UPSELL_NAMES[upsell] } : {}),
               approvedAt: new Date(), tracking: extractUtms(raw?.data),
               country: raw?.data?.billing_address?.country ?? null,
             });
             const r = await sendUtmifyOrder(utmifyToken, order);
             console.log("UTMify order:", r.status, r.body.slice(0, 200));
           } catch (e) { console.error("UTMify order failed", e); }
+        }
+
+        if (upsell) {
+          // Upsells unlock inside the member app; send a confirmation instead of a prayer PDF.
+          const product = UPSELL_NAMES[upsell];
+          const up = await fetch(`${GATEWAY_URL}/smtp/email`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${lovableKey}`, "X-Connection-Api-Key": brevoKey },
+            body: JSON.stringify({
+              sender: { name: "My Faith Sanctuary", email: "kaiquepm0403@gmail.com" },
+              to: [{ email, name }],
+              subject: `[Access Granted] ${product} — My Faith Sanctuary`,
+              htmlContent: `<div style="font-family:Georgia,serif;max-width:560px;margin:auto;padding:28px;background:#fffaf0;color:#2b200b"><h2 style="color:#b88812">Welcome, ${name.replace(/[<>&"]/g, "")}</h2><p>Your purchase of <b>${product}</b> is confirmed.</p><p>Open your Sanctuary to access everything you own:</p><p><a href="${SITE}/faith-app?paid=true" style="background:#e0a91d;color:#120e04;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Enter My Sanctuary &rarr;</a></p></div>`,
+            }),
+          });
+          if (!up.ok) console.error(`Brevo upsell send failed [${up.status}]: ${await up.text()}`);
+          return new Response("upsell", { status: 200 });
         }
 
         const res = await fetch(`${GATEWAY_URL}/smtp/email`, {

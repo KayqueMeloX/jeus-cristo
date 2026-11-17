@@ -14,7 +14,10 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as EbookRouteImport } from './routes/ebook'
 import { Route as EntregavelRouteImport } from './routes/entregavel'
+import { Route as FaithActivationRouteImport } from './routes/faith-activation'
 import { Route as FaithAppRouteImport } from './routes/faith-app'
+import { Route as FaithJourneyRouteImport } from './routes/faith-journey'
+import { Route as FaithProtectionRouteImport } from './routes/faith-protection'
 import { Route as MembrosRouteImport } from './routes/membros'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as OfferRouteImport } from './routes/offer'
@@ -54,9 +57,24 @@ const EntregavelRoute = EntregavelRouteImport.update({
   path: '/entregavel',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaithActivationRoute = FaithActivationRouteImport.update({
+  id: '/faith-activation',
+  path: '/faith-activation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaithAppRoute = FaithAppRouteImport.update({
   id: '/faith-app',
   path: '/faith-app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaithJourneyRoute = FaithJourneyRouteImport.update({
+  id: '/faith-journey',
+  path: '/faith-journey',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaithProtectionRoute = FaithProtectionRouteImport.update({
+  id: '/faith-protection',
+  path: '/faith-protection',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembrosRoute = MembrosRouteImport.update({
@@ -131,7 +149,10 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/ebook': typeof EbookRoute
   '/entregavel': typeof EntregavelRoute
+  '/faith-activation': typeof FaithActivationRoute
   '/faith-app': typeof FaithAppRoute
+  '/faith-journey': typeof FaithJourneyRoute
+  '/faith-protection': typeof FaithProtectionRoute
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
@@ -152,7 +173,10 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/ebook': typeof EbookRoute
   '/entregavel': typeof EntregavelRoute
+  '/faith-activation': typeof FaithActivationRoute
   '/faith-app': typeof FaithAppRoute
+  '/faith-journey': typeof FaithJourneyRoute
+  '/faith-protection': typeof FaithProtectionRoute
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
@@ -174,7 +198,10 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/ebook': typeof EbookRoute
   '/entregavel': typeof EntregavelRoute
+  '/faith-activation': typeof FaithActivationRoute
   '/faith-app': typeof FaithAppRoute
+  '/faith-journey': typeof FaithJourneyRoute
+  '/faith-protection': typeof FaithProtectionRoute
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
@@ -197,7 +224,10 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/ebook'
     | '/entregavel'
+    | '/faith-activation'
     | '/faith-app'
+    | '/faith-journey'
+    | '/faith-protection'
     | '/membros'
     | '/obrigado'
     | '/offer'
@@ -218,7 +248,10 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/ebook'
     | '/entregavel'
+    | '/faith-activation'
     | '/faith-app'
+    | '/faith-journey'
+    | '/faith-protection'
     | '/membros'
     | '/obrigado'
     | '/offer'
@@ -239,7 +272,10 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/ebook'
     | '/entregavel'
+    | '/faith-activation'
     | '/faith-app'
+    | '/faith-journey'
+    | '/faith-protection'
     | '/membros'
     | '/obrigado'
     | '/offer'
@@ -261,7 +297,10 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   EbookRoute: typeof EbookRoute
   EntregavelRoute: typeof EntregavelRoute
+  FaithActivationRoute: typeof FaithActivationRoute
   FaithAppRoute: typeof FaithAppRoute
+  FaithJourneyRoute: typeof FaithJourneyRoute
+  FaithProtectionRoute: typeof FaithProtectionRoute
   MembrosRoute: typeof MembrosRoute
   ObrigadoRoute: typeof ObrigadoRoute
   OfferRoute: typeof OfferRoute
@@ -314,11 +353,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EntregavelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faith-activation': {
+      id: '/faith-activation'
+      path: '/faith-activation'
+      fullPath: '/faith-activation'
+      preLoaderRoute: typeof FaithActivationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faith-app': {
       id: '/faith-app'
       path: '/faith-app'
       fullPath: '/faith-app'
       preLoaderRoute: typeof FaithAppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faith-journey': {
+      id: '/faith-journey'
+      path: '/faith-journey'
+      fullPath: '/faith-journey'
+      preLoaderRoute: typeof FaithJourneyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faith-protection': {
+      id: '/faith-protection'
+      path: '/faith-protection'
+      fullPath: '/faith-protection'
+      preLoaderRoute: typeof FaithProtectionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/membros': {
@@ -421,7 +481,10 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   EbookRoute: EbookRoute,
   EntregavelRoute: EntregavelRoute,
+  FaithActivationRoute: FaithActivationRoute,
   FaithAppRoute: FaithAppRoute,
+  FaithJourneyRoute: FaithJourneyRoute,
+  FaithProtectionRoute: FaithProtectionRoute,
   MembrosRoute: MembrosRoute,
   ObrigadoRoute: ObrigadoRoute,
   OfferRoute: OfferRoute,

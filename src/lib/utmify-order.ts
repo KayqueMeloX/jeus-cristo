@@ -9,6 +9,8 @@ export interface UtmifyOrderInput {
   name: string;
   amount: number; // in US dollars
   prayerCount: number;
+  /** Overrides the product name (used for upsells). */
+  productName?: string;
   approvedAt: Date;
   country?: string | null;
   tracking: Partial<Record<UtmKey, string | null | undefined>>;
@@ -44,7 +46,7 @@ export function buildUtmifyOrder(i: UtmifyOrderInput) {
     customer: { name: i.name, email: i.email, phone: null, document: null, ...(i.country ? { country: i.country } : {}) },
     products: [{
       id: `seed_${Math.round(i.amount)}`,
-      name: `Seed of Faith — ${i.prayerCount} Sacred Prayers`,
+      name: i.productName ?? `Seed of Faith — ${i.prayerCount} Sacred Prayers`,
       planId: `seed_${Math.round(i.amount)}`,
       planName: `$${Math.round(i.amount)}`,
       quantity: 1,

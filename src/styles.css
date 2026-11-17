@@ -163,3 +163,14 @@
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* Sacred dark-gold theme used by the post-purchase upsell pages (matches the offer page). */
+.theme-sanctuary {
+  --background: oklch(0.16 0.012 270);
+  --foreground: oklch(0.93 0.01 260);
+  --card: oklch(0.21 0.015 270);
+  --primary: oklch(0.82 0.14 85);
+  --primary-foreground: oklch(0.18 0.02 80);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --border: oklch(0.3 0.02 270);
+}
