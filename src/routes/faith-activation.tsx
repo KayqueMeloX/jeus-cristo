@@ -33,7 +33,13 @@ function FaithActivation() {
   useEffect(() => setSearch(window.location.search), []);
 
   return (
-    <UpsellShell eyebrow="A private message for you" title={<>Your 90-Day Faith Activation Plan <span className="text-primary">— one-time offer.</span></>}>
+    <UpsellShell
+      eyebrow="A private message for you"
+      title={<>Watch this short message from the Archangel <span className="text-primary">before you continue.</span></>}
+      videoSrc="https://cdn.converteai.net/85233a33-7dd7-47f0-a1c8-356935a092df/6ae4ee353ce680b34e9f0d2f/main.m3u8"
+      videoPoster="https://images.converteai.net/85233a33-7dd7-47f0-a1c8-356935a092df/players/6ae4ee3ba1db2408a3683ffe/cover.jpg"
+      revealAfter={221}
+    >
       <OfferCard
         regularPrice="$197"
         price="$97"

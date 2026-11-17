@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { rememberPurchase } from "@/lib/upsell-flow";
 
 export interface UpsellShellProps {
@@ -6,16 +6,35 @@ export interface UpsellShellProps {
   title: ReactNode;
   /** Optional VSL (mp4/hosted video URL). Without it the offer shows immediately. */
   videoSrc?: string;
+  videoPoster?: string;
   /** Seconds of video before the offer appears. */
   revealAfter?: number;
   children: ReactNode;
 }
 
 /** Shared layout for upsell pages: warning bar, headline, optional VSL with timed offer reveal. */
-export function UpsellShell({ eyebrow, title, videoSrc, revealAfter = 0, children }: UpsellShellProps) {
+export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter = 0, children }: UpsellShellProps) {
   const [revealed, setRevealed] = useState(!videoSrc || revealAfter <= 0);
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => { rememberPurchase(window.location.search); }, []);
+
+  // HLS (.m3u8) streams need hls.js outside Safari; load it only in the browser.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !videoSrc) return;
+    if (!videoSrc.endsWith(".m3u8") || v.canPlayType("application/vnd.apple.mpegurl")) { v.src = videoSrc; return; }
+    let hls: { destroy: () => void } | undefined;
+    import("hls.js").then(({ default: Hls }) => {
+      if (!Hls.isSupported()) return;
+      const h = new Hls();
+      h.loadSource(videoSrc);
+      h.attachMedia(v);
+      hls = h;
+    });
+    return () => hls?.destroy();
+  }, [videoSrc]);
 
   return (
     <div className="theme-sanctuary min-h-screen bg-background text-foreground">
@@ -28,7 +47,8 @@ export function UpsellShell({ eyebrow, title, videoSrc, revealAfter = 0, childre
         {videoSrc && (
           <video
             className="mt-6 aspect-video w-full rounded-2xl border border-border bg-card"
-            src={videoSrc}
+            ref={videoRef}
+            poster={videoPoster}
             controls
             playsInline
             autoPlay
