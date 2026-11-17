@@ -2,6 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { OfferCard, UpsellShell } from "@/components/upsell/UpsellShell";
 import { memberAppUrl, upsellCheckoutUrl } from "@/lib/upsell-flow";
+import vslVideo from "@/assets/faith_protection_message.mp4.asset.json";
+import vslCover from "@/assets/faith_protection_cover.jpg.asset.json";
+
+/** Seconds of VSL before the offer appears (same as the reference page). */
+const REVEAL_AFTER = 289;
 
 export const Route = createFileRoute("/faith-protection")({
   component: FaithProtection,
@@ -22,7 +27,11 @@ function FaithProtection() {
   const [search, setSearch] = useState("");
   useEffect(() => setSearch(window.location.search), []);
   return (
-    <UpsellShell eyebrow="One final message for you" title={<>The 7 Holy Seals <span className="text-primary">for your family.</span></>}>
+    <UpsellShell eyebrow="One final message for you" title={<>Watch this before you <span className="text-primary">enter your Sanctuary.</span></>}
+      videoSrc={vslVideo.url}
+      videoPoster={vslCover.url}
+      revealAfter={REVEAL_AFTER}
+    >
       <OfferCard
         price="$47"
         buyHref={upsellCheckoutUrl("protection", search)}
