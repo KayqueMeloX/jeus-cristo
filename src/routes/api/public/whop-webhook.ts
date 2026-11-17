@@ -2,7 +2,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor, prayerCountForAmount } from "@/lib/prayer-tiers";
-import { parseWhopPayment, verifyWhopSignature, UPSELL_NAMES } from "@/lib/whop-webhook";
+import { parseWhopPayment, verifyWhopSignature, UPSELL_NAMES, UPSELL_PDFS } from "@/lib/whop-webhook";
 import { buildUtmifyOrder, extractUtms, sendUtmifyOrder } from "@/lib/utmify-order";
 
 const SITE = "https://godjesus.lovable.app";
@@ -85,7 +85,8 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
               sender: { name: "My Faith Sanctuary", email: "kaiquepm0403@gmail.com" },
               to: [{ email, name }],
               subject: `[Access Granted] ${product} — My Faith Sanctuary`,
-              htmlContent: `<div style="font-family:Georgia,serif;max-width:560px;margin:auto;padding:28px;background:#fffaf0;color:#2b200b"><h2 style="color:#b88812">Welcome, ${name.replace(/[<>&"]/g, "")}</h2><p>Your purchase of <b>${product}</b> is confirmed.</p><p>Open your Sanctuary to access everything you own:</p><p><a href="${SITE}/faith-app?paid=true" style="background:#e0a91d;color:#120e04;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Enter My Sanctuary &rarr;</a></p></div>`,
+              htmlContent: `<div style="font-family:Georgia,serif;max-width:560px;margin:auto;padding:28px;background:#fffaf0;color:#2b200b"><h2 style="color:#b88812">Welcome, ${name.replace(/[<>&"]/g, "")}</h2><p>Your purchase of <b>${product}</b> is confirmed.</p><p>Your guide is attached to this email as a PDF. You can also open your Sanctuary anytime:</p><p><a href="${SITE}/faith-app?paid=true" style="background:#e0a91d;color:#120e04;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Enter My Sanctuary &rarr;</a></p></div>`,
+              attachment: [{ url: `${SITE}/media/ebooks/${UPSELL_PDFS[upsell]}`, name: UPSELL_PDFS[upsell] }],
             }),
           });
           if (!up.ok) console.error(`Brevo upsell send failed [${up.status}]: ${await up.text()}`);

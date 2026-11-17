@@ -69,6 +69,13 @@ export const UPSELL_NAMES: Record<UpsellKey, string> = {
   journey: "Faith Daily Sanctuary App",
   protection: "The 7 Holy Seals — Family Prayer Study",
 };
+/** PDF deliverable (in /media/ebooks) emailed for each upsell. */
+export const UPSELL_PDFS: Record<UpsellKey, string> = {
+  activation: "90-Day-Faith-Activation-Plan.pdf",
+  activationDiscount: "90-Day-Faith-Activation-Plan.pdf",
+  journey: "Faith-Daily-Sanctuary-Devotional.pdf",
+  protection: "The-7-Holy-Seals-Family-Prayer-Study.pdf",
+};
 
 function idsOf(d: any): unknown[] {
   return [d.checkout_configuration_id, d.variant_id, d.plan_id, d.plan?.id, d.variant?.id, d.checkout_configuration?.id,

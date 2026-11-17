@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { VslPlayer } from "./VslPlayer";
 import { rememberPurchase } from "@/lib/upsell-flow";
 
 export interface UpsellShellProps {
@@ -16,25 +17,7 @@ export interface UpsellShellProps {
 export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter = 0, children }: UpsellShellProps) {
   const [revealed, setRevealed] = useState(!videoSrc || revealAfter <= 0);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   useEffect(() => { rememberPurchase(window.location.search); }, []);
-
-  // HLS (.m3u8) streams need hls.js outside Safari; load it only in the browser.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v || !videoSrc) return;
-    if (!videoSrc.endsWith(".m3u8") || v.canPlayType("application/vnd.apple.mpegurl")) { v.src = videoSrc; return; }
-    let hls: { destroy: () => void } | undefined;
-    import("hls.js").then(({ default: Hls }) => {
-      if (!Hls.isSupported()) return;
-      const h = new Hls();
-      h.loadSource(videoSrc);
-      h.attachMedia(v);
-      hls = h;
-    });
-    return () => hls?.destroy();
-  }, [videoSrc]);
 
   return (
     <div className="theme-sanctuary min-h-screen bg-background text-foreground">
@@ -45,15 +28,7 @@ export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter
         <p className="text-sm font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
         <h1 className="mt-3 text-3xl font-bold leading-tight md:text-4xl">{title}</h1>
         {videoSrc && (
-          <video
-            className="mt-6 aspect-video w-full rounded-2xl border border-border bg-card"
-            ref={videoRef}
-            poster={videoPoster}
-            controls
-            playsInline
-            autoPlay
-            onTimeUpdate={(e) => { if (!revealed && e.currentTarget.currentTime >= revealAfter) setRevealed(true); }}
-          />
+          <VslPlayer src={videoSrc} poster={videoPoster} onProgress={(t) => { if (!revealed && t >= revealAfter) setRevealed(true); }} />
         )}
         <div className="mt-8">
           {revealed ? children : (

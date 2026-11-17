@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { OfferCard, UpsellShell } from "@/components/upsell/UpsellShell";
 import { BlessingWheel } from "@/components/upsell/BlessingWheel";
+import vslCover from "@/assets/faith_activation_cover.jpg.asset.json";
+import vslVideo from "@/assets/faith_activation_message.mp4.asset.json";
 import { upsellCheckoutUrl } from "@/lib/upsell-flow";
 
 export const Route = createFileRoute("/faith-activation")({
@@ -36,8 +38,8 @@ function FaithActivation() {
     <UpsellShell
       eyebrow="A private message for you"
       title={<>Watch this short message from the Archangel <span className="text-primary">before you continue.</span></>}
-      videoSrc="https://cdn.converteai.net/85233a33-7dd7-47f0-a1c8-356935a092df/6ae4ee353ce680b34e9f0d2f/main.m3u8"
-      videoPoster="https://images.converteai.net/85233a33-7dd7-47f0-a1c8-356935a092df/players/6ae4ee3ba1db2408a3683ffe/cover.jpg"
+      videoSrc={vslVideo.url}
+      videoPoster={vslCover.url}
       revealAfter={221}
     >
       <OfferCard
