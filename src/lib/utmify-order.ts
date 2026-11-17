@@ -73,6 +73,31 @@ export function extractUtms(data: unknown): Partial<Record<UtmKey, string>> {
   return out;
 }
 
+/** True when the tracking has enough to tie the sale to a campaign/ad. */
+export function hasAdAttribution(t: Partial<Record<UtmKey, string>>): boolean {
+  return Boolean(t.utm_campaign || t.utm_content);
+}
+
+/**
+ * Whop webhooks omit acquisition_data, so we read it from Whop's payment API (v2, then v5).
+ * Returns {} when nothing is found or the API fails — the sale is still sent.
+ */
+export async function fetchWhopUtms(paymentId: string | undefined, apiKey: string | undefined,
+  fetchImpl: typeof fetch = fetch): Promise<Partial<Record<UtmKey, string>>> {
+  if (!paymentId || !apiKey) return {};
+  for (const v of ["v2/payments", "v5/company/payments"]) {
+    try {
+      const r = await fetchImpl(`https://api.whop.com/api/${v}/${encodeURIComponent(paymentId)}`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+      if (!r.ok) continue;
+      const t = extractUtms(await r.json());
+      if (hasAdAttribution(t)) return t;
+    } catch { /* try next */ }
+  }
+  return {};
+}
+
 export async function sendUtmifyOrder(token: string, order: ReturnType<typeof buildUtmifyOrder>) {
   const res = await fetch("https://api.utmify.com.br/api-credentials/orders", {
     method: "POST",

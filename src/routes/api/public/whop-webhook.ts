@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor, prayerCountForAmount } from "@/lib/prayer-tiers";
 import { parseWhopPayment, verifyWhopSignature, UPSELL_NAMES, UPSELL_PDFS } from "@/lib/whop-webhook";
-import { buildUtmifyOrder, extractUtms, sendUtmifyOrder } from "@/lib/utmify-order";
+import { buildUtmifyOrder, extractUtms, fetchWhopUtms, hasAdAttribution, sendUtmifyOrder } from "@/lib/utmify-order";
 
 const SITE = "https://godjesus.lovable.app";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
@@ -65,9 +65,20 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
         const utmifyToken = process.env["UTMIFY_API_TOKEN"];
         if (utmifyToken) {
           try {
+            // Webhook payloads come without the ad data; fetch it from Whop so every sale lands on its creative.
+            let tracking = extractUtms(raw?.data);
+            if (!hasAdAttribution(tracking)) {
+              // Whop can take a few seconds to attach acquisition data; retry briefly.
+              for (let i = 0; i < 3 && !hasAdAttribution(tracking); i++) {
+                const t = await fetchWhopUtms(id, process.env["WHOP_API_KEY"]);
+                if (hasAdAttribution(t)) tracking = { ...tracking, ...t };
+                else await new Promise((r) => setTimeout(r, 2000));
+              }
+            }
+            console.log("UTMify tracking:", JSON.stringify(tracking));
             const order = buildUtmifyOrder({
               orderId: id || `whop_${Date.now()}`, email, name, amount, prayerCount: count, ...(upsell ? { productName: UPSELL_NAMES[upsell] } : {}),
-              approvedAt: new Date(), tracking: extractUtms(raw?.data),
+              approvedAt: new Date(), tracking,
               country: raw?.data?.billing_address?.country ?? null,
             });
             const r = await sendUtmifyOrder(utmifyToken, order);

@@ -25,3 +25,17 @@ describe("utmify order", () => {
     expect(o.trackingParameters.utm_content).toBe("ANUNCIO 1|1201");
   });
 });
+
+import { fetchWhopUtms } from "./utmify-order";
+describe("whop attribution fallback", () => {
+  it("reads the ad from Whop's payment API when the webhook has none", async () => {
+    const fake = (async () => new Response(JSON.stringify({ acquisition_data: {
+      utm_campaign: "BID CAP JESUS ESCALA|1202", utm_content: "Anuncio Lost Next Step|1203::IwZ" } }))) as unknown as typeof fetch;
+    const t = await fetchWhopUtms("pay_1", "key", fake);
+    expect(t.utm_campaign).toBe("BID CAP JESUS ESCALA|1202");
+    expect(t.utm_content).toBe("Anuncio Lost Next Step|1203::IwZ");
+  });
+  it("returns nothing without a payment id", async () => {
+    expect(await fetchWhopUtms(undefined, "key")).toEqual({});
+  });
+});
