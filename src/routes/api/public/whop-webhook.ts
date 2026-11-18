@@ -47,6 +47,24 @@ export const Route = createFileRoute("/api/public/whop-webhook")({
         let raw: any = {};
         try { raw = JSON.parse(body); parsed = parseWhopPayment(raw); } catch { return new Response("ignored", { status: 200 }); }
         if (parsed.event !== "payment.succeeded") return new Response("ignored", { status: 200 });
+        // Webhook payloads often lack the buyer email and ad UTMs (user is only an ID).
+        // Always enrich from Whop's payment API so no sale is skipped or left without its creative.
+        const pid = parsed.payment.id;
+        const whopKey = process.env["WHOP_API_KEY"];
+        if (pid && whopKey) {
+          for (let i = 0; i < 4; i++) {
+            try {
+              const r = await fetch(`https://api.whop.com/api/v5/company/payments/${encodeURIComponent(pid)}`, { headers: { Authorization: `Bearer ${whopKey}` } });
+              if (r.ok) {
+                const full = await r.json();
+                raw = { ...raw, data: { ...full, ...(raw?.data ?? {}), acquisition_data: full.acquisition_data ?? raw?.data?.acquisition_data, user_email: full.user_email, billing_address: full.billing_address ?? raw?.data?.billing_address } };
+                parsed = parseWhopPayment(raw);
+                if (parsed.payment.email && hasAdAttribution(extractUtms(raw.data))) break;
+              }
+            } catch (e) { console.error("whop enrich failed", e); }
+            await new Promise((res) => setTimeout(res, 2000));
+          }
+        }
         const { email, amount, currency, id } = parsed.payment;
         if (!email) { console.error("whop-webhook: payment without email", id); return new Response("no email", { status: 200 }); }
         const upsell = parsed.payment.upsell;
