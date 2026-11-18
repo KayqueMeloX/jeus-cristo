@@ -4,15 +4,15 @@ import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribu
 
 const STRIPE_LINKS: Record<string, string> = {
   // Front offers — after payment Whop sends the buyer to the first upsell (/faith-activation).
-  "27": "https://whop.com/checkout/ch_Syja7DUXGhmJUnM/",
-  "47": "https://whop.com/checkout/ch_vqS1bj7iXF2KYmr/",
-  "77": "https://whop.com/checkout/ch_4epwqogPOb1XMND/",
-  "100": "https://whop.com/checkout/ch_izAZjRpNTw93aTj/",
+  "27": "https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/",
+  "47": "https://whop.com/checkout/ch_kAaWQLsknCJQB2A/",
+  "77": "https://whop.com/checkout/ch_NALoICbUM3xtDMz/",
+  "100": "https://whop.com/checkout/ch_bnmCJAnAYf0lmpT/",
   // Upsells
-  activation: "https://whop.com/checkout/ch_yjwshMx2SirMfDS/",
-  activationDiscount: "https://whop.com/checkout/ch_MGxxrvLHMtSOu0p/",
-  journey: "https://whop.com/checkout/ch_zwV7RtOonIHJNYU/",
-  protection: "https://whop.com/checkout/ch_z3uXxmMYAFuaeV3/",
+  activation: "https://whop.com/checkout/ch_MX3a1U2YXQCVOFN/",
+  activationDiscount: "https://whop.com/checkout/ch_jjluj8TgYEL3o3p/",
+  journey: "https://whop.com/checkout/ch_hdhu7J0N86X0x3B/",
+  protection: "https://whop.com/checkout/ch_R4av95KFu1M1ITi/",
 };
 
 const UPSELL_VALUE: Record<string, number> = { activation: 97, activationDiscount: 47, journey: 0, protection: 47 };
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_Syja7DUXGhmJUnM/");
+  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/");
 
   useEffect(() => {
     if (typeof window !== "undefined") {

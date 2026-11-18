@@ -61,6 +61,7 @@ export const UPSELL_BY_ID: Record<string, UpsellKey> = {
   ch_yjwshMx2SirMfDS: "activation", plan_xOAgZjifkAAWd: "activation",
   ch_MGxxrvLHMtSOu0p: "activationDiscount", plan_DI8gFJ6XmFmu1: "activationDiscount",
   ch_zwV7RtOonIHJNYU: "journey", plan_iTpoKl5SkZ8ps: "journey",
+  ch_MX3a1U2YXQCVOFN: "activation", ch_jjluj8TgYEL3o3p: "activationDiscount", ch_hdhu7J0N86X0x3B: "journey", ch_R4av95KFu1M1ITi: "protection",
   ch_z3uXxmMYAFuaeV3: "protection", plan_F8gGYIH1LDTbM: "protection",
 };
 export const UPSELL_NAMES: Record<UpsellKey, string> = {
@@ -89,6 +90,7 @@ export function upsellForWhopPayment(d: any): UpsellKey | undefined {
 
 /** Whop checkout config + plan IDs for each offer. */
 const TIER_BY_ID: Record<string, 20 | 40 | 60 | 80> = {
+  ch_SqSd5a0m1Rp7KGm: 20, ch_kAaWQLsknCJQB2A: 40, ch_NALoICbUM3xtDMz: 60, ch_bnmCJAnAYf0lmpT: 80,
   ch_7TaY3pR1yLmblJM: 20, plan_OtTwB9YlhFKef: 20,
   ch_auUghEk76RLYamk: 40, plan_vOp19uSJJHI79: 40,
   ch_5ndgWE0bS0XQZqr: 60, plan_yTgaDFwhDlkvv: 60,

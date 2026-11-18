@@ -2,10 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://whop.com/checkout/ch_Syja7DUXGhmJUnM/",
-  "47": "https://whop.com/checkout/ch_vqS1bj7iXF2KYmr/",
-  "77": "https://whop.com/checkout/ch_4epwqogPOb1XMND/",
-  "100": "https://whop.com/checkout/ch_izAZjRpNTw93aTj/",
+  "27": "https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/",
+  "47": "https://whop.com/checkout/ch_kAaWQLsknCJQB2A/",
+  "77": "https://whop.com/checkout/ch_NALoICbUM3xtDMz/",
+  "100": "https://whop.com/checkout/ch_bnmCJAnAYf0lmpT/",
 };
 
 export const Route = createFileRoute("/pay")({
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/pay")({
 });
 
 function PaySlug() {
-  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_Syja7DUXGhmJUnM/");
+  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
