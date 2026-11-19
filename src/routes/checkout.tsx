@@ -4,15 +4,15 @@ import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribu
 
 const STRIPE_LINKS: Record<string, string> = {
   // Front offers — after payment Whop sends the buyer to the first upsell (/faith-activation).
-  "27": "https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/",
-  "47": "https://whop.com/checkout/ch_kAaWQLsknCJQB2A/",
-  "77": "https://whop.com/checkout/ch_NALoICbUM3xtDMz/",
-  "100": "https://whop.com/checkout/ch_bnmCJAnAYf0lmpT/",
+  "27": "https://www.checkout-ds24.com/product/769703",
+  "47": "https://www.checkout-ds24.com/product/769704",
+  "77": "https://www.checkout-ds24.com/product/769705",
+  "100": "https://www.checkout-ds24.com/product/769706",
   // Upsells
-  activation: "https://whop.com/checkout/ch_MX3a1U2YXQCVOFN/",
-  activationDiscount: "https://whop.com/checkout/ch_jjluj8TgYEL3o3p/",
+  activation: "https://www.checkout-ds24.com/product/769707",
+  activationDiscount: "https://www.checkout-ds24.com/product/769708",
   journey: "https://whop.com/checkout/ch_hdhu7J0N86X0x3B/",
-  protection: "https://whop.com/checkout/ch_R4av95KFu1M1ITi/",
+  protection: "https://www.checkout-ds24.com/product/769709",
 };
 
 const UPSELL_VALUE: Record<string, number> = { activation: 97, activationDiscount: 47, journey: 0, protection: 47 };
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/");
+  const [targetUrl, setTargetUrl] = useState("https://www.checkout-ds24.com/product/769703");
 
   useEffect(() => {
     if (typeof window !== "undefined") {

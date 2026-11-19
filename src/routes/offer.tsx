@@ -23,10 +23,10 @@ const WINNERS = [
 ];
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://whop.com/checkout/ch_SqSd5a0m1Rp7KGm/",
-  "47": "https://whop.com/checkout/ch_kAaWQLsknCJQB2A/",
-  "77": "https://whop.com/checkout/ch_NALoICbUM3xtDMz/",
-  "100": "https://whop.com/checkout/ch_bnmCJAnAYf0lmpT/",
+  "27": "https://www.checkout-ds24.com/product/769703",
+  "47": "https://www.checkout-ds24.com/product/769704",
+  "77": "https://www.checkout-ds24.com/product/769705",
+  "100": "https://www.checkout-ds24.com/product/769706",
 };
 
 const SEEDS = [
