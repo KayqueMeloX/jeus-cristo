@@ -101,7 +101,7 @@ export async function fetchWhopUtms(paymentId: string | undefined, apiKey: strin
 export async function sendUtmifyOrder(token: string, order: ReturnType<typeof buildUtmifyOrder>) {
   const res = await fetch("https://api.utmify.com.br/api-credentials/orders", {
     method: "POST",
-    headers: { "Content-Type": "application/json", "x-api-token": token },
+    headers: { "Content-Type": "application/json", "x-api-token": token, "User-Agent": "Mozilla/5.0 (compatible; FaithSanctuary/1.0)" },
     body: JSON.stringify(order),
   });
   return { ok: res.ok, status: res.status, body: await res.text() };

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribution";
 
 const STRIPE_LINKS: Record<string, string> = {
-  // Front offers — after payment Whop sends the buyer to the first upsell (/faith-activation).
+  // Front offers — after payment Digistore24 sends the buyer to the first upsell (/faith-activation).
   "27": "https://www.checkout-ds24.com/product/769703",
   "47": "https://www.checkout-ds24.com/product/769704",
   "77": "https://www.checkout-ds24.com/product/769705",
@@ -11,7 +11,8 @@ const STRIPE_LINKS: Record<string, string> = {
   // Upsells
   activation: "https://www.checkout-ds24.com/product/769707",
   activationDiscount: "https://www.checkout-ds24.com/product/769708",
-  journey: "https://whop.com/checkout/ch_hdhu7J0N86X0x3B/",
+  // No Digistore24 subscription yet: skip straight to the next upsell.
+  journey: "/faith-protection",
   protection: "https://www.checkout-ds24.com/product/769709",
 };
 
