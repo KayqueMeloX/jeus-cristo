@@ -37,7 +37,8 @@ export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter
         </div>
       </main>
       <footer className="pb-8 text-center text-xs text-muted-foreground">
-        Digital product · Instant access in your member area and by email.
+        <p>Billing is processed by Digistore24. The charge on your statement will appear as Digistore24.</p>
+        <p className="mt-1">How you receive your product: instant access in your member area, plus a download link sent to your email right after purchase.</p>
       </footer>
     </div>
   );
@@ -66,7 +67,7 @@ export function OfferCard({ price, regularPrice, buyHref, buyLabel, note, declin
       <a href={buyHref} className="block w-full rounded-xl bg-primary px-5 py-4 text-base font-bold text-primary-foreground shadow-lg transition-opacity hover:opacity-90">
         {buyLabel}
       </a>
-      <p className="text-xs text-muted-foreground">{note ?? "Instant digital access · Secure checkout · 7-day money-back guarantee"}</p>
+      <p className="text-xs text-muted-foreground">{note ?? "Instant digital access · Secure checkout · 60-day money-back guarantee"}</p>
       <button type="button" onClick={onDecline} className="text-xs text-muted-foreground underline underline-offset-4">
         {declineLabel}
       </button>

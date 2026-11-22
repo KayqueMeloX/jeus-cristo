@@ -270,7 +270,7 @@ export function OfferPage() {
             </div>
 
             <p className="italic text-[#ffe9ab]">
-              Backed by our 7-day money-back guarantee — see our{" "}
+              Backed by our 60-day money-back guarantee — see our{" "}
               <a href="/refund" className="font-bold text-[#f3c34e] underline">
                 Refund Policy
               </a>
@@ -337,7 +337,7 @@ export function OfferPage() {
                 Support
               </a>
             </div>
-            <p className="mb-2">Digital product delivered by email immediately after purchase.</p>
+            <p className="mb-2">Digital product delivered by email immediately after purchase. Payments are processed by Digistore24 GmbH, our authorized retailer.</p>
             <p className="mx-auto max-w-[640px] text-xs italic opacity-85">
               Educational and inspirational content. Results vary from person to person. This is not
               financial, medical, or professional advice.
