@@ -29,6 +29,7 @@ import { Route as SupportemailRouteImport } from './routes/supportemail'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ApiPublicDigistoreCreateProductRouteImport } from './routes/api/public/digistore-create-product'
+import { Route as ApiPublicDigistoreIpnRouteImport } from './routes/api/public/digistore-ipn'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as ApiPublicSupportRouteImport } from './routes/api/public/support'
 import { Route as ApiPublicWhopWebhookRouteImport } from './routes/api/public/whop-webhook'
@@ -134,6 +135,11 @@ const ApiPublicDigistoreCreateProductRoute =
     path: '/api/public/digistore-create-product',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicDigistoreIpnRoute = ApiPublicDigistoreIpnRouteImport.update({
+  id: '/api/public/digistore-ipn',
+  path: '/api/public/digistore-ipn',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   id: '/api/public/stripe-webhook',
   path: '/api/public/stripe-webhook',
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/public/digistore-create-product': typeof ApiPublicDigistoreCreateProductRoute
+  '/api/public/digistore-ipn': typeof ApiPublicDigistoreIpnRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
   '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/public/digistore-create-product': typeof ApiPublicDigistoreCreateProductRoute
+  '/api/public/digistore-ipn': typeof ApiPublicDigistoreIpnRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
   '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
@@ -222,6 +230,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/public/digistore-create-product': typeof ApiPublicDigistoreCreateProductRoute
+  '/api/public/digistore-ipn': typeof ApiPublicDigistoreIpnRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
   '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/thank-you'
     | '/api/public/digistore-create-product'
+    | '/api/public/digistore-ipn'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
     | '/api/public/whop-webhook'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/thank-you'
     | '/api/public/digistore-create-product'
+    | '/api/public/digistore-ipn'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
     | '/api/public/whop-webhook'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/thank-you'
     | '/api/public/digistore-create-product'
+    | '/api/public/digistore-ipn'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
     | '/api/public/whop-webhook'
@@ -325,6 +337,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
   ApiPublicDigistoreCreateProductRoute: typeof ApiPublicDigistoreCreateProductRoute
+  ApiPublicDigistoreIpnRoute: typeof ApiPublicDigistoreIpnRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
   ApiPublicSupportRoute: typeof ApiPublicSupportRoute
   ApiPublicWhopWebhookRoute: typeof ApiPublicWhopWebhookRoute
@@ -472,6 +485,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDigistoreCreateProductRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/digistore-ipn': {
+      id: '/api/public/digistore-ipn'
+      path: '/api/public/digistore-ipn'
+      fullPath: '/api/public/digistore-ipn'
+      preLoaderRoute: typeof ApiPublicDigistoreIpnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/stripe-webhook': {
       id: '/api/public/stripe-webhook'
       path: '/api/public/stripe-webhook'
@@ -517,6 +537,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
   ApiPublicDigistoreCreateProductRoute: ApiPublicDigistoreCreateProductRoute,
+  ApiPublicDigistoreIpnRoute: ApiPublicDigistoreIpnRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
   ApiPublicSupportRoute: ApiPublicSupportRoute,
   ApiPublicWhopWebhookRoute: ApiPublicWhopWebhookRoute,
