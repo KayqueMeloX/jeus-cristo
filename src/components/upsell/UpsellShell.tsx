@@ -17,12 +17,20 @@ export interface UpsellShellProps {
 export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter = 0, children }: UpsellShellProps) {
   const [revealed, setRevealed] = useState(!videoSrc || revealAfter <= 0);
 
-  useEffect(() => { rememberPurchase(window.location.search); }, []);
+  const [orderItem, setOrderItem] = useState("");
+  useEffect(() => {
+    rememberPurchase(window.location.search);
+    setOrderItem(new URLSearchParams(window.location.search).get("amt") ?? "");
+  }, []);
 
   return (
     <div className="theme-sanctuary min-h-screen bg-background text-foreground">
       <div className="bg-primary px-4 py-2 text-center text-xs font-semibold text-primary-foreground sm:text-sm">
         ⚠ Do not close this page or press the back button. Your spiritual journey is not yet complete.
+      </div>
+      <div className="border-b border-border bg-card px-4 py-3 text-center text-sm">
+        ✅ Your order is confirmed. Your guide was sent to your email —{" "}
+        <a href={`/order-complete${orderItem ? `?item=${orderItem}` : ""}`} className="font-semibold text-primary underline">download it now (no login needed)</a>.
       </div>
       <main className="mx-auto max-w-2xl px-4 py-10 text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
@@ -38,7 +46,7 @@ export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter
       </main>
       <footer className="pb-8 text-center text-xs text-muted-foreground">
         <p>Billing is processed by Digistore24. The charge on your statement will appear as Digistore24.</p>
-        <p className="mt-1">How you receive your product: instant access in your member area, plus a download link sent to your email right after purchase.</p>
+        <p className="mt-1">How you receive your product: instant PDF download on this site (no password), plus a download link sent to your email. 60-day money-back guarantee.</p>
       </footer>
     </div>
   );

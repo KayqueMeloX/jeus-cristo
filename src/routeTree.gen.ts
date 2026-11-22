@@ -21,6 +21,7 @@ import { Route as FaithProtectionRouteImport } from './routes/faith-protection'
 import { Route as MembrosRouteImport } from './routes/membros'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as OfferRouteImport } from './routes/offer'
+import { Route as OrderCompleteRouteImport } from './routes/order-complete'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RefundRouteImport } from './routes/refund'
@@ -92,6 +93,11 @@ const ObrigadoRoute = ObrigadoRouteImport.update({
 const OfferRoute = OfferRouteImport.update({
   id: '/offer',
   path: '/offer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderCompleteRoute = OrderCompleteRouteImport.update({
+  id: '/order-complete',
+  path: '/order-complete',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PayRoute = PayRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
+  '/order-complete': typeof OrderCompleteRoute
   '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
@@ -195,6 +202,7 @@ export interface FileRoutesByTo {
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
+  '/order-complete': typeof OrderCompleteRoute
   '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
@@ -222,6 +230,7 @@ export interface FileRoutesById {
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
+  '/order-complete': typeof OrderCompleteRoute
   '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
   '/refund': typeof RefundRoute
@@ -250,6 +259,7 @@ export interface FileRouteTypes {
     | '/membros'
     | '/obrigado'
     | '/offer'
+    | '/order-complete'
     | '/pay'
     | '/privacy'
     | '/refund'
@@ -276,6 +286,7 @@ export interface FileRouteTypes {
     | '/membros'
     | '/obrigado'
     | '/offer'
+    | '/order-complete'
     | '/pay'
     | '/privacy'
     | '/refund'
@@ -302,6 +313,7 @@ export interface FileRouteTypes {
     | '/membros'
     | '/obrigado'
     | '/offer'
+    | '/order-complete'
     | '/pay'
     | '/privacy'
     | '/refund'
@@ -329,6 +341,7 @@ export interface RootRouteChildren {
   MembrosRoute: typeof MembrosRoute
   ObrigadoRoute: typeof ObrigadoRoute
   OfferRoute: typeof OfferRoute
+  OrderCompleteRoute: typeof OrderCompleteRoute
   PayRoute: typeof PayRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundRoute: typeof RefundRoute
@@ -427,6 +440,13 @@ declare module '@tanstack/react-router' {
       path: '/offer'
       fullPath: '/offer'
       preLoaderRoute: typeof OfferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-complete': {
+      id: '/order-complete'
+      path: '/order-complete'
+      fullPath: '/order-complete'
+      preLoaderRoute: typeof OrderCompleteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pay': {
@@ -529,6 +549,7 @@ const rootRouteChildren: RootRouteChildren = {
   MembrosRoute: MembrosRoute,
   ObrigadoRoute: ObrigadoRoute,
   OfferRoute: OfferRoute,
+  OrderCompleteRoute: OrderCompleteRoute,
   PayRoute: PayRoute,
   PrivacyRoute: PrivacyRoute,
   RefundRoute: RefundRoute,
