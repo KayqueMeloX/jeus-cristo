@@ -23,10 +23,10 @@ const WINNERS = [
 ];
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://www.checkout-ds24.com/product/769703",
-  "47": "https://www.checkout-ds24.com/product/769704",
-  "77": "https://www.checkout-ds24.com/product/769705",
-  "100": "https://www.checkout-ds24.com/product/769706",
+  "27": "https://www.checkout-ds24.com/product/769703?currency=USD&lang=en",
+  "47": "https://www.checkout-ds24.com/product/769704?currency=USD&lang=en",
+  "77": "https://www.checkout-ds24.com/product/769705?currency=USD&lang=en",
+  "100": "https://www.checkout-ds24.com/product/769706?currency=USD&lang=en",
 };
 
 const SEEDS = [

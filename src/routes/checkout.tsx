@@ -4,16 +4,16 @@ import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribu
 
 const STRIPE_LINKS: Record<string, string> = {
   // Front offers — after payment Digistore24 sends the buyer to the first upsell (/faith-activation).
-  "27": "https://www.checkout-ds24.com/product/769703",
-  "47": "https://www.checkout-ds24.com/product/769704",
-  "77": "https://www.checkout-ds24.com/product/769705",
-  "100": "https://www.checkout-ds24.com/product/769706",
+  "27": "https://www.checkout-ds24.com/product/769703?currency=USD&lang=en",
+  "47": "https://www.checkout-ds24.com/product/769704?currency=USD&lang=en",
+  "77": "https://www.checkout-ds24.com/product/769705?currency=USD&lang=en",
+  "100": "https://www.checkout-ds24.com/product/769706?currency=USD&lang=en",
   // Upsells
-  activation: "https://www.checkout-ds24.com/product/769707",
-  activationDiscount: "https://www.checkout-ds24.com/product/769708",
+  activation: "https://www.checkout-ds24.com/product/769707?currency=USD&lang=en",
+  activationDiscount: "https://www.checkout-ds24.com/product/769708?currency=USD&lang=en",
   // No Digistore24 subscription yet: skip straight to the next upsell.
   journey: "/faith-protection",
-  protection: "https://www.checkout-ds24.com/product/769709",
+  protection: "https://www.checkout-ds24.com/product/769709?currency=USD&lang=en",
 };
 
 const UPSELL_VALUE: Record<string, number> = { activation: 97, activationDiscount: 47, journey: 0, protection: 47 };
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://www.checkout-ds24.com/product/769703");
+  const [targetUrl, setTargetUrl] = useState("https://www.checkout-ds24.com/product/769703?currency=USD&lang=en");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
