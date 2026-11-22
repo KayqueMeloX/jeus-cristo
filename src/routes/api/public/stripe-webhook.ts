@@ -3,7 +3,7 @@ import { z } from "zod";
 import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor, prayerCountForAmount, verifyStripeSignature } from "@/lib/prayer-tiers";
 
-const SITE = "https://godjesus.lovable.app";
+const SITE = "https://jesuscristoapp.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
 
 const sessionSchema = z.object({

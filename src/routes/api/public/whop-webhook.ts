@@ -5,7 +5,7 @@ import { pdfFileFor, prayerCountForAmount } from "@/lib/prayer-tiers";
 import { parseWhopPayment, verifyWhopSignature, UPSELL_NAMES, UPSELL_PDFS } from "@/lib/whop-webhook";
 import { buildUtmifyOrder, extractUtms, fetchWhopUtms, hasAdAttribution, sendUtmifyOrder } from "@/lib/utmify-order";
 
-const SITE = "https://godjesus.lovable.app";
+const SITE = "https://jesuscristoapp.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
 
 function escapeHtml(s: string): string {

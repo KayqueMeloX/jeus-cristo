@@ -6,7 +6,7 @@ import { buildUtmifyOrder, extractUtms, sendUtmifyOrder } from "@/lib/utmify-ord
 import { DS24_PRODUCTS, parseDs24Ipn } from "@/lib/digistore-ipn";
 import { callDs24 } from "@/lib/digistore24.server";
 
-const SITE = "https://godjesus.lovable.app";
+const SITE = "https://jesuscristoapp.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
 // Digistore24 only treats a plain "OK" with HTTP 200 as success.
 const OK = () => new Response("OK", { status: 200, headers: { "Content-Type": "text/plain" } });
