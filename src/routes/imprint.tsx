@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 const LEGAL = {
   name: "Kayque Melo",
   business: "Time to Thrive (sole proprietor)",
-  address: "Address available on request — please contact us by email",
+  address: "Rua Dr. Francisco Sá Carneiro Nº 75, 2120-230 Foros de Salvaterra, Portugal",
   email: "kaiquepm0403@gmail.com",
   phone: "+351 966 979 710",
 };
