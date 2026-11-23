@@ -336,6 +336,9 @@ export function OfferPage() {
               <a href="/support" className="text-[#cdb86a] underline">
                 Support
               </a>
+              <a href="/imprint" className="text-[#cdb86a] underline">
+                Imprint
+              </a>
             </div>
             <p className="mb-2">Digital product delivered by email immediately after purchase. Payments are processed by Digistore24 GmbH, our authorized retailer.</p>
             <p className="mx-auto max-w-[640px] text-xs italic opacity-85">

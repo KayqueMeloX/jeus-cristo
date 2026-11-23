@@ -18,6 +18,7 @@ import { Route as FaithActivationRouteImport } from './routes/faith-activation'
 import { Route as FaithAppRouteImport } from './routes/faith-app'
 import { Route as FaithJourneyRouteImport } from './routes/faith-journey'
 import { Route as FaithProtectionRouteImport } from './routes/faith-protection'
+import { Route as ImprintRouteImport } from './routes/imprint'
 import { Route as MembrosRouteImport } from './routes/membros'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as OfferRouteImport } from './routes/offer'
@@ -78,6 +79,11 @@ const FaithJourneyRoute = FaithJourneyRouteImport.update({
 const FaithProtectionRoute = FaithProtectionRouteImport.update({
   id: '/faith-protection',
   path: '/faith-protection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImprintRoute = ImprintRouteImport.update({
+  id: '/imprint',
+  path: '/imprint',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MembrosRoute = MembrosRouteImport.update({
@@ -172,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/faith-app': typeof FaithAppRoute
   '/faith-journey': typeof FaithJourneyRoute
   '/faith-protection': typeof FaithProtectionRoute
+  '/imprint': typeof ImprintRoute
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/faith-app': typeof FaithAppRoute
   '/faith-journey': typeof FaithJourneyRoute
   '/faith-protection': typeof FaithProtectionRoute
+  '/imprint': typeof ImprintRoute
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
@@ -227,6 +235,7 @@ export interface FileRoutesById {
   '/faith-app': typeof FaithAppRoute
   '/faith-journey': typeof FaithJourneyRoute
   '/faith-protection': typeof FaithProtectionRoute
+  '/imprint': typeof ImprintRoute
   '/membros': typeof MembrosRoute
   '/obrigado': typeof ObrigadoRoute
   '/offer': typeof OfferRoute
@@ -256,6 +265,7 @@ export interface FileRouteTypes {
     | '/faith-app'
     | '/faith-journey'
     | '/faith-protection'
+    | '/imprint'
     | '/membros'
     | '/obrigado'
     | '/offer'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/faith-app'
     | '/faith-journey'
     | '/faith-protection'
+    | '/imprint'
     | '/membros'
     | '/obrigado'
     | '/offer'
@@ -310,6 +321,7 @@ export interface FileRouteTypes {
     | '/faith-app'
     | '/faith-journey'
     | '/faith-protection'
+    | '/imprint'
     | '/membros'
     | '/obrigado'
     | '/offer'
@@ -338,6 +350,7 @@ export interface RootRouteChildren {
   FaithAppRoute: typeof FaithAppRoute
   FaithJourneyRoute: typeof FaithJourneyRoute
   FaithProtectionRoute: typeof FaithProtectionRoute
+  ImprintRoute: typeof ImprintRoute
   MembrosRoute: typeof MembrosRoute
   ObrigadoRoute: typeof ObrigadoRoute
   OfferRoute: typeof OfferRoute
@@ -419,6 +432,13 @@ declare module '@tanstack/react-router' {
       path: '/faith-protection'
       fullPath: '/faith-protection'
       preLoaderRoute: typeof FaithProtectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/imprint': {
+      id: '/imprint'
+      path: '/imprint'
+      fullPath: '/imprint'
+      preLoaderRoute: typeof ImprintRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/membros': {
@@ -546,6 +566,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaithAppRoute: FaithAppRoute,
   FaithJourneyRoute: FaithJourneyRoute,
   FaithProtectionRoute: FaithProtectionRoute,
+  ImprintRoute: ImprintRoute,
   MembrosRoute: MembrosRoute,
   ObrigadoRoute: ObrigadoRoute,
   OfferRoute: OfferRoute,

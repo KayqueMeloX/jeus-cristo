@@ -107,7 +107,7 @@ function CheckoutSlug() {
         </a>
       </div>
       <footer className="mt-8 text-center text-xs text-gray-500 max-w-sm leading-relaxed">
-        <p>&copy; 2026 Time to Thrive. All rights reserved.</p>
+        <p>&copy; 2026 Time to Thrive. All rights reserved. <a href="/imprint" className="underline">Imprint</a></p>
       </footer>
     </div>
   );
