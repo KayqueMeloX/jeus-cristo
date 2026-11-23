@@ -3,7 +3,7 @@ import { z } from "zod";
 import { deliveryFor } from "@/lib/order-delivery";
 
 export const Route = createFileRoute("/order-complete")({
-  validateSearch: z.object({ item: z.string().optional() }),
+  validateSearch: z.object({ item: z.union([z.string(), z.number()]).optional().transform((v) => (v == null ? undefined : String(v))) }),
   component: OrderComplete,
   head: () => ({
     meta: [
