@@ -25,6 +25,7 @@ import { Route as OfferRouteImport } from './routes/offer'
 import { Route as OrderCompleteRouteImport } from './routes/order-complete'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as RefundRouteImport } from './routes/refund'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SupportemailRouteImport } from './routes/supportemail'
@@ -115,6 +116,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RefundRoute = RefundRouteImport.update({
   id: '/refund',
   path: '/refund',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/order-complete': typeof OrderCompleteRoute
   '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
+  '/quiz': typeof QuizRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
   '/supportemail': typeof SupportemailRoute
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/order-complete': typeof OrderCompleteRoute
   '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
+  '/quiz': typeof QuizRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
   '/supportemail': typeof SupportemailRoute
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/order-complete': typeof OrderCompleteRoute
   '/pay': typeof PayRoute
   '/privacy': typeof PrivacyRoute
+  '/quiz': typeof QuizRoute
   '/refund': typeof RefundRoute
   '/support': typeof SupportRoute
   '/supportemail': typeof SupportemailRoute
@@ -262,6 +271,7 @@ export interface FileRouteTypes {
     | '/order-complete'
     | '/pay'
     | '/privacy'
+    | '/quiz'
     | '/refund'
     | '/support'
     | '/supportemail'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/order-complete'
     | '/pay'
     | '/privacy'
+    | '/quiz'
     | '/refund'
     | '/support'
     | '/supportemail'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/order-complete'
     | '/pay'
     | '/privacy'
+    | '/quiz'
     | '/refund'
     | '/support'
     | '/supportemail'
@@ -344,6 +356,7 @@ export interface RootRouteChildren {
   OrderCompleteRoute: typeof OrderCompleteRoute
   PayRoute: typeof PayRoute
   PrivacyRoute: typeof PrivacyRoute
+  QuizRoute: typeof QuizRoute
   RefundRoute: typeof RefundRoute
   SupportRoute: typeof SupportRoute
   SupportemailRoute: typeof SupportemailRoute
@@ -469,6 +482,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/refund': {
       id: '/refund'
       path: '/refund'
@@ -552,6 +572,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrderCompleteRoute: OrderCompleteRoute,
   PayRoute: PayRoute,
   PrivacyRoute: PrivacyRoute,
+  QuizRoute: QuizRoute,
   RefundRoute: RefundRoute,
   SupportRoute: SupportRoute,
   SupportemailRoute: SupportemailRoute,
