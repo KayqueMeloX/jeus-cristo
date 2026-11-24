@@ -30,8 +30,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as SupportemailRouteImport } from './routes/supportemail'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
-import { Route as ApiPublicDigistoreCreateProductRouteImport } from './routes/api/public/digistore-create-product'
-import { Route as ApiPublicDigistoreIpnRouteImport } from './routes/api/public/digistore-ipn'
+import { Route as ApiPublicMundpayWebhookRouteImport } from './routes/api/public/mundpay-webhook'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as ApiPublicSupportRouteImport } from './routes/api/public/support'
 import { Route as ApiPublicWhopWebhookRouteImport } from './routes/api/public/whop-webhook'
@@ -141,15 +140,9 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicDigistoreCreateProductRoute =
-  ApiPublicDigistoreCreateProductRouteImport.update({
-    id: '/api/public/digistore-create-product',
-    path: '/api/public/digistore-create-product',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicDigistoreIpnRoute = ApiPublicDigistoreIpnRouteImport.update({
-  id: '/api/public/digistore-ipn',
-  path: '/api/public/digistore-ipn',
+const ApiPublicMundpayWebhookRoute = ApiPublicMundpayWebhookRouteImport.update({
+  id: '/api/public/mundpay-webhook',
+  path: '/api/public/mundpay-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
@@ -190,8 +183,7 @@ export interface FileRoutesByFullPath {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/digistore-create-product': typeof ApiPublicDigistoreCreateProductRoute
-  '/api/public/digistore-ipn': typeof ApiPublicDigistoreIpnRoute
+  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
   '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
@@ -218,8 +210,7 @@ export interface FileRoutesByTo {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/digistore-create-product': typeof ApiPublicDigistoreCreateProductRoute
-  '/api/public/digistore-ipn': typeof ApiPublicDigistoreIpnRoute
+  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
   '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
@@ -247,8 +238,7 @@ export interface FileRoutesById {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/digistore-create-product': typeof ApiPublicDigistoreCreateProductRoute
-  '/api/public/digistore-ipn': typeof ApiPublicDigistoreIpnRoute
+  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
   '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
@@ -277,8 +267,7 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/digistore-create-product'
-    | '/api/public/digistore-ipn'
+    | '/api/public/mundpay-webhook'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
     | '/api/public/whop-webhook'
@@ -305,8 +294,7 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/digistore-create-product'
-    | '/api/public/digistore-ipn'
+    | '/api/public/mundpay-webhook'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
     | '/api/public/whop-webhook'
@@ -333,8 +321,7 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/digistore-create-product'
-    | '/api/public/digistore-ipn'
+    | '/api/public/mundpay-webhook'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
     | '/api/public/whop-webhook'
@@ -362,8 +349,7 @@ export interface RootRouteChildren {
   SupportemailRoute: typeof SupportemailRoute
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
-  ApiPublicDigistoreCreateProductRoute: typeof ApiPublicDigistoreCreateProductRoute
-  ApiPublicDigistoreIpnRoute: typeof ApiPublicDigistoreIpnRoute
+  ApiPublicMundpayWebhookRoute: typeof ApiPublicMundpayWebhookRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
   ApiPublicSupportRoute: typeof ApiPublicSupportRoute
   ApiPublicWhopWebhookRoute: typeof ApiPublicWhopWebhookRoute
@@ -518,18 +504,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/digistore-create-product': {
-      id: '/api/public/digistore-create-product'
-      path: '/api/public/digistore-create-product'
-      fullPath: '/api/public/digistore-create-product'
-      preLoaderRoute: typeof ApiPublicDigistoreCreateProductRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/digistore-ipn': {
-      id: '/api/public/digistore-ipn'
-      path: '/api/public/digistore-ipn'
-      fullPath: '/api/public/digistore-ipn'
-      preLoaderRoute: typeof ApiPublicDigistoreIpnRouteImport
+    '/api/public/mundpay-webhook': {
+      id: '/api/public/mundpay-webhook'
+      path: '/api/public/mundpay-webhook'
+      fullPath: '/api/public/mundpay-webhook'
+      preLoaderRoute: typeof ApiPublicMundpayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/stripe-webhook': {
@@ -578,8 +557,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportemailRoute: SupportemailRoute,
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
-  ApiPublicDigistoreCreateProductRoute: ApiPublicDigistoreCreateProductRoute,
-  ApiPublicDigistoreIpnRoute: ApiPublicDigistoreIpnRoute,
+  ApiPublicMundpayWebhookRoute: ApiPublicMundpayWebhookRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
   ApiPublicSupportRoute: ApiPublicSupportRoute,
   ApiPublicWhopWebhookRoute: ApiPublicWhopWebhookRoute,
