@@ -8,10 +8,12 @@ export interface CaktoUpsellButtonProps {
   /** Where the buyer goes after accepting or if the charge can't run. */
   nextUrl: string;
   label: string;
+  /** Optional different destination when the buyer declines. */
+  rejectUrl?: string;
 }
 
 /** Cakto one-click upsell accept button (charges the card saved on the main purchase). */
-export function CaktoUpsellButton({ offerId, nextUrl, label }: CaktoUpsellButtonProps) {
+export function CaktoUpsellButton({ offerId, nextUrl, label, rejectUrl }: CaktoUpsellButtonProps) {
   useEffect(() => {
     if (document.querySelector(`script[src="${SCRIPT_SRC}"]`)) return;
     const s = document.createElement("script");
@@ -29,7 +31,7 @@ export function CaktoUpsellButton({ offerId, nextUrl, label }: CaktoUpsellButton
         "bg-color": "#d4a544",
         "text-color": "#1a1206",
         "upsell-accept-url": nextUrl,
-        "upsell-reject-url": nextUrl,
+        "upsell-reject-url": rejectUrl ?? nextUrl,
         "offer-id": offerId,
         "app-base-url": "https://app.cakto.com.br",
         "offer-type": "upsell",
