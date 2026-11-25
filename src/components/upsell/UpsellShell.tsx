@@ -62,10 +62,12 @@ export interface OfferCardProps {
   declineLabel: string;
   onDecline: () => void;
   children?: ReactNode;
+  /** Replaces the buy link with Cakto's one-click button. */
+  oneClick?: ReactNode;
 }
 
 /** Price box with buy button and "no thanks" link. */
-export function OfferCard({ price, regularPrice, buyHref, buyLabel, note, declineLabel, onDecline, children }: OfferCardProps) {
+export function OfferCard({ price, regularPrice, buyHref, buyLabel, note, declineLabel, onDecline, children, oneClick }: OfferCardProps) {
   return (
     <div className="mx-auto max-w-md space-y-4 rounded-2xl border-2 border-primary bg-card p-6">
       {children}
@@ -73,9 +75,11 @@ export function OfferCard({ price, regularPrice, buyHref, buyLabel, note, declin
         <p className="text-muted-foreground">Regular price <span className="line-through">{regularPrice}</span></p>
       )}
       <p className="text-5xl font-bold text-primary">{price}</p>
-      <a href={buyHref} className="block w-full rounded-xl bg-primary px-5 py-4 text-base font-bold text-primary-foreground shadow-lg transition-opacity hover:opacity-90">
-        {buyLabel}
-      </a>
+      {oneClick ?? (
+        <a href={buyHref} className="block w-full rounded-xl bg-primary px-5 py-4 text-base font-bold text-primary-foreground shadow-lg transition-opacity hover:opacity-90">
+          {buyLabel}
+        </a>
+      )}
       <p className="text-xs text-muted-foreground">{note ?? "Instant digital access · Secure checkout · 30-day money-back guarantee"}</p>
       <button type="button" onClick={onDecline} className="text-xs text-muted-foreground underline underline-offset-4">
         {declineLabel}

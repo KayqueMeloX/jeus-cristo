@@ -5,6 +5,7 @@ import { BlessingWheel } from "@/components/upsell/BlessingWheel";
 import vslCover from "@/assets/faith_activation_cover.jpg.asset.json";
 import vslVideo from "@/assets/faith_activation_message.mp4.asset.json";
 import { upsellCheckoutUrl } from "@/lib/upsell-flow";
+import { CaktoUpsellButton } from "@/components/upsell/CaktoUpsellButton";
 
 export const Route = createFileRoute("/faith-activation")({
   component: FaithActivation,
@@ -49,6 +50,7 @@ function FaithActivation() {
         buyLabel="Yes — add my 90-Day Activation Plan for $97"
         declineLabel="No thanks, I'll try to apply my Blueprint on my own"
         onDecline={() => setWheel(true)}
+        oneClick={<CaktoUpsellButton offerId="34vceic" nextUrl="https://jesuscristoapp.com/faith-protection" label="Yes — add my 90-Day Activation Plan for $97" />}
       >
         <ul className="space-y-2 text-left text-sm">
           {INCLUDES.map((i) => <li key={i}>✓ {i}</li>)}
