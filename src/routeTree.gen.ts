@@ -31,10 +31,8 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as SupportemailRouteImport } from './routes/supportemail'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
-import { Route as ApiPublicMundpayWebhookRouteImport } from './routes/api/public/mundpay-webhook'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as ApiPublicSupportRouteImport } from './routes/api/public/support'
-import { Route as ApiPublicWhopWebhookRouteImport } from './routes/api/public/whop-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -146,11 +144,6 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicMundpayWebhookRoute = ApiPublicMundpayWebhookRouteImport.update({
-  id: '/api/public/mundpay-webhook',
-  path: '/api/public/mundpay-webhook',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   id: '/api/public/stripe-webhook',
   path: '/api/public/stripe-webhook',
@@ -159,11 +152,6 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
 const ApiPublicSupportRoute = ApiPublicSupportRouteImport.update({
   id: '/api/public/support',
   path: '/api/public/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicWhopWebhookRoute = ApiPublicWhopWebhookRouteImport.update({
-  id: '/api/public/whop-webhook',
-  path: '/api/public/whop-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -190,10 +178,8 @@ export interface FileRoutesByFullPath {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
-  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -218,10 +204,8 @@ export interface FileRoutesByTo {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
-  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -247,10 +231,8 @@ export interface FileRoutesById {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
-  '/api/public/whop-webhook': typeof ApiPublicWhopWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -277,10 +259,8 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/mundpay-webhook'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
-    | '/api/public/whop-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -305,10 +285,8 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/mundpay-webhook'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
-    | '/api/public/whop-webhook'
   id:
     | '__root__'
     | '/'
@@ -333,10 +311,8 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/mundpay-webhook'
     | '/api/public/stripe-webhook'
     | '/api/public/support'
-    | '/api/public/whop-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -362,10 +338,8 @@ export interface RootRouteChildren {
   SupportemailRoute: typeof SupportemailRoute
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
-  ApiPublicMundpayWebhookRoute: typeof ApiPublicMundpayWebhookRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
   ApiPublicSupportRoute: typeof ApiPublicSupportRoute
-  ApiPublicWhopWebhookRoute: typeof ApiPublicWhopWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -524,13 +498,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/mundpay-webhook': {
-      id: '/api/public/mundpay-webhook'
-      path: '/api/public/mundpay-webhook'
-      fullPath: '/api/public/mundpay-webhook'
-      preLoaderRoute: typeof ApiPublicMundpayWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/public/stripe-webhook': {
       id: '/api/public/stripe-webhook'
       path: '/api/public/stripe-webhook'
@@ -543,13 +510,6 @@ declare module '@tanstack/react-router' {
       path: '/api/public/support'
       fullPath: '/api/public/support'
       preLoaderRoute: typeof ApiPublicSupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/whop-webhook': {
-      id: '/api/public/whop-webhook'
-      path: '/api/public/whop-webhook'
-      fullPath: '/api/public/whop-webhook'
-      preLoaderRoute: typeof ApiPublicWhopWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -578,10 +538,8 @@ const rootRouteChildren: RootRouteChildren = {
   SupportemailRoute: SupportemailRoute,
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
-  ApiPublicMundpayWebhookRoute: ApiPublicMundpayWebhookRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
   ApiPublicSupportRoute: ApiPublicSupportRoute,
-  ApiPublicWhopWebhookRoute: ApiPublicWhopWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
