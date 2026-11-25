@@ -37,7 +37,7 @@ function Imprint() {
         <section><h2 className="text-lg font-bold">Representation</h2><p>Legally represented by {LEGAL.name}.</p></section>
         <section><h2 className="text-lg font-bold">Responsible for content</h2><p>{LEGAL.name}, address as above.</p></section>
         <section><h2 className="text-lg font-bold">Retailer</h2>
-          <p>Products are sold by Digistore24 as authorized retailer and merchant of record. 60-day money-back guarantee — see our <a className="underline" href="/refund">Refund Policy</a>.</p></section>
+          <p>Payments are processed by Cakto. 60-day money-back guarantee — see our <a className="underline" href="/refund">Refund Policy</a>.</p></section>
       </main>
     </div>
   );

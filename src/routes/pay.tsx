@@ -2,10 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://www.checkout-ds24.com/product/769703?currency=USD&lang=en",
-  "47": "https://www.checkout-ds24.com/product/769704?currency=USD&lang=en",
-  "77": "https://www.checkout-ds24.com/product/769705?currency=USD&lang=en",
-  "100": "https://www.checkout-ds24.com/product/769706?currency=USD&lang=en",
+  "27": "https://pay.cakto.com.br/6dzpif7",
+  "47": "https://pay.cakto.com.br/modpahe",
+  "77": "https://pay.cakto.com.br/3d4v2w7",
+  "100": "https://pay.cakto.com.br/3bsodw8",
 };
 
 export const Route = createFileRoute("/pay")({
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/pay")({
 });
 
 function PaySlug() {
-  const [targetUrl, setTargetUrl] = useState("https://www.checkout-ds24.com/product/769703?currency=USD&lang=en");
+  const [targetUrl, setTargetUrl] = useState("https://pay.cakto.com.br/6dzpif7");
 
   useEffect(() => {
     if (typeof window !== "undefined") {

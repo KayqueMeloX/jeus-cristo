@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribution";
 
 const STRIPE_LINKS: Record<string, string> = {
-  // Front offers — after payment Digistore24 sends the buyer to the first upsell (/faith-activation).
-  "27": "https://www.checkout-ds24.com/product/769703?currency=USD&lang=en",
-  "47": "https://www.checkout-ds24.com/product/769704?currency=USD&lang=en",
-  "77": "https://www.checkout-ds24.com/product/769705?currency=USD&lang=en",
-  "100": "https://www.checkout-ds24.com/product/769706?currency=USD&lang=en",
+  // Front offers — after payment Cakto sends the buyer to the first upsell (/faith-activation).
+  "27": "https://pay.cakto.com.br/6dzpif7",
+  "47": "https://pay.cakto.com.br/modpahe",
+  "77": "https://pay.cakto.com.br/3d4v2w7",
+  "100": "https://pay.cakto.com.br/3bsodw8",
   // Upsells
-  activation: "https://www.checkout-ds24.com/product/769707?currency=USD&lang=en",
-  activationDiscount: "https://www.checkout-ds24.com/product/769708?currency=USD&lang=en",
-  // No Digistore24 subscription yet: skip straight to the next upsell.
+  activation: "https://pay.cakto.com.br/34vceic",
+  activationDiscount: "https://pay.cakto.com.br/h6v6rxr",
+  // No subscription product yet: skip straight to the next upsell.
   journey: "/faith-protection",
-  protection: "https://www.checkout-ds24.com/product/769709?currency=USD&lang=en",
+  protection: "https://pay.cakto.com.br/5sisn3q",
 };
 
 const UPSELL_VALUE: Record<string, number> = { activation: 97, activationDiscount: 47, journey: 0, protection: 47 };
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://www.checkout-ds24.com/product/769703?currency=USD&lang=en");
+  const [targetUrl, setTargetUrl] = useState("https://pay.cakto.com.br/6dzpif7");
 
   useEffect(() => {
     if (typeof window !== "undefined") {

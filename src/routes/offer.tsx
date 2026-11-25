@@ -23,10 +23,10 @@ const WINNERS = [
 ];
 
 const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://www.checkout-ds24.com/product/769703?currency=USD&lang=en",
-  "47": "https://www.checkout-ds24.com/product/769704?currency=USD&lang=en",
-  "77": "https://www.checkout-ds24.com/product/769705?currency=USD&lang=en",
-  "100": "https://www.checkout-ds24.com/product/769706?currency=USD&lang=en",
+  "27": "https://pay.cakto.com.br/6dzpif7",
+  "47": "https://pay.cakto.com.br/modpahe",
+  "77": "https://pay.cakto.com.br/3d4v2w7",
+  "100": "https://pay.cakto.com.br/3bsodw8",
 };
 
 const SEEDS = [
@@ -340,7 +340,7 @@ export function OfferPage() {
                 Imprint
               </a>
             </div>
-            <p className="mb-2">Digital product delivered by email immediately after purchase. Payments are processed by Digistore24 GmbH, our authorized retailer.</p>
+            <p className="mb-2">Digital product delivered by email immediately after purchase. Payments are processed securely by Cakto.</p>
             <p className="mx-auto max-w-[640px] text-xs italic opacity-85">
               Educational and inspirational content. Results vary from person to person. This is not
               financial, medical, or professional advice.
