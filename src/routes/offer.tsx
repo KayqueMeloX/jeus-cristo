@@ -270,7 +270,7 @@ export function OfferPage() {
             </div>
 
             <p className="italic text-[#ffe9ab]">
-              Backed by our 60-day money-back guarantee — see our{" "}
+              Backed by our 30-day money-back guarantee — see our{" "}
               <a href="/refund" className="font-bold text-[#f3c34e] underline">
                 Refund Policy
               </a>

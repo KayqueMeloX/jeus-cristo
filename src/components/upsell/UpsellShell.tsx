@@ -46,7 +46,7 @@ export function UpsellShell({ eyebrow, title, videoSrc, videoPoster, revealAfter
       </main>
       <footer className="pb-8 text-center text-xs text-muted-foreground">
         <p>Billing is processed securely by Cakto.</p>
-        <p className="mt-1">How you receive your product: instant PDF download on this site (no password), plus a download link sent to your email. 60-day money-back guarantee.</p>
+        <p className="mt-1">How you receive your product: instant PDF download on this site (no password), plus a download link sent to your email. 30-day money-back guarantee.</p>
         <p className="mt-2"><a href="/imprint" className="underline">Imprint</a> · <a href="/terms" className="underline">Terms</a> · <a href="/privacy" className="underline">Privacy</a> · <a href="/refund" className="underline">Refund</a></p>
       </footer>
     </div>
@@ -76,7 +76,7 @@ export function OfferCard({ price, regularPrice, buyHref, buyLabel, note, declin
       <a href={buyHref} className="block w-full rounded-xl bg-primary px-5 py-4 text-base font-bold text-primary-foreground shadow-lg transition-opacity hover:opacity-90">
         {buyLabel}
       </a>
-      <p className="text-xs text-muted-foreground">{note ?? "Instant digital access · Secure checkout · 60-day money-back guarantee"}</p>
+      <p className="text-xs text-muted-foreground">{note ?? "Instant digital access · Secure checkout · 30-day money-back guarantee"}</p>
       <button type="button" onClick={onDecline} className="text-xs text-muted-foreground underline underline-offset-4">
         {declineLabel}
       </button>
