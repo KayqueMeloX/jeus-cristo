@@ -31,3 +31,6 @@ use the editor.
 
 ## Quiz delivery
 - Keep `public/funnel.html` and `public/index.html` identical whenever changing the static quiz so alternate entry paths share the same experience.
+
+## Checkout configuration
+- Keep payment destinations in `src/lib/checkout-links.ts` and test each supplied mapping independently so similarly priced tiers and upsells cannot be confused.
