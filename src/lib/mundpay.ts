@@ -31,17 +31,38 @@ export function parseMundpaySale(body: unknown): MundpaySale {
   };
 }
 
-/** Identifies the product by offer role + price (USD), independent of offer IDs. */
+/**
+ * Identifies the product. Product names win over price, because the $47 tier,
+ * the $47 activation downsell and the $47 Holy Seals share a price.
+ */
 export function productForOffer(offer: MundpayOffer): MundpayProduct | null {
   const usd = Math.round(Number(offer.price ?? 0) / 100);
-  const upsell = offer.type === "up_sell" || offer.type === "down_sell";
   const name = (offer.name ?? "").toLowerCase();
-  if (upsell || name.includes("activation") || name.includes("protection")) {
+  if (name.includes("seal") || name.includes("protection")) return { kind: "upsell", key: "protection" };
+  if (name.includes("activation")) {
     if (usd === 97) return { kind: "upsell", key: "activation" };
-    if (name.includes("protection")) return { kind: "upsell", key: "protection" };
-    if (usd === 47) return offer.type === "down_sell" ? { kind: "upsell", key: "activationDiscount" } : { kind: "upsell", key: "protection" };
+    return { kind: "upsell", key: "activationDiscount" };
   }
+  const named = name.match(/(20|40|60|80)\s+sacred\s+prayers/);
+  if (named) return { kind: "tier", count: Number(named[1]) as 20 | 40 | 60 | 80 };
+  // No recognisable name: fall back to the offer role and price.
+  if (offer.type === "up_sell" && usd === 97) return { kind: "upsell", key: "activation" };
+  if (offer.type === "down_sell" && usd === 47) return { kind: "upsell", key: "activationDiscount" };
+  if (offer.type === "up_sell" && usd === 47) return { kind: "upsell", key: "protection" };
   const tiers: Record<number, 20 | 40 | 60 | 80> = { 27: 20, 47: 40, 77: 60, 100: 80 };
   const count = tiers[usd];
   return count ? { kind: "tier", count } : null;
+}
+
+/** Every distinct product bought in one order (main offer plus order bumps). */
+export function productsForSale(offers: MundpayOffer[]): MundpayProduct[] {
+  const seen = new Set<string>();
+  const out: MundpayProduct[] = [];
+  for (const offer of offers) {
+    const p = productForOffer(offer);
+    if (!p) continue;
+    const key = p.kind === "tier" ? `tier-${p.count}` : `upsell-${p.key}`;
+    if (!seen.has(key)) { seen.add(key); out.push(p); }
+  }
+  return out;
 }

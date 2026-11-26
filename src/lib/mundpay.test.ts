@@ -19,3 +19,22 @@ describe("mundpay", () => {
     expect(productForOffer({ price: 4700, type: "down_sell" })).toEqual({ kind: "upsell", key: "activationDiscount" });
   });
 });
+
+describe("mundpay product names", () => {
+  it("tells the three $47 products apart by name", () => {
+    expect(productForOffer({ price: 4700, type: "principal", name: "Seed of Faith — 40 Sacred Prayers" })).toEqual({ kind: "tier", count: 40 });
+    expect(productForOffer({ price: 4700, type: "principal", name: "90-Day Faith Activation Plan 50%" })).toEqual({ kind: "upsell", key: "activationDiscount" });
+    expect(productForOffer({ price: 4700, type: "principal", name: "The 7 Holy Seals — Family Prayer Study)" })).toEqual({ kind: "upsell", key: "protection" });
+  });
+  it("maps the $97 plan by name", () => {
+    expect(productForOffer({ price: 9700, type: "principal", name: "90-Day Faith Activation Plan" })).toEqual({ kind: "upsell", key: "activation" });
+  });
+  it("delivers every product in an order with bumps", async () => {
+    const { productsForSale } = await import("./mundpay");
+    const items = productsForSale([
+      { price: 7700, type: "principal", name: "Seed of Faith — 60 Sacred Prayers" },
+      { price: 4700, type: "order_bump", name: "The 7 Holy Seals — Family Prayer Study" },
+    ]);
+    expect(items).toEqual([{ kind: "tier", count: 60 }, { kind: "upsell", key: "protection" }]);
+  });
+});

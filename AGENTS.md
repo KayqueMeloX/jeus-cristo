@@ -41,3 +41,4 @@ use the editor.
 ## Mundpay sales webhook
 - Mundpay postbacks: enforce `?token=` only when `MUNDPAY_WEBHOOK_SECRET` is set (Mundpay has no signing field); otherwise rely on strict payload validation. UTMify gets sales from Mundpay native integration, so the webhook never sends to UTMify (avoids duplicates).
 - Read Meta CAPI credentials from server secrets during dispatch, including the managed Meta connection, so no private token is embedded in the client-reachable module.
+- Mundpay products are identified by name before price, because several products share $47; each paid order emails every product it contains (order bumps included).
