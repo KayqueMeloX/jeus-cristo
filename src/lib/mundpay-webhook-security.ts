@@ -10,7 +10,7 @@ const offerSchema = z.object({
   sku: z.string().max(100).optional(),
 });
 const saleSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string().trim().min(1).max(100),
   status: z.string().min(1).max(60).optional(),
   amount: cents,
   currency: z.string().regex(/^[A-Za-z]{3}$/).optional(),
