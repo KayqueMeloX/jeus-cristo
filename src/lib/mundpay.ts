@@ -13,14 +13,14 @@ export interface MundpaySale {
 export function parseMundpaySale(body: unknown): MundpaySale {
   const b = (body ?? {}) as Record<string, unknown>;
   const data = (b["data"] && typeof b["data"] === "object" ? b["data"] : b) as Record<string, unknown>;
-  const customer = (data["customer"] ?? {}) as Record<string, unknown>;
-  const trackingRaw = (data["tracking"] ?? {}) as Record<string, unknown>;
+  const customer = (data["customer"] || {}) as Record<string, unknown>;
+  const trackingRaw = (data["tracking"] || {}) as Record<string, unknown>;
   const tracking: Record<string, string> = {};
   for (const [k, v] of Object.entries(trackingRaw)) if (typeof v === "string" && v) tracking[k] = v;
   const cents = Number(data["amount"] ?? 0);
   return {
     orderId: String(data["id"] ?? ""),
-    status: String(data["status"] ?? b["event"] ?? "").replace(/^order\./, ""),
+    status: String(data["status"] || data["event_type"] || b["event"] || "").replace(/^order\./, ""),
     email: String(customer["email"] ?? "").trim().toLowerCase(),
     name: String(customer["name"] ?? "").trim() || "Blessed Friend",
     phone: String(customer["phone"] ?? ""),

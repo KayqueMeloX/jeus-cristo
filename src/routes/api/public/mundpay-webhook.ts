@@ -20,7 +20,11 @@ export const Route = createFileRoute("/api/public/mundpay-webhook")({
         let body: unknown;
         try { body = await request.json(); } catch { return new Response("Bad JSON", { status: 400 }); }
         const validated = mundpayWebhookSchema.safeParse(body);
-        if (!validated.success) return new Response("Invalid sale payload", { status: 400 });
+        if (!validated.success) {
+          // Log only field paths and messages, never customer data.
+          console.error("[mundpay] invalid payload", JSON.stringify(validated.error.issues.map((i) => ({ path: i.path.join("."), message: i.message }))));
+          return new Response("Invalid sale payload", { status: 400 });
+        }
         const sale = parseMundpaySale(validated.data);
 
         // UTMify receives sales from Mundpay's native integration; sending here would duplicate them.

@@ -20,3 +20,31 @@ describe("Mundpay panel test postback", () => {
     expect(mundpayWebhookSchema.safeParse(body).success).toBe(false);
   });
 });
+
+describe("Mundpay live postbacks with null fields", () => {
+  const live = {
+    id: "01a21917-8712-73dc-af0f-ed41e90f0dda",
+    event_type: "order.paid",
+    amount: 2700,
+    currency: "USD",
+    customer: { email: "buyer@example.com", name: null, phone: null },
+    offers: [{ id: null, name: "Seed of Faith — 20 Sacred Prayers", price: 2700, type: null, sku: null }],
+    tracking: null,
+  };
+
+  it("accepts null secondary fields and event_type instead of status", () => {
+    expect(mundpayWebhookSchema.safeParse(live).success).toBe(true);
+  });
+
+  it("reads the paid status from event_type", async () => {
+    const { parseMundpaySale } = await import("./mundpay");
+    const sale = parseMundpaySale(live);
+    expect(sale.status).toBe("paid");
+    expect(sale.name).toBe("Blessed Friend");
+  });
+
+  it("still rejects a sale without any status", () => {
+    const { event_type: _omit, ...noStatus } = live;
+    expect(mundpayWebhookSchema.safeParse(noStatus).success).toBe(false);
+  });
+});

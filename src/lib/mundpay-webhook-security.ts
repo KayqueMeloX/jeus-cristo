@@ -1,33 +1,35 @@
 import { z } from "zod";
 
+// Mundpay sends null for absent optional fields, so secondary fields accept null or undefined.
 const cents = z.union([z.number(), z.string().regex(/^\d+(?:\.\d+)?$/)])
   .refine((value) => Number.isFinite(Number(value)) && Number(value) >= 0);
 const offerSchema = z.object({
-  id: z.string().max(100).optional(),
-  name: z.string().max(500).optional(),
-  price: cents,
-  type: z.string().max(40).optional(),
-  sku: z.string().max(100).optional(),
-});
+  id: z.string().max(100).nullish(),
+  name: z.string().max(500).nullish(),
+  price: cents.nullish(),
+  type: z.string().max(40).nullish(),
+  sku: z.string().max(100).nullish(),
+}).passthrough();
 const saleSchema = z.object({
   id: z.string().trim().min(1).max(100),
-  status: z.string().min(1).max(60).optional(),
-  amount: cents,
-  currency: z.string().regex(/^[A-Za-z]{3}$/).optional(),
+  status: z.string().max(60).nullish(),
+  event_type: z.string().max(60).nullish(),
+  amount: cents.nullish(),
+  currency: z.string().regex(/^[A-Za-z]{3}$/).nullish(),
   customer: z.object({
     email: z.string().trim().email().max(254),
-    name: z.string().max(200).optional(),
-    phone: z.string().max(50).optional(),
-  }),
+    name: z.string().max(200).nullish(),
+    phone: z.string().max(50).nullish(),
+  }).passthrough(),
   offers: z.array(offerSchema).min(1).max(30),
-  tracking: z.record(z.union([z.string().max(2000), z.null()])).optional(),
-});
+  tracking: z.record(z.union([z.string().max(2000), z.null()])).nullish(),
+}).passthrough();
 
 /** Accept the documented flat payload and the previously supported data envelope. */
 export const mundpayWebhookSchema = z.union([
-  saleSchema.extend({ status: z.string().min(1).max(60) }),
-  z.object({ event: z.string().max(60).optional(), data: saleSchema })
-    .refine((body) => Boolean(body.data.status || body.event)),
+  saleSchema.refine((body) => Boolean(body.status || body.event_type)),
+  z.object({ event: z.string().max(60).nullish(), data: saleSchema })
+    .refine((body) => Boolean(body.data.status || body.data.event_type || body.event)),
 ]);
 
 /**
