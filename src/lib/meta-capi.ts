@@ -3,13 +3,6 @@
  * Pixel ID: 29015918781408333
  */
 
-export const META_PIXEL_ID =
-  process.env["META_PIXEL_ID"] || "29015918781408333";
-
-export const META_ACCESS_TOKEN =
-  process.env["META_ACCESS_TOKEN"] ||
-  "EAAMZCDQyWTsoBSZCPAnuKotWiVC5rDSZAF6qMJSSJaoQECgAiHOD6p4BFGTjxUE3DXc2hMK9FQakniX2D97a6BWZBM1OV0TlYbtfjZCclEOBRGY8GMWw3J9bSMSRxzQA66TBwa6QFAJVDohStvncw5gOz5niYQSG3Y3mRXaUM8hYx1wKLUDzhoWufZBa6ZBXQZDZD";
-
 export interface MetaConversionUserData {
   email?: string;
   phone?: string;
@@ -39,6 +32,13 @@ export async function sendMetaConversionEvent({
   customData,
   eventId,
 }: SendMetaConversionParams) {
+  // Read managed credentials only during server execution; never bundle a private fallback.
+  const pixelId = process.env["META_PIXEL_ID"] || "29015918781408333";
+  const accessToken = process.env["META_ACCESS_TOKEN"] || process.env["META_ADS_API_KEY"];
+  if (!accessToken) {
+    console.error("Meta CAPI credential is not configured");
+    return null;
+  }
   const currentTimestamp = Math.floor(Date.now() / 1000);
 
   const payload = {
@@ -63,7 +63,7 @@ export async function sendMetaConversionEvent({
 
   try {
     const res = await fetch(
-      `https://graph.facebook.com/v19.0/${META_PIXEL_ID}/events?access_token=${META_ACCESS_TOKEN}`,
+      `https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

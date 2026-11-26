@@ -4,31 +4,25 @@ import { pdfFileFor } from "@/lib/prayer-tiers";
 import { UPSELL_NAMES, UPSELL_PDFS } from "@/lib/whop-webhook";
 import { buildUtmifyOrder, sendUtmifyOrder } from "@/lib/utmify-order";
 import { parseMundpaySale, productForOffer } from "@/lib/mundpay";
+import { authorizeMundpayWebhook, mundpayWebhookSchema } from "@/lib/mundpay-webhook-security";
 
 const SITE = "https://jesuscristoapp.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
 const OK = () => new Response("OK", { status: 200 });
 const esc = (s: string) => s.replace(/[<>&"']/g, "");
 
-/** Mundpay webhooks are unsigned, so we re-fetch the order from Mundpay's API to confirm it is real. */
-async function verifyOrder(orderId: string): Promise<boolean> {
-  const key = process.env["MUNDPAY_API_KEY"];
-  if (!key || !/^[0-9a-f-]{20,}$/i.test(orderId)) return false;
-  const r = await fetch(`https://api.mundpay.com/api/v1/public/orders/${orderId}`, { headers: { "X-API-Key": key, Accept: "application/json" } });
-  return r.ok;
-}
-
 export const Route = createFileRoute("/api/public/mundpay-webhook")({
   server: {
     handlers: {
       GET: async () => OK(),
       POST: async ({ request }) => {
+        const denied = await authorizeMundpayWebhook(request, process.env["MUNDPAY_WEBHOOK_SECRET"]);
+        if (denied) return denied;
         let body: unknown;
         try { body = await request.json(); } catch { return new Response("Bad JSON", { status: 400 }); }
-        const sale = parseMundpaySale(body);
-        console.log("[mundpay]", sale.status, sale.orderId);
-        if (!sale.orderId) return OK();
-        if (!(await verifyOrder(sale.orderId))) { console.error("[mundpay] unverified", sale.orderId); return new Response("Unverified", { status: 403 }); }
+        const validated = mundpayWebhookSchema.safeParse(body);
+        if (!validated.success) return new Response("Invalid sale payload", { status: 400 });
+        const sale = parseMundpaySale(validated.data);
 
         const utmifyToken = process.env["UTMIFY_API_TOKEN"];
         const offer = sale.offers[0] ?? {};

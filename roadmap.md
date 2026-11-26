@@ -9,3 +9,8 @@
 # Mundpay purchase seal
 - [x] Install the supplied seal globally and in standalone quiz entries without iframe duplication.
 - [x] Verify seal, support modal, and legal links on desktop and mobile.
+
+# Mundpay sales webhook
+- [x] Replace the unconfirmed orders API requirement with authenticated postback processing and validation.
+- [x] Test authorized and unauthorized delivery paths (mocked services); confirm the live endpoint fails closed before activation.
+- [ ] Activate real delivery — waiting for the shared secret to be saved and added to the Mundpay postback URL, then publication and a real payment test.

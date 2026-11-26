@@ -37,3 +37,7 @@ use the editor.
 
 ## Mundpay purchase seal
 - Load the supplied Mundpay seal from `public/mundpay-sticker.js` in the root shell and both static quiz entries; skip duplicate initialization inside the quiz iframe so only one seal and legal footer appear.
+
+## Mundpay sales webhook
+- Authenticate postbacks with the shared `MUNDPAY_WEBHOOK_SECRET` URL token before validating or processing a sale; fail closed when absent because the orders API authentication was never confirmed.
+- Read Meta CAPI credentials from server secrets during dispatch, including the managed Meta connection, so no private token is embedded in the client-reachable module.
