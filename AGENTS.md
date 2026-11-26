@@ -34,3 +34,6 @@ use the editor.
 
 ## Checkout configuration
 - Keep payment destinations in `src/lib/checkout-links.ts` and test each supplied mapping independently so similarly priced tiers and upsells cannot be confused.
+
+## Mundpay purchase seal
+- Load the supplied Mundpay seal from `public/mundpay-sticker.js` in the root shell and both static quiz entries; skip duplicate initialization inside the quiz iframe so only one seal and legal footer appear.

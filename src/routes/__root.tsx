@@ -190,6 +190,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <body>
         {children}
         <Scripts />
+        <script src="/mundpay-sticker.js" defer />
         <script
           dangerouslySetInnerHTML={{
             __html: `
