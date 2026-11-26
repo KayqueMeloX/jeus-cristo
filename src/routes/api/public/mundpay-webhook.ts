@@ -3,6 +3,7 @@ import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor } from "@/lib/prayer-tiers";
 import { UPSELL_NAMES, UPSELL_PDFS } from "@/lib/whop-webhook";
 import { parseMundpaySale, productsForSale } from "@/lib/mundpay";
+import { buildUtmifyOrder, sendUtmifyOrder } from "@/lib/utmify-order";
 import { authorizeMundpayWebhook, mundpayWebhookSchema } from "@/lib/mundpay-webhook-security";
 
 const SITE = "https://jesuscristoapp.com";
@@ -27,7 +28,6 @@ export const Route = createFileRoute("/api/public/mundpay-webhook")({
         }
         const sale = parseMundpaySale(validated.data);
 
-        // UTMify receives sales from Mundpay's native integration; sending here would duplicate them.
         const products = productsForSale(sale.offers);
         if (sale.status !== "paid" || products.length === 0 || !sale.email) {
           if (sale.status === "paid") console.error("[mundpay] paid order with no recognised product", sale.orderId);
@@ -35,6 +35,22 @@ export const Route = createFileRoute("/api/public/mundpay-webhook")({
         }
 
         await sendMetaConversionEvent({ eventName: "Purchase", eventId: sale.orderId, eventSourceUrl: `${SITE}/faith-app`, userData: { email: sale.email }, customData: { value: sale.amount, currency: sale.currency } });
+
+        // Backup delivery to UTMify: same orderId as Mundpay's native integration, so UTMify merges rather than duplicates.
+        const utmifyToken = process.env["UTMIFY_API_TOKEN"];
+        if (utmifyToken) {
+          try {
+            const first = products[0]!;
+            const order = buildUtmifyOrder({
+              orderId: sale.orderId, email: sale.email, name: sale.name, amount: sale.amount,
+              prayerCount: first.kind === "tier" ? first.count : 0,
+              productName: products.map((p) => p.kind === "tier" ? `Seed of Faith — ${p.count} Sacred Prayers` : UPSELL_NAMES[p.key]).join(" + "),
+              platform: "Mundpay", approvedAt: new Date(), tracking: sale.tracking,
+            });
+            const r = await sendUtmifyOrder(utmifyToken, order);
+            if (!r.ok) console.error(`[mundpay] UTMify failed [${r.status}] ${r.body.slice(0, 300)}`);
+          } catch (e) { console.error("[mundpay] UTMify error", e instanceof Error ? e.message : e); }
+        }
 
         const lovableKey = process.env["LOVABLE_API_KEY"];
         const brevoKey = process.env["BREVO_API_KEY"];

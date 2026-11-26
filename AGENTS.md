@@ -39,6 +39,6 @@ use the editor.
 - Load the supplied Mundpay seal from `public/mundpay-sticker.js` in the root shell and both static quiz entries; skip duplicate initialization inside the quiz iframe so only one seal and legal footer appear.
 
 ## Mundpay sales webhook
-- Mundpay postbacks: enforce `?token=` only when `MUNDPAY_WEBHOOK_SECRET` is set (Mundpay has no signing field); otherwise rely on strict payload validation. UTMify gets sales from Mundpay native integration, so the webhook never sends to UTMify (avoids duplicates).
+- Mundpay postbacks: enforce `?token=` only when `MUNDPAY_WEBHOOK_SECRET` is set (Mundpay has no signing field); otherwise rely on strict payload validation. Paid orders are also sent to UTMify from the webhook as a backup to Mundpay's native integration, reusing the Mundpay order id so UTMify merges instead of duplicating.
 - Read Meta CAPI credentials from server secrets during dispatch, including the managed Meta connection, so no private token is embedded in the client-reachable module.
 - Mundpay products are identified by name before price, because several products share $47; each paid order emails every product it contains (order bumps included).

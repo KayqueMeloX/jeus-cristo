@@ -48,13 +48,17 @@ describe("Mundpay postback delivery", () => {
   });
   afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 
-  it("delivers a $27 sale to Meta and Brevo but leaves UTMify to Mundpay without querying an orders API", async () => {
+  it("delivers a $27 sale to Meta and Brevo and UTMify with the same order id", async () => {
     expect((await deliver(sale)).status).toBe(200);
     expect(state.meta).toHaveBeenCalledOnce();
     expect(state.meta).toHaveBeenCalledWith(expect.objectContaining({
       eventName: "Purchase", eventId: sale.id, customData: { value: 27, currency: "USD" },
     }));
-    expect(state.utmify).not.toHaveBeenCalled();
+    expect(state.utmify).toHaveBeenCalledOnce();
+    expect(state.utmify).toHaveBeenCalledWith("test-only-utmify", expect.objectContaining({
+      orderId: sale.id, platform: "Mundpay", status: "paid",
+      trackingParameters: expect.objectContaining({ utm_campaign: "test-campaign", utm_content: "test-creative" }),
+    }));
     expect(fetch).toHaveBeenCalledOnce();
     expect(fetch).toHaveBeenCalledWith("https://connector-gateway.lovable.dev/brevo/smtp/email", expect.objectContaining({
       method: "POST", body: expect.stringContaining('"email":"buyer@example.test"'),

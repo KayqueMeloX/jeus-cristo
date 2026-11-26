@@ -11,6 +11,8 @@ export interface UtmifyOrderInput {
   prayerCount: number;
   /** Overrides the product name (used for upsells). */
   productName?: string;
+  /** Sales platform shown in UTMify (defaults to Whop). */
+  platform?: string;
   approvedAt: Date;
   country?: string | null;
   tracking: Partial<Record<UtmKey, string | null | undefined>>;
@@ -37,7 +39,7 @@ export function buildUtmifyOrder(i: UtmifyOrderInput) {
   };
   return {
     orderId: i.orderId,
-    platform: "Whop",
+    platform: i.platform ?? "Whop",
     paymentMethod: "credit_card",
     status: "paid",
     createdAt: fmt(i.approvedAt),
