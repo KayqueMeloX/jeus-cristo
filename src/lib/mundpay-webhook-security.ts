@@ -30,14 +30,15 @@ export const mundpayWebhookSchema = z.union([
     .refine((body) => Boolean(body.data.status || body.event)),
 ]);
 
-/** Fail closed; this shared URL credential replaces the unconfirmed orders API. */
+/**
+ * Mundpay offers no signing secret. When MUNDPAY_WEBHOOK_SECRET is configured the
+ * ?token= URL credential is enforced; otherwise the strictly validated payload is accepted.
+ */
 export async function authorizeMundpayWebhook(
   request: Request,
   secret: string | undefined,
 ): Promise<Response | null> {
-  if (!secret || secret.length < 32) {
-    return new Response("Webhook security not configured", { status: 503 });
-  }
+  if (!secret) return null;
   const supplied = new URL(request.url).searchParams.get("token");
   if (!supplied || supplied.length > 512) {
     return new Response("Unauthorized", { status: 401 });

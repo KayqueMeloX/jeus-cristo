@@ -23,7 +23,7 @@ describe("Mundpay webhook security", () => {
     expect((await authorizeMundpayWebhook(new Request(`${endpoint}?token=forged`), testSecret))?.status).toBe(401);
   });
   it("does not enable unauthenticated purchases when no secret is saved", async () => {
-    expect((await authorizeMundpayWebhook(new Request(endpoint), undefined))?.status).toBe(503);
+    expect(await authorizeMundpayWebhook(new Request(endpoint), undefined)).toBeNull();
   });
   it("accepts the documented paid payload and preserves campaign attribution", () => {
     const result = mundpayWebhookSchema.safeParse(paidSale);

@@ -48,17 +48,13 @@ describe("Mundpay postback delivery", () => {
   });
   afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 
-  it("delivers an authorized $27 sale to Meta, UTMify and Brevo without querying an orders API", async () => {
+  it("delivers a $27 sale to Meta and Brevo but leaves UTMify to Mundpay without querying an orders API", async () => {
     expect((await deliver(sale)).status).toBe(200);
     expect(state.meta).toHaveBeenCalledOnce();
     expect(state.meta).toHaveBeenCalledWith(expect.objectContaining({
       eventName: "Purchase", eventId: sale.id, customData: { value: 27, currency: "USD" },
     }));
-    expect(state.utmify).toHaveBeenCalledOnce();
-    expect(state.utmify).toHaveBeenCalledWith("test-only-utmify", expect.objectContaining({
-      orderId: sale.id, platform: "Mundpay", status: "paid",
-      trackingParameters: expect.objectContaining({ utm_campaign: "test-campaign", utm_content: "test-creative" }),
-    }));
+    expect(state.utmify).not.toHaveBeenCalled();
     expect(fetch).toHaveBeenCalledOnce();
     expect(fetch).toHaveBeenCalledWith("https://connector-gateway.lovable.dev/brevo/smtp/email", expect.objectContaining({
       method: "POST", body: expect.stringContaining('"email":"buyer@example.test"'),
@@ -70,26 +66,21 @@ describe("Mundpay postback delivery", () => {
     expect(state.utmify).not.toHaveBeenCalled();
     expect(fetch).not.toHaveBeenCalled();
   });
-  it("keeps delivery blocked while the shared secret is missing", async () => {
+  it("accepts the plain Mundpay URL when no shared token is configured", async () => {
     vi.stubEnv("MUNDPAY_WEBHOOK_SECRET", "");
-    expect((await deliver(sale)).status).toBe(503);
-    expect(state.meta).not.toHaveBeenCalled();
-    expect(fetch).not.toHaveBeenCalled();
+    expect((await deliver(sale, "")).status).toBe(200);
+    expect(state.meta).toHaveBeenCalledOnce();
   });
   it("rejects malformed paid data before external delivery", async () => {
     expect((await deliver({ ...sale, customer: { email: "invalid" } })).status).toBe(400);
     expect(state.meta).not.toHaveBeenCalled();
     expect(fetch).not.toHaveBeenCalled();
   });
-  it("reports a refund only to UTMify", async () => {
-    expect((await deliver({ ...sale, status: "refunded" })).status).toBe(200);
-    expect(state.utmify).toHaveBeenCalledWith("test-only-utmify", expect.objectContaining({ status: "refunded" }));
-    expect(state.meta).not.toHaveBeenCalled();
-    expect(fetch).not.toHaveBeenCalled();
-  });
-  it("reports a chargeback only to UTMify", async () => {
-    expect((await deliver({ ...sale, status: "chargeback" })).status).toBe(200);
-    expect(state.utmify).toHaveBeenCalledWith("test-only-utmify", expect.objectContaining({ status: "chargedback" }));
+  it("sends nothing for a refund or chargeback (UTMify gets them from Mundpay)", async () => {
+    for (const status of ["refunded", "chargeback"]) {
+      expect((await deliver({ ...sale, status })).status).toBe(200);
+    }
+    expect(state.utmify).not.toHaveBeenCalled();
     expect(state.meta).not.toHaveBeenCalled();
     expect(fetch).not.toHaveBeenCalled();
   });

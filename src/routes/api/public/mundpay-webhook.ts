@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { sendMetaConversionEvent } from "@/lib/meta-capi";
 import { pdfFileFor } from "@/lib/prayer-tiers";
 import { UPSELL_NAMES, UPSELL_PDFS } from "@/lib/whop-webhook";
-import { buildUtmifyOrder, sendUtmifyOrder } from "@/lib/utmify-order";
 import { parseMundpaySale, productForOffer } from "@/lib/mundpay";
 import { authorizeMundpayWebhook, mundpayWebhookSchema } from "@/lib/mundpay-webhook-security";
 
@@ -24,25 +23,11 @@ export const Route = createFileRoute("/api/public/mundpay-webhook")({
         if (!validated.success) return new Response("Invalid sale payload", { status: 400 });
         const sale = parseMundpaySale(validated.data);
 
-        const utmifyToken = process.env["UTMIFY_API_TOKEN"];
-        const offer = sale.offers[0] ?? {};
-        const product = productForOffer(offer);
-        const orderBase = () => buildUtmifyOrder({ orderId: sale.orderId, email: sale.email, name: sale.name, amount: sale.amount, prayerCount: product?.kind === "tier" ? product.count : 20, ...(product?.kind === "upsell" ? { productName: UPSELL_NAMES[product.key] } : {}), approvedAt: new Date(), tracking: sale.tracking, country: null });
-
-        if (sale.status === "refunded" || sale.status === "chargeback" || sale.status === "chargedback") {
-          if (utmifyToken && product) {
-            const order = orderBase();
-            await sendUtmifyOrder(utmifyToken, { ...order, platform: "Mundpay", status: sale.status === "refunded" ? "refunded" : "chargedback", refundedAt: new Date().toISOString().slice(0, 19).replace("T", " ") } as unknown as typeof order);
-          }
-          return OK();
-        }
+        // UTMify receives sales from Mundpay's native integration; sending here would duplicate them.
+        const product = productForOffer(sale.offers[0] ?? {});
         if (sale.status !== "paid" || !product || !sale.email) return OK();
 
         await sendMetaConversionEvent({ eventName: "Purchase", eventId: sale.orderId, eventSourceUrl: `${SITE}/faith-app`, userData: { email: sale.email }, customData: { value: sale.amount, currency: sale.currency } });
-        if (utmifyToken) {
-          try { const r = await sendUtmifyOrder(utmifyToken, { ...orderBase(), platform: "Mundpay" }); console.log("[mundpay] UTMify:", r.status); }
-          catch (e) { console.error("[mundpay] UTMify failed", e); }
-        }
 
         const lovableKey = process.env["LOVABLE_API_KEY"];
         const brevoKey = process.env["BREVO_API_KEY"];
