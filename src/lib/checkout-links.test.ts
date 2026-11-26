@@ -20,4 +20,7 @@ describe("Mundpay checkout mapping", () => {
   it("routes the $47 wheel downsell to its distinct checkout", () => {
     expect(checkoutLink("activationDiscount")).toBe("https://checkout.mundpay.com/01a213fa-643b-73f7-a5f4-63c80913b32f");
   });
+  it("routes the $47 Holy Seals upsell to its supplied checkout", () => {
+    expect(checkoutLink("protection")).toBe("https://checkout.mundpay.com/01a21917-8712-73dc-af0f-ed41e90f0dda");
+  });
 });

@@ -10,7 +10,7 @@ export const MUNDPAY_LINKS: Record<string, string> = {
   "100": "https://checkout.mundpay.com/01a213df-e59f-71ec-b914-859eeb17cb34",
   activation: "https://checkout.mundpay.com/01a213ef-53cf-717b-9f77-c552791d6456",
   activationDiscount: "https://checkout.mundpay.com/01a213fa-643b-73f7-a5f4-63c80913b32f",
-  protection: "",
+  protection: "https://checkout.mundpay.com/01a21917-8712-73dc-af0f-ed41e90f0dda",
 };
 
 export const FALLBACK_CHECKOUT = "/support";
