@@ -18,7 +18,7 @@ export const Route = createFileRoute("/order-complete")({
   }),
 });
 
-/** Public thank-you page meeting Digistore24 criteria: no login, clear access, billing note, guarantee, support. */
+/** Public thank-you page meeting the payment provider criteria: no login, clear access, billing note, guarantee, support. */
 function OrderComplete() {
   const { item } = Route.useSearch();
   const d = deliveryFor(item);
@@ -45,7 +45,7 @@ function OrderComplete() {
         </section>
 
         <section className="mt-6 space-y-2 text-sm text-muted-foreground">
-          <p><strong className="text-foreground">Billing:</strong> Your payment was processed securely by Cakto.</p>
+          <p><strong className="text-foreground">Billing:</strong> Your payment was processed securely by Mundpay.</p>
           <p><strong className="text-foreground">30-day money-back guarantee:</strong> If you are not satisfied, request a full refund within 30 days of purchase. See our <a href="/refund" className="underline">Refund Policy</a>.</p>
           <p><strong className="text-foreground">Support:</strong> Email <a href="mailto:kaiquepm0403@gmail.com" className="underline">kaiquepm0403@gmail.com</a> or use our <a href="/support" className="underline">support page</a>. We reply within 24 hours.</p>
           <p><a href="/imprint" className="underline">Imprint / Legal Notice</a> · <a href="/terms" className="underline">Terms</a> · <a href="/privacy" className="underline">Privacy</a></p>

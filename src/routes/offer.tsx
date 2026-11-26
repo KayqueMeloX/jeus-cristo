@@ -1,3 +1,4 @@
+import { MUNDPAY_LINKS, checkoutLink } from "@/lib/checkout-links";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
@@ -22,12 +23,7 @@ const WINNERS = [
   { name: "Jamie Kay, England", img: "/winner-jamie.webp" },
 ];
 
-const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://pay.cakto.com.br/6dzpif7",
-  "47": "https://pay.cakto.com.br/modpahe",
-  "77": "https://pay.cakto.com.br/3d4v2w7",
-  "100": "https://pay.cakto.com.br/3bsodw8",
-};
+const STRIPE_LINKS: Record<string, string> = { ...MUNDPAY_LINKS, journey: "/faith-protection" };
 
 const SEEDS = [
   { amt: "27", label: "$27", img: "/seed-of-faith-27.jpg", fallback: "/seed-of-fath-27.jpg" },
@@ -291,7 +287,7 @@ export function OfferPage() {
                 <a
                   href={getCheckoutUrl(s.amt)}
                   onClick={(e) => handleCheckoutClick(s.amt, e)}
-                  data-checkout-url={STRIPE_LINKS[s.amt]}
+                  data-checkout-url={checkoutLink(s.amt)}
                   className="checkout-btn go-to-checkout block w-full cursor-pointer overflow-hidden rounded-[16px] border-[3px] border-[#f3c34e] shadow-none transition-transform hover:brightness-105 active:scale-[0.98]"
                 >
                   <img
@@ -311,7 +307,7 @@ export function OfferPage() {
                 <a
                   href={getCheckoutUrl(s.amt)}
                   onClick={(e) => handleCheckoutClick(s.amt, e)}
-                  data-checkout-url={STRIPE_LINKS[s.amt]}
+                  data-checkout-url={checkoutLink(s.amt)}
                   className="checkout-btn go-to-checkout block w-full cursor-pointer rounded-[16px] bg-gradient-to-b from-[#f7d873] to-[#e0a91d] py-4 px-3 text-center text-xl font-bold text-[#1a1206] shadow-[0_6px_0_#b8911f] transition-transform active:translate-y-[2px] active:shadow-[0_2px_0_#b8911f] sm:text-2xl"
                   style={{ textDecoration: "none" }}
                 >
@@ -340,7 +336,7 @@ export function OfferPage() {
                 Imprint
               </a>
             </div>
-            <p className="mb-2">Digital product delivered by email immediately after purchase. Payments are processed securely by Cakto.</p>
+            <p className="mb-2">Digital product delivered by email immediately after purchase. Payments are processed securely by Mundpay.</p>
             <p className="mx-auto max-w-[640px] text-xs italic opacity-85">
               Educational and inspirational content. Results vary from person to person. This is not
               financial, medical, or professional advice.

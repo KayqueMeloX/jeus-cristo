@@ -1,12 +1,8 @@
+import { MUNDPAY_LINKS, checkoutLink } from "@/lib/checkout-links";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-const STRIPE_LINKS: Record<string, string> = {
-  "27": "https://pay.cakto.com.br/6dzpif7",
-  "47": "https://pay.cakto.com.br/modpahe",
-  "77": "https://pay.cakto.com.br/3d4v2w7",
-  "100": "https://pay.cakto.com.br/3bsodw8",
-};
+const STRIPE_LINKS: Record<string, string> = { ...MUNDPAY_LINKS, journey: "/faith-protection" };
 
 export const Route = createFileRoute("/pay")({
   component: PaySlug,
@@ -20,14 +16,14 @@ export const Route = createFileRoute("/pay")({
 });
 
 function PaySlug() {
-  const [targetUrl, setTargetUrl] = useState("https://pay.cakto.com.br/6dzpif7");
+  const [targetUrl, setTargetUrl] = useState(checkoutLink("27"));
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const search = window.location.search || "";
       const params = new URLSearchParams(search);
       const seed = params.get("seed") || params.get("id") || params.get("tier") || params.get("amt") || "27";
-      const baseStripe = STRIPE_LINKS[seed.trim()] || STRIPE_LINKS["27"]!;
+      const baseStripe = STRIPE_LINKS[seed.trim()] || checkoutLink("27");
 
       const forwardParams = new URLSearchParams();
       params.forEach((val, key) => {

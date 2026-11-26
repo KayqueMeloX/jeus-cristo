@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { OfferCard, UpsellShell } from "@/components/upsell/UpsellShell";
-import { CaktoUpsellButton } from "@/components/upsell/CaktoUpsellButton";
 import { memberAppUrl, upsellCheckoutUrl } from "@/lib/upsell-flow";
 import vslVideo from "@/assets/faith_protection_message.mp4.asset.json";
 import vslCover from "@/assets/faith_protection_cover.jpg.asset.json";
@@ -37,7 +36,6 @@ function FaithProtection() {
         price="$47"
         buyHref={upsellCheckoutUrl("protection", search)}
         buyLabel="Yes — add the 7 Holy Seals for $47"
-        oneClick={<CaktoUpsellButton offerId="5sisn3q" nextUrl="https://jesuscristoapp.com/order-complete" rejectUrl="https://jesuscristoapp.com/faith-app" label="Yes — add the 7 Holy Seals for $47" />}
         declineLabel="No thanks, take me to my Sanctuary"
         onDecline={() => { window.location.href = memberAppUrl(); }}
       >

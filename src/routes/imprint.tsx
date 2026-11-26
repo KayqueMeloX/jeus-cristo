@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-/** Legal notice (Imprint) required by Digistore24 / German DDG §5. Keep the data below up to date. */
+/** Legal notice (Imprint) required by the payment provider / German DDG §5. Keep the data below up to date. */
 const LEGAL = {
   name: "Kayque Melo",
   business: "Time to Thrive (sole proprietor)",
@@ -37,7 +37,7 @@ function Imprint() {
         <section><h2 className="text-lg font-bold">Representation</h2><p>Legally represented by {LEGAL.name}.</p></section>
         <section><h2 className="text-lg font-bold">Responsible for content</h2><p>{LEGAL.name}, address as above.</p></section>
         <section><h2 className="text-lg font-bold">Retailer</h2>
-          <p>Payments are processed by Cakto. 30-day money-back guarantee — see our <a className="underline" href="/refund">Refund Policy</a>.</p></section>
+          <p>Payments are processed by Mundpay. 30-day money-back guarantee — see our <a className="underline" href="/refund">Refund Policy</a>.</p></section>
       </main>
     </div>
   );

@@ -1,20 +1,9 @@
+import { MUNDPAY_LINKS, checkoutLink } from "@/lib/checkout-links";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { buildClientReferenceId, readTrackingGetter } from "@/lib/stripe-attribution";
 
-const STRIPE_LINKS: Record<string, string> = {
-  // Front offers — after payment Cakto sends the buyer to the first upsell (/faith-activation).
-  "27": "https://pay.cakto.com.br/6dzpif7",
-  "47": "https://pay.cakto.com.br/modpahe",
-  "77": "https://pay.cakto.com.br/3d4v2w7",
-  "100": "https://pay.cakto.com.br/3bsodw8",
-  // Upsells
-  activation: "https://pay.cakto.com.br/34vceic",
-  activationDiscount: "https://pay.cakto.com.br/h6v6rxr",
-  // No subscription product yet: skip straight to the next upsell.
-  journey: "/faith-protection",
-  protection: "https://pay.cakto.com.br/5sisn3q",
-};
+const STRIPE_LINKS: Record<string, string> = { ...MUNDPAY_LINKS, journey: "/faith-protection" };
 
 const UPSELL_VALUE: Record<string, number> = { activation: 97, activationDiscount: 47, journey: 0, protection: 47 };
 
@@ -30,14 +19,14 @@ export const Route = createFileRoute("/checkout")({
 });
 
 function CheckoutSlug() {
-  const [targetUrl, setTargetUrl] = useState("https://pay.cakto.com.br/6dzpif7");
+  const [targetUrl, setTargetUrl] = useState(checkoutLink("27"));
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const search = window.location.search || "";
       const params = new URLSearchParams(search);
       const seed = params.get("plan") || params.get("seed") || params.get("id") || params.get("tier") || params.get("amt") || "27";
-      const baseStripe = STRIPE_LINKS[seed.trim()] || STRIPE_LINKS["27"]!;
+      const baseStripe = STRIPE_LINKS[seed.trim()] || checkoutLink("27");
 
       const forwardParams = new URLSearchParams();
       params.forEach((val, key) => {

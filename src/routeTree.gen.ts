@@ -31,8 +31,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as SupportemailRouteImport } from './routes/supportemail'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
-import { Route as ApiPublicCaktoWebhookRouteImport } from './routes/api/public/cakto-webhook'
-import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+import { Route as ApiPublicMundpayWebhookRouteImport } from './routes/api/public/mundpay-webhook'
 import { Route as ApiPublicSupportRouteImport } from './routes/api/public/support'
 
 const IndexRoute = IndexRouteImport.update({
@@ -145,14 +144,9 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicCaktoWebhookRoute = ApiPublicCaktoWebhookRouteImport.update({
-  id: '/api/public/cakto-webhook',
-  path: '/api/public/cakto-webhook',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
-  id: '/api/public/stripe-webhook',
-  path: '/api/public/stripe-webhook',
+const ApiPublicMundpayWebhookRoute = ApiPublicMundpayWebhookRouteImport.update({
+  id: '/api/public/mundpay-webhook',
+  path: '/api/public/mundpay-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicSupportRoute = ApiPublicSupportRouteImport.update({
@@ -184,8 +178,7 @@ export interface FileRoutesByFullPath {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/cakto-webhook': typeof ApiPublicCaktoWebhookRoute
-  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
 }
 export interface FileRoutesByTo {
@@ -211,8 +204,7 @@ export interface FileRoutesByTo {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/cakto-webhook': typeof ApiPublicCaktoWebhookRoute
-  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
 }
 export interface FileRoutesById {
@@ -239,8 +231,7 @@ export interface FileRoutesById {
   '/supportemail': typeof SupportemailRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
-  '/api/public/cakto-webhook': typeof ApiPublicCaktoWebhookRoute
-  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/mundpay-webhook': typeof ApiPublicMundpayWebhookRoute
   '/api/public/support': typeof ApiPublicSupportRoute
 }
 export interface FileRouteTypes {
@@ -268,8 +259,7 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/cakto-webhook'
-    | '/api/public/stripe-webhook'
+    | '/api/public/mundpay-webhook'
     | '/api/public/support'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -295,8 +285,7 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/cakto-webhook'
-    | '/api/public/stripe-webhook'
+    | '/api/public/mundpay-webhook'
     | '/api/public/support'
   id:
     | '__root__'
@@ -322,8 +311,7 @@ export interface FileRouteTypes {
     | '/supportemail'
     | '/terms'
     | '/thank-you'
-    | '/api/public/cakto-webhook'
-    | '/api/public/stripe-webhook'
+    | '/api/public/mundpay-webhook'
     | '/api/public/support'
   fileRoutesById: FileRoutesById
 }
@@ -350,8 +338,7 @@ export interface RootRouteChildren {
   SupportemailRoute: typeof SupportemailRoute
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
-  ApiPublicCaktoWebhookRoute: typeof ApiPublicCaktoWebhookRoute
-  ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicMundpayWebhookRoute: typeof ApiPublicMundpayWebhookRoute
   ApiPublicSupportRoute: typeof ApiPublicSupportRoute
 }
 
@@ -511,18 +498,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThankYouRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/cakto-webhook': {
-      id: '/api/public/cakto-webhook'
-      path: '/api/public/cakto-webhook'
-      fullPath: '/api/public/cakto-webhook'
-      preLoaderRoute: typeof ApiPublicCaktoWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/stripe-webhook': {
-      id: '/api/public/stripe-webhook'
-      path: '/api/public/stripe-webhook'
-      fullPath: '/api/public/stripe-webhook'
-      preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
+    '/api/public/mundpay-webhook': {
+      id: '/api/public/mundpay-webhook'
+      path: '/api/public/mundpay-webhook'
+      fullPath: '/api/public/mundpay-webhook'
+      preLoaderRoute: typeof ApiPublicMundpayWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/support': {
@@ -558,8 +538,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportemailRoute: SupportemailRoute,
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
-  ApiPublicCaktoWebhookRoute: ApiPublicCaktoWebhookRoute,
-  ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicMundpayWebhookRoute: ApiPublicMundpayWebhookRoute,
   ApiPublicSupportRoute: ApiPublicSupportRoute,
 }
 export const routeTree = rootRouteImport
